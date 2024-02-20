@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 welcomemessage">
+            <h4>Welcome Back, Professor!</h4>
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-primary mt-3 float-right" (click)="addCourse()">Add a Course</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-deck">
+                <div class="card card-flip h-100" *ngFor="let course of courses">
+                    <div class="card-front">
+                        <i class="fa fa-arrow-circle-right fa-5x float-right"></i>
+                        <h3 class="card-title">{{ course.courseName }}</h3>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-body text-primary">
+                            <p class="card-text">Added Date: {{ course.addedDate }}</p>
+                            <p class="card-text">No of Students Enrolled: {{ course.studentsEnrolled }}</p>
+                            <button class="btn btn-primary btn-block w-100">Course Info</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="progress-container">
+    <div>
+        <circle-progress
+        [percent]="70"
+        [space]="-10"
+        [radius]="100"
+        [outerStrokeWidth]="10"
+        [innerStrokeWidth]="10"
+        [outerStrokeColor]="'#4882c2'"
+        [innerStrokeColor]="'#e7e8ea'"
+        [animation]="true"
+        [animationDuration]="1000"
+      ></circle-progress>
+      
+      </div>
+      
+</div>
+
+<!-- feature.component.html -->
+<div class="progress-container">
+    <app-progress-circle [progress]="currentProgressValue"></app-progress-circle>
+  </div>
+  

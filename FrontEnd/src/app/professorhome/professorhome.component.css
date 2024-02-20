@@ -1,0 +1,91 @@
+
+
+  
+
+  button {
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #436850;
+    background-color: #436850;
+    color: #FBFADA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 10px;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FBFADA;
+}
+button:hover {
+    background-color: #ADBC9F; /* Change the hover background color */
+  }
+
+  .card-flip {
+    width: 300px; /* Set the desired fixed width for the card */
+    height: 300px; /* Set the desired fixed height for the card */
+    margin: 20px 10px; /* Add margin for gaps between cards */
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure content doesn't overflow */
+  }
+  
+  .card-front,
+  .card-back {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 100px; /* Set the desired fixed padding around the title */
+    box-sizing: border-box;
+    text-align: center; /* Center the text within the card */
+    background-color: #fff; /* Ensure a white background for the card content */
+  }
+  
+  .card-title {
+    margin: 0; /* Remove default margin */
+  }
+  
+  .card-flip > div {
+    backface-visibility: hidden;
+    transition: transform 300ms;
+    transition-timing-function: linear;
+  }
+  .card-deck {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line if needed */
+    justify-content: space-between; /* Adjust the alignment as needed */
+    margin: 0 -10px;
+  }
+  
+  .card-front {
+    transform: rotateY(0deg);
+  }
+  
+  .card-back {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+  }
+  
+  .card-flip:hover .card-front {
+    transform: rotateY(-180deg);
+  }
+  
+  .card-flip:hover .card-back {
+    transform: rotateY(0deg);
+  }
