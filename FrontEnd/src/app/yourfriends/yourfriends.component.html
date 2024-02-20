@@ -1,0 +1,43 @@
+<!-- yourfriends.component.html -->
+<div class="container">
+    <div class="row">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <button class="add-friend-button" (click)="toggleSearch()">+ Add Friend</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 tableclass">
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>No of Courses enrolled</th>
+            <th>Request Status</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let friend of filteredFriends; let i = index">
+              <td class="name" (click)="addFriend(friend)">{{ friend.name }}</td>
+              <td class="email">{{ friend.email }}</td>
+              <td class="courses">{{friend.courses}}</td>
+              <td class="accepted">{{friend.accepted}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 searchclass">
+        <div *ngIf="isSearchVisible" class="search-box">
+          <input type="text" placeholder="Search by name" (input)="onSearchChange($event)">
+          <ng-container *ngIf="searchFriends.length > 0; else noResults">
+            <ul>
+              <li *ngFor="let friend of searchFriends" (click)="addFriend(friend)">{{ friend.name }}</li>
+            </ul>
+          </ng-container>
+          <ng-template #noResults>
+            <p>No friends! Try another search</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  
