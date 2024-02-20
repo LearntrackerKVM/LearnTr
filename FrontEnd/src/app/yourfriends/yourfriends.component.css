@@ -1,0 +1,118 @@
+
+.container {
+    margin: 20px;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    align-items: center;
+}
+
+
+th {
+    background-color: #12372A;
+    color: white;
+    padding: 20px;
+    text-align: left;
+    margin-left: 200px;
+}
+
+td{
+    margin: 20px;
+    padding: 12px;
+
+}
+
+tr:nth-child(even) {
+    background-color: #436850;
+}
+
+
+
+
+.player-name {
+    width: 40%;
+}
+
+
+button {
+    border-radius: 10px;
+    border: 1px solid #436850;
+    background-color: #436850;
+    color: #FBFADA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 10px;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    background-color: #ADBC9F;
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FBFADA;
+}
+
+button.clicked {
+    background-color: #ADBC9F; 
+}
+
+button:hover {
+    background-color: #ADBC9F; /* Change the hover background color */
+}
+
+.search-box {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+  }
+
+  /* yourfriends.component.css */
+
+.search-box {
+    margin-top: 10px;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .search-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .search-box li {
+    cursor: pointer;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s;
+  }
+  
+  .search-box li:last-child {
+    border-bottom: none;
+  }
+  
+  .search-box li:hover {
+    background-color: #f2f2f2;
+  }
+  

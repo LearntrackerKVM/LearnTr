@@ -1,0 +1,88 @@
+/* courses.component.css */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Set a minimum height to center vertically */
+  }
+.card-shadow-lg {
+    border: 2px solid #12372A;
+    border-radius: 10px; /* Adjust border-radius as needed */
+    margin-bottom: 20px;
+    background-color: #FBFADA;
+    color: #12372A;
+  }
+  
+  .card-shadow-lg img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-shadow-lg .card-body {
+    padding: 20px;
+  }
+  
+  .card-shadow-lg p.h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #436850;
+  }
+  
+  .card-shadow-lg p.h5 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ADBC9F;
+  }
+  
+  .card-shadow-lg p {
+    font-size: 1rem;
+    color: #12372A;
+  }
+
+.card-shadow-lg {
+    border-color: #436850;
+  background-color: #ADBC9F;
+  color: #12372A;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+ 
+    transition: transform 0.3s;
+  }
+  
+  .card-shadow-lg:hover {
+    filter: brightness(90%);
+    transform: scale(1.05); 
+  }
+  
+
+  button {
+    border-radius: 20px;
+    border: 1px solid #436850;
+    background-color: #436850;
+    color: #FBFADA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 10px;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FBFADA;
+}
+button:hover {
+    background-color: #ADBC9F; /* Change the hover background color */
+  }
+  

@@ -1,0 +1,26 @@
+<!-- Modify the HTML structure for the leaderboard -->
+<div class="leaderboard">
+    <h5>Leaderboard</h5>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Name</th>
+                <th scope="col">Progress</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let player of leaderboardData; let i = index">
+                <td class="player-number">{{ i + 1 }}</td>
+                <td class="player-name" [style.color]="i % 2 === 0 ? '#436850' : '#ADBC9F'">{{ player.name }}</td>
+                <td class="progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" [style.width.%]="player.progress"></div>
+                        <div class="progress-label">{{ player.progress }}%</div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
