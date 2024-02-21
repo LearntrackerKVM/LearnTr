@@ -1,0 +1,70 @@
+<div class="navbar-container student" *ngIf="student">
+    <div class="brand">
+        <span>Learn Tracker</span>
+    </div>
+    <div class="nav-items">
+        <div class="nav-item">
+            <a href="courses">Home</a>
+        </div>
+        <div class="nav-item">
+            <a href="tasks">Tasks</a>
+        </div>
+        <div class="nav-item">
+            <a href="yourfriends">Your Friends</a>
+        </div>
+        <div class="nav-item">
+            <a href="leaderboard">Leaderboard</a>
+        </div>
+        <div class="nav-item">
+            <a href="askteacher">Ask a Question</a>
+        </div>
+        <div class="nav-item">
+            <a href="myjournal">My Journal</a>
+        </div>
+
+        <div class="profile-dropdown">
+            <div class="profile-icon">
+                <img src="assets/icons/user.png" alt="Profile Icon">
+            </div>
+            <div class="dropdown-content">
+                <ul>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="settings">Settings</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="navbar-container Professor" *ngIf="!student">
+    <div class="brand">
+        <span>Learn Tracker</span>
+    </div>
+    <div class="nav-items">
+        <div class="nav-item">
+            <a href="professorHome">Home</a>
+        </div>
+        <div class="nav-item">
+            <a href="courses">Student List</a>
+        </div>
+        <div class="nav-item">
+            <a href="yourfriends">Assignments</a>
+        </div>
+        <div class="nav-item">
+            <a href="leaderboard">Student Queries</a>
+        </div>
+
+        <div class="profile-dropdown">
+            <div class="profile-icon">
+                <img src="assets/icons/user.png" alt="Profile Icon">
+            </div>
+            <div class="dropdown-content">
+                <ul>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="settings">Settings</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
