@@ -1,39 +1,111 @@
-<section class="mt-3">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card-shadow-lg">
-                    <img src="assets/img/sof.avif" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">Software Engineering</p>
-                        <p class="h5">Professor</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora, alias unde fugiat aliquid sequi culpa dignissimos animi aspernatur id ducimus ut fugit porro adipisci quis a amet obcaecati aut?</p>
-                        <button class="btn btn-primary btn-block">Course Info</button>
+<div class="studentMainContainer">
+    <main>
+        <section class="head-container">
+            Dashboard
+        </section>
+        <section class="greeting-container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div>
+                        <h2 class="hellomessage">Hello, {{ currentUser?.userName }}</h2>
+
+                        <p class="welcomemessage">
+                            how's your learning journey going? 🌈 Remember, every little progress counts. Let's update
+                            your tracker today!</p>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+        <section class="cards">
+            <div class="cards-container">
+                <!-- Cards -->
+                <div class="card">
+                    <img class="ard-img-sm-left" src="/assets/icons/enrolled.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">3</h3>
+                        <h3 class="title">Courses Enrolled</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/inProgress.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">5</h3>
+                        <h3 class="title">Assignments Due</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/inProgress.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">1</h3>
+                        <h3 class="title">Exams Due</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/completed.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">10</h3>
+                        <h3 class="title">Milestones Completed</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card-shadow-lg">
-                    <img src="assets/img/net.avif" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">Computer Networks</p>
-                        <p class="h5">Professor</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora, alias unde fugiat aliquid sequi culpa dignissimos animi aspernatur id ducimus ut fugit porro adipisci quis a amet obcaecati aut?</p>
-                        <button class="btn btn-primary btn-block">Course Info</button>
-                    </div>
-                </div>
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Courses Container -->
+                <div class="col-md-6">
+        <section class="courses-container">
+            <h2 class="my-courses-title">My Courses</h2>
+            <div class="search-courses">
+                <input type="text" placeholder="Search courses" class="search-course-input">
+                <button class="btn btn-primary search-course-btn">Search</button>
             </div>
-            <div class="col-md-4">
-                <div class="card-shadow-lg">
-                    <img src="assets/img/algo.avif" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">Algorithms</p>
-                        <p class="h5">Professor</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora, alias unde fugiat aliquid sequi culpa dignissimos animi aspernatur id ducimus ut fugit porro adipisci quis a amet obcaecati aut?</p>
-                        <button class="btn btn-primary btn-block">Course Info</button>
-                    </div>
-                </div>
-            </div>
+            <hr>
+            <table class="courses-table">
+                <tr>
+                    <td>Introduction to Computer Science</td>
+                    <td>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 70%;"></div>
+                        </div>
+                    </td>
+                    <td class="progress-percent">
+                        70%
+                    </td>
+                </tr>
+            </table>
+        </section>
         </div>
-    </div>
-</section>
+        <div class="col-md-6">
+        <section class="schedule-container">
+            <h2 class="my-schedule-title">My Class Schedule</h2>
+            <div *ngFor="let course of courses; let i = index" class="card mb-3">
+                <div class="card-header">
+                  {{ course.name }} ({{ course.code }})
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <strong>Time:</strong> {{ course.schedule.time }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Location:</strong> {{ course.schedule.location }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Start Date:</strong> {{ course.schedule.startDate | date:'mediumDate' }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>End Date:</strong> {{ course.schedule.endDate | date:'mediumDate' }}
+                  </li>
+                </ul>
+              </div>
+        </section>
+        </div>
+        </div>
+        </div>
+
+    </main>
+
+</div>
