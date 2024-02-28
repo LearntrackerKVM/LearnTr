@@ -1,26 +1,66 @@
-<!-- Modify the HTML structure for the leaderboard -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 <div class="leaderboard">
     <h5>Leaderboard</h5>
+    <div class="filters">
+        <select [(ngModel)]="selectedCourse">
+            <option value="">All Courses</option>
+            <option *ngFor="let course of courses" [value]="course">{{ course }}</option>
+        </select>
+    </div>
+
+
+    <!-- Progress Filter Dropdown -->
+    <select [(ngModel)]="selectedProgressRange">
+        <option value="">All Progress</option>
+        <option value="0-10">0 - 10%</option>
+        <option value="10-20">10 - 20%</option>
+        <option value="20-40">20 - 40%</option>
+        <option value="40-50">40 - 50%</option>
+        <option value="50-70">50 - 70%</option>
+        <option value="70+">70% and above</option>
+    </select>
+    <button (click)="applyFilters()">Apply Filters</button>
     <table>
         <thead>
             <tr>
                 <th scope="col">Rank</th>
                 <th scope="col">Name</th>
                 <th scope="col">Progress</th>
+                <th scope="col">Course</th>
+                <th scope="col">Badges</th> 
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let player of leaderboardData; let i = index">
-                <td class="player-number">{{ i + 1 }}</td>
-                <td class="player-name" [style.color]="i % 2 === 0 ? '#436850' : '#ADBC9F'">{{ player.name }}</td>
-                <td class="progress">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" [style.width.%]="player.progress"></div>
-                        <div class="progress-label">{{ player.progress }}%</div>
-                    </div>
-                </td>
-            </tr>
+            <ng-container *ngFor="let player of filterleaderboardData; let i = index">
+                <!-- Filter the table based on courseFilter -->
+                <tr *ngIf="!courseFilter || player.course.toLowerCase().includes(courseFilter.toLowerCase())">
+                    <td class="player-number">{{ i + 1 }}</td>
+                    <td class="player-name" [style.color]="i % 2 === 0 ? '#436850' : '#ADBC9F'">{{ player.name }}</td>
+                    <td class="progress">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" [style.width.%]="player.progress"></div>
+                            <div class="progress-label">{{ player.progress }}%</div>
+                        </div>
+                    </td>
+                    <td class="course"> 
+                        {{player.course}}
+                    </td>
+                    <td class="badges">
+                        <!-- Example: Adding badges with icons based on progress -->
+                        <span *ngIf="player.progress >= 70" class="badge badge-success">
+                            <i class="fas fa-medal"></i> High Achiever
+                        </span>
+                        <span *ngIf="player.progress >= 50 && player.progress < 70" class="badge badge-info">
+                            <i class="fas fa-thumbs-up"></i> Progressing
+                        </span>
+                        <span *ngIf="player.progress < 50" class="badge badge-warning">
+                            <i class="fas fa-exclamation-triangle"></i> Needs Effort
+                        </span>
+                    </td>
+                    
+                </tr>
+            </ng-container>
         </tbody>
-
     </table>
 </div>
