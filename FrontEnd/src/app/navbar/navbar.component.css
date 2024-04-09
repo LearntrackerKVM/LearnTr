@@ -8,6 +8,7 @@
     font-size: 30px;
     font-weight: bolder;
     font-family: 'Playfair Display',serif;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
   }
   
   .brand {
@@ -102,3 +103,9 @@
   color: #ADBC9F;
 }
   
+.brand a {
+  text-decoration: none;
+  color: #000; /* Example color, adjust as needed */
+  font-weight: bold;
+  /* any additional styles you want to apply */
+}

@@ -1,0 +1,41 @@
+.container{
+    padding: 20px;
+}
+table {
+    padding: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    align-items: center;
+    margin: 8px;
+  }
+  
+  
+  th {
+    background-color: #46166b;
+    color: white;
+    padding: 20px;
+    text-align: left;
+    margin-left: 200px;
+    border: 1px solid #46166b; /* Add 1px solid border */
+    text-align: left;
+    font-size: 1.5em;
+  }
+  
+  td {
+    margin-left: 200px;
+    border: 1px solid #46166b; /* Add 1px solid border */
+    text-align: left;
+    padding: 20px;
+    font-size: 1.4em;
+  }
+  tr:nth-child(even) {
+    background-color: #fff;
+    color: black;
+  }
+
+  .heading{
+      font-family: poppins;
+      font-size: 1.4em;
+      padding: 30px;
+      font-weight: bold;
+  }

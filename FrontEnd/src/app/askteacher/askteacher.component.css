@@ -1,0 +1,19 @@
+
+.askteacher-container h1 {
+    margin-top: 20px; 
+    margin-left: 10px; 
+  }
+  
+  .askteacher-container blockquote {
+    font-size: 0.9rem;
+  }
+  
+  .blockquote-footer {
+      margin-top: 10px;
+  }
+  @media (max-width: 768px) {
+    .askteacher-container .btn-secondary {
+      float: right;
+    }
+  }
+  

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CircleProgressComponent } from 'ng-circle-progress';
 import { ProgressCircleComponent } from '../progress-circle/progress-circle.component';
 
 @Component({
@@ -12,6 +11,8 @@ import { ProgressCircleComponent } from '../progress-circle/progress-circle.comp
   styleUrl: './professorhome.component.css'
 })
 export class ProfessorhomeComponent {
+  professorCourses: any[] = [
+  ];
   courses = [
     { addedDate: '2024-02-15', studentsEnrolled: 25, courseName: 'Angular Basics' },
     {  addedDate: '2024-02-16', studentsEnrolled: 20, courseName: 'Advanced JavaScript' },
@@ -19,7 +20,7 @@ export class ProfessorhomeComponent {
 
   ];
   isFlipped: boolean = false;
-  progressValue = 50; // Set the initial progress value
+  progressValue = 50; // Seng t the initial progress value
   currentProgressValue: number = 70;
   // Function to update the progress value
   updateProgress() {

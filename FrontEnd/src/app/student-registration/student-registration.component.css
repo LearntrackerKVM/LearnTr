@@ -270,3 +270,7 @@ select.custom-dropdown {
     width: 40px;
 }
 
+.error-message {
+    color: red;
+    margin-top: 5px;
+  }

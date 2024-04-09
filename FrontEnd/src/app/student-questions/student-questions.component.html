@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="filter-section mb-3">
+      <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
+        <option value="" disabled selected>Select a Course</option>
+        <option *ngFor="let course of courses" [value]="course.courseId">{{ course.courseName }}</option>
+      </select>
+    </div>
+    <div class="questions" *ngFor="let ques of filteredQuestions; let i = index">
+      <h2>Questions</h2>
+      <div class="allquestions">
+        <div class="question">
+            <b>Question by {{ques.studentName}}</b>
+        </div>
+        <hr/>
+        <div class="question-detail">
+            <b>{{ques.question}}</b>
+        </div>
+        <div class="answer">
+            <i>{{ques.answer}}</i>
+        </div>
+    </div>
+    
+      <button class="btn btn-primary" (click)="toggleAnswerField(i)">Answer It</button>
+      <div *ngIf="ques.showAnswerField" class="answerfields">
+        <textarea [(ngModel)]="answerit" placeholder="Type your answer here..."></textarea>
+        <button class="btn btn-primary" (click)="postAnswer(ques)">Post Your Answer</button>
+    </div>
+    
+    </div>
+  </div>
+  

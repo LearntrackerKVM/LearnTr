@@ -1,0 +1,102 @@
+
+.profile-avatar img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.profile-details {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.name,
+.email {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+button:hover {
+    color: #0056b3;
+}
+
+input {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #436850;
+    background-color: #436850;
+    color: #FBFADA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 10px;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    background-color: #ADBC9F;
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FBFADA;
+}
+
+button.clicked {
+    background-color: #ADBC9F;
+}
+
+button:hover {
+    background-color: #ADBC9F;
+}
+
+input {
+    background-color: #ADBC9F;
+    border: none;
+    margin: 8px 0px;
+    width: 100%;
+}
+
+label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #436850;
+    margin-right: 10px;
+    text-align: left;
+}
+
+span {
+    font-size: 1.5rem;
+    text-align: left;
+    color: #12372A;
+}
+
+.buttons {
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    padding-top: 20px;
+}
+
+h1{
+    text-align: center;
+    font-family: 'Playfair Display',serif;
+    color: #12372A;
+    font-weight: bold;
+    
+}
+
