@@ -1,66 +1,103 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-<div class="leaderboard">
-    <h5>Leaderboard</h5>
-    <div class="filters">
-        <select [(ngModel)]="selectedCourse">
-            <option value="">All Courses</option>
-            <option *ngFor="let course of courses" [value]="course">{{ course }}</option>
-        </select>
+<body>
+  <div class="main-container">
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="changeBoard(true)">LeaderBoard</button>
     </div>
-
-
-    <!-- Progress Filter Dropdown -->
-    <select [(ngModel)]="selectedProgressRange">
-        <option value="">All Progress</option>
-        <option value="0-10">0 - 10%</option>
-        <option value="10-20">10 - 20%</option>
-        <option value="20-40">20 - 40%</option>
-        <option value="40-50">40 - 50%</option>
-        <option value="50-70">50 - 70%</option>
-        <option value="70+">70% and above</option>
-    </select>
-    <button (click)="applyFilters()">Apply Filters</button>
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">Name</th>
-                <th scope="col">Progress</th>
-                <th scope="col">Course</th>
-                <th scope="col">Badges</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let player of filterleaderboardData; let i = index">
-                <!-- Filter the table based on courseFilter -->
-                <tr *ngIf="!courseFilter || player.course.toLowerCase().includes(courseFilter.toLowerCase())">
-                    <td class="player-number">{{ i + 1 }}</td>
-                    <td class="player-name" [style.color]="i % 2 === 0 ? '#436850' : '#ADBC9F'">{{ player.name }}</td>
-                    <td class="progress">
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" [style.width.%]="player.progress"></div>
-                            <div class="progress-label">{{ player.progress }}%</div>
-                        </div>
-                    </td>
-                    <td class="course"> 
-                        {{player.course}}
-                    </td>
-                    <td class="badges">
-                        <!-- Example: Adding badges with icons based on progress -->
-                        <span *ngIf="player.progress >= 70" class="badge badge-success">
-                            <i class="fas fa-medal"></i> High Achiever
-                        </span>
-                        <span *ngIf="player.progress >= 50 && player.progress < 70" class="badge badge-info">
-                            <i class="fas fa-thumbs-up"></i> Progressing
-                        </span>
-                        <span *ngIf="player.progress < 50" class="badge badge-warning">
-                            <i class="fas fa-exclamation-triangle"></i> Needs Effort
-                        </span>
-                    </td>
-                    
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
+    <div class="col-md-8 text-right">
+      <button class="btn checkprogressbtn" (click)="changeBoard(false)">Check Progress</button>
+    </div>
+  </div>
 </div>
+
+<div class="leaderboard" *ngIf="isLeaderBoard">
+
+  
+    <h1>Leaderboard</h1>
+
+    <div>
+      <label>Filter:</label>
+      <select [(ngModel)]="selectedFilter" (change)="filterData()">
+        <option value="allStudents">All Students</option>
+        <option value="studentsWithCourses">Students with Your Courses</option>
+        <option value="yourFriends">My Friends</option>
+        <option value="friendsWithCourses">Friends in Your Courses Only</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th (click)="sortData('rank')">Rank</th>
+          <th (click)="sortData('userName')">Username</th>
+          <th (click)="sortData('badge')">Badge</th>
+          <th (click)="sortData('milestonesCompleted')">Milestones Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of leaderboardData">
+          <td>{{ user.rank }}</td>
+          <td>{{ user.userName }}</td>
+          <td>
+            <ng-container *ngIf="getBadgeImagePath(user.badge); else noBadge">
+              <img [src]="getBadgeImagePath(user.badge)" [alt]="user.badge" style="height: 24px; width: 24px;">
+              {{ user.badge }}
+            </ng-container>
+            <ng-template #noBadge>No Badge</ng-template>
+          </td>
+          <td>{{ user.milestonesCompleted }}</td>
+        </tr>
+      </tbody>
+      
+      
+    </table>
+  </div>
+  <div class="checkprogress" *ngIf="!isLeaderBoard">
+    <h1>Student Progress</h1>
+    <div>
+
+      <label for="filterCourse">Course:</label>
+      <select id="filterCourse" class="form-control" [(ngModel)]="selectedCourseId">
+        <option value="" disabled selected>Select Course</option>
+        <option *ngFor="let course of myCourses" [value]="course.courseId">{{ course.courseName }}</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" (click)="checkProgress()">Check Progress</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th *ngFor="let _ of [].constructor(maxTasks); let i = index">
+            <div class="taskheading">Task {{ i + 1 }}</div>
+            <hr/>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Notes</span>
+              <span>Difficulty</span>
+              <span>Milestones</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentTasks">
+          <td>{{ student.studentfirstName }} {{ student.studentlastName }}</td>
+          <td *ngFor="let task of student.tasks; let i = index">
+            <div *ngIf="student.tasks[i]; else naTemplate">
+              <div style="display: flex; justify-content: space-between;">
+                <span>{{ student.tasks[i].notes || 'N/A' }}</span>
+                <span>{{ student.tasks[i].difficultyLevel || 'N/A' }}</span>
+                <span>{{ student.tasks[i].milestonesCompletedOutOfTotal }}</span>
+              </div>
+            </div>
+            <ng-template #naTemplate>N/A</ng-template>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+    
+    
+    
+  </div>
+</body>
+  

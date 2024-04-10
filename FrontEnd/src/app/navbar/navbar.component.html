@@ -1,7 +1,7 @@
 <div *ngIf="isLoggedIn">
     <div class="navbar-container student" *ngIf="student">
         <div class="brand">
-            <span>Learn Tracker</span>
+            <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo">
         </div>
         <div class="nav-items">
             <div class="nav-item">
@@ -11,13 +11,16 @@
                 <a href="tasks">Tasks</a>
             </div>
             <div class="nav-item">
-                <a href="yourfriends">Your Friends</a>
+                <a href="yourfriends">My Friends</a>
             </div>
             <div class="nav-item">
                 <a href="leaderboard">Leaderboard</a>
             </div>
             <div class="nav-item">
                 <a href="askteacher">Ask a Question</a>
+            </div>
+            <div class="nav-item">
+                <a href="badgesinfo">Badges info</a>
             </div>
             <div class="nav-item">
                 <a href="myjournal">My Journal</a>
@@ -40,7 +43,7 @@
     </div>
     <div class="navbar-container Professor" *ngIf="!student">
         <div class="brand">
-            <span>Learn Tracker</span>
+             <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo">
         </div>
         <div class="nav-items">
             <div class="nav-item">
@@ -50,13 +53,13 @@
                 <a href="addaCourse">Add New Course</a>
             </div>
             <div class="nav-item">
-                <a href="courses">Student List</a>
+                <a href="studentList">Student List</a>
             </div>
             <div class="nav-item">
                 <a href="yourfriends">Assignments</a>
             </div>
             <div class="nav-item">
-                <a href="leaderboard">Student Queries</a>
+                <a href="studentQuestions">Student Queries</a>
             </div>
 
             <div class="profile-dropdown">
@@ -78,11 +81,11 @@
 <div *ngIf="!isLoggedIn">
     <div class="navbar-container">
         <div class="brand">
-            <a href="#"><span>Learn Tracker</span></a>
+            <a href="#"> <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo"></a>
         </div>
         <div class="nav-items">
             <div class="nav-item">
-                <a href="login">Get Started with us!</a>
+                <button class="btn btn-primary gtstartedwithus" (click)="navigatetologin()">Get Started with us!</button>
             </div>
     </div>
 </div>

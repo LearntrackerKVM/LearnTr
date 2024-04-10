@@ -1,7 +1,7 @@
 /* Color Palette */
 :root {
-  --primary-text: #12372A;
-  --secondary-text: #436850;
+  --primary-text: #46166b;
+  --secondary-text: #46166b;
   --accent: #ADBC9F;
   --background: #FBFADA;
 }
@@ -54,8 +54,8 @@ h1 {
 }
 button {
   border-radius: 20px;
-  border: 1px solid #436850;
-  background-color: #436850;
+  border: 1px solid #46166b;
+  background-color: #46166b;
   color: #FBFADA;
   font-size: 13px; /* Adjusted font size */
   font-weight: bold;
@@ -80,7 +80,7 @@ button.ghost {
 }
 
 button:hover {
-  background-color: #ADBC9F;
+  background-color: #eeb211;
 }
 
 /* Style for radio buttons */
@@ -91,5 +91,5 @@ button:hover {
 
 /* Style for checked radio button */
 .form-check-input:checked {
-  background-color: #12372A; /* Red color for checked radio button */
+  background-color: #46166b; /* Red color for checked radio button */
 }

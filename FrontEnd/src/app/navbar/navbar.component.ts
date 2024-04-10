@@ -43,4 +43,7 @@ logout() {
 ngOnDestroy() {
   this.subscription.unsubscribe();
 }
+navigatetologin(){
+  this.router.navigate(["/login"]);
+}
 }

@@ -1,0 +1,32 @@
+<div class="studentList">
+  <h1>Student List</h1>
+  <div class="filters">
+      <label>Filter by Courses:</label>
+      <select [(ngModel)]="selectedCourse" (change)="filterData()">
+          <option value="allCourses" selected>All Courses</option>
+          <option *ngFor="let course of courses" [value]="course.courseId">{{ course.courseName }}</option>
+      </select>
+  </div>
+  <table>
+      <thead>
+          <tr>
+              <th (click)="sortData('rank')">Rank</th>
+              <th (click)="sortData('firstName')">First Name</th>
+              <th (click)="sortData('lastName')">Last Name</th>
+              <th (click)="sortData('email')">Email</th>
+              <th (click)="sortData('courses')">Courses</th>
+              <th (click)="sortData('milestonesCompleted')">Milestones Completed</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let user of filteredStudentList">
+              <td>{{ user.rank }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ getCoursesNames(user.courses) }}</td>
+              <td>{{ user.milestonesCompleted }}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>

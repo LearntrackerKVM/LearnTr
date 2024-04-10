@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { SchedulerComponent } from './scheduler/scheduler.component';
+import { ProgressExampleComponent } from './progress-example/progress-example.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { CompleteMilestoneDialogComponentComponent } from './complete-milestone-dialog-component/complete-milestone-dialog-component.component';
+
+// Add MatDialogModule to your imports array
+
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
@@ -29,8 +38,10 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
     SchedulerComponent,
     HttpClientModule,
     ProgressCircleComponent,
+    ProgressExampleComponent,
     ProfessorhomeComponent,
     BrowserAnimationsModule,
+    CourseInfoDialogComponent,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -41,10 +52,13 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
       animationDuration: 300,
       
     }),
-    FullCalendarModule
+    FullCalendarModule,
+    MatDialogModule,
+    MatButtonModule,
+    CompleteMilestoneDialogComponentComponent
   ],
-  exports:[ProgressCircleComponent],
-  providers: [],
+  exports:[ProgressCircleComponent,CompleteMilestoneDialogComponentComponent],
+  providers: [DatePipe, provideAnimationsAsync()],
   bootstrap  : [AppComponent]
 })
 export class AppModule { }

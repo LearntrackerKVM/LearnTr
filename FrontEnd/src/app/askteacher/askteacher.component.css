@@ -1,19 +1,108 @@
 
-.askteacher-container h1 {
+.main-container h1 {
     margin-top: 20px; 
     margin-left: 10px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-weight: bold;
+    font-size: 1.7rem;
+
   }
-  
-  .askteacher-container blockquote {
-    font-size: 0.9rem;
+
+  body{
+    height: 100vh;
+    background-image: url('/assets/bg/questionbg.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; 
   }
+
   
+  
+  .main-container blockquote {
+    font-size: 1.1rem;
+  }
+  .main-container{
+    padding-top: 100px;
+  }
   .blockquote-footer {
       margin-top: 10px;
   }
   @media (max-width: 768px) {
-    .askteacher-container .btn-secondary {
+    .main-container .btn-secondary {
       float: right;
     }
   }
+    .askteacher-container,.discussion-container{
+      border-radius: 1px;
+      border: 1px solid #ccc;
+      margin : 30px;
+      padding: 20px;
+    }
+
+    .post-form,.post-content{
+      border-radius: 5px;
+      border: 5px solid black;
+      padding: 20px;
+    }
+
+    .reply,.reply-form{
+      border-radius: 5px;
+      border: 3px solid lightblue;
+      padding: 20px;
+    }
+    .replyreply,.nested-reply{
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    .annoucements{
+      border-radius: 5px;
+      border: 3px solid #eeb211;
+      padding: 20px;
+    }
+  
+    .questions{
+      border-radius: 5px;
+      border: 3px solid #eeb211;
+      padding: 20px;
+    }
+ 
+    
+    .high-priority {
+      border: 1px solid #d6d6d6;
+      background-color: red;
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 5px 5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 80ms ease-in;
+    }
+    
+    .medium-priority {
+      border: 1px solid #d6d6d6;
+      background-color: orange;
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 5px 5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 80ms ease-in;
+    }
+    
+    .low-priority {
+      border: 1px solid #d6d6d6;
+      background-color: green;
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 5px 5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 80ms ease-in;
+    }
+    
   

@@ -1,8 +1,9 @@
+
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,53 +12,79 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css'
 })
+
 export class ProfilePageComponent {
-  firstName: string = 'Sai';
-  lastName: string = 'Koushik';
-  email: string = 'yskoushik@icloud.com';
-  editMode: boolean = false;
-  major : string = 'Computer Science'
+  selectedFile: any;
+  userProfilePicture: string | ArrayBuffer = '';
+  defaultProfilePicture = 'assets/icons/user.png';
+  email : string = ''
+  currentUser : any;
+  user = {
+    id : '',
+    role : '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    userName: '',
+    aboutMe: '',
+    rank: '',
+    badge: '',
+    milestonesCompleted : 0
+  };
+  editMode : boolean = false;
+  profileImageUrl : boolean = false;
 
-  selectedFile: File | null = null;
-  profileImageUrl: SafeUrl | null = null;  // Use SafeUrl to sanitize the image URL
+  constructor(private userService: UserService) {
+    const currentUserString = sessionStorage.getItem('currentUser');
+    if (currentUserString) {
+      this.currentUser = JSON.parse(currentUserString);
+      this,this.email = this.currentUser.email;
+    }
+    this.getUserDetails();
+  }
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
-
-  onFileSelected(event: any): void {
+  onFileSelected(event : any): void {
     this.selectedFile = event.target.files[0] as File;
   }
-
-  toggleEditMode() {
-    this.editMode = !this.editMode;
+  getUserDetails(){
+    this.userService.getUserByEmail(this.email).subscribe((user) => {
+      this.user = user;
+    })
   }
 
-  SaveDetails(){
-    this.editMode = false;
-  }
-
-  CancelDetails(){
-    this.editMode = false;
-  }
-
- 
-
-
-  uploadImage(): void {
-    if (!this.selectedFile) {
-      console.error('No file selected');
-      return;
+  updateUserProfile(): void {
+    if (this.selectedFile) {
+      this.userService.uploadProfilePicture(this.currentUser.id, this.selectedFile).subscribe(event => {
+        if (event.type === HttpEventType.Response) {
+          this.userProfilePicture = event.body.profilePictureUrl; // Use the URL from the backend response
+        }
+      }, error => {
+        console.error('Error occurred while uploading profile picture:', error);
+      });
+    } else {
+      this.updateDetails();
     }
-
-    const imageUrl = `assets/uploads/${this.selectedFile.name}`;
-
-    // Sanitize the URL using DomSanitizer
-    this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
+  
+  updateDetails() {
+    this.userService.updateUser(this.user).subscribe({
+      next: () => console.log('User updated successfully'),
+      error: (error) => console.error('Error updating user', error)
+    });
   }
 
-  changeProfilePicture(): void {
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-      fileInput.click();
-    }
+  loadUserProfile(): void {
+    // Implement loading the user profile details and picture
+  }
+  changeProfilePicture(){
+
+  }
+  updateUserDetails(){
+
+  }
+
+  cancelEdit(){
+
   }
 }
