@@ -11,8 +11,9 @@ import { ProfessorhomeComponent } from './professorhome/professorhome.component'
 import { ProgressCircleComponent } from './progress-circle/progress-circle.component';
 import { StudentRegistrationComponent } from './student-registration/student-registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CircleProgressComponent, NgCircleProgressModule } from 'ng-circle-progress';
-
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { SchedulerComponent } from './scheduler/scheduler.component';
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
@@ -25,6 +26,7 @@ import { CircleProgressComponent, NgCircleProgressModule } from 'ng-circle-progr
     CommonModule,
     StudentRegistrationComponent,
     NavbarComponent,
+    SchedulerComponent,
     HttpClientModule,
     ProgressCircleComponent,
     ProfessorhomeComponent,
@@ -38,7 +40,8 @@ import { CircleProgressComponent, NgCircleProgressModule } from 'ng-circle-progr
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
       
-    })
+    }),
+    FullCalendarModule
   ],
   exports:[ProgressCircleComponent],
   providers: [],

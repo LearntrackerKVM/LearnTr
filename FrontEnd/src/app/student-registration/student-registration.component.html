@@ -1,3 +1,5 @@
+<div class="welcomecontainer">
+</div>
 <div class="container" id="container">
   <div class="row">
     <div class="col-md-10 mx-auto">
@@ -53,26 +55,43 @@
             <div class="custom-dropdown-wrapper">
               <label for="role"></label>
               <select id="role" [(ngModel)]="user.role" class="custom-dropdown" name="selectedRole">
-                <option [value]="undefined">Select role</option>
-                <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+                  <option [ngValue]="undefined">Select role</option>
+                  <option *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
               </select>
-            </div>
           </div>
+</div>          
           <button class="btn btn-primary btn-block" (click)="registerUser(user)">Sign Up</button>
         </form>
       </div>
+      <div class="col-md-10 mx-auto">
       <div class="form-container sign-in-container">
         <form>
           <h1>Log In</h1>
-          <div class="form-group">
-            <input type="email" class="form-control" placeholder="Email" />
+          <div class="form-group col-md-10">
+            <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)] ="user.email"/>
           </div>
-          <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" />
+          <div class=" col-md-10">
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <input type="{{ hideloginPassword ? 'password' : 'text' }}" class="form-control"
+                  name="password" placeholder="Password" [(ngModel)]="user.password" />
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-outline-secondary eye-icon-btn" type="button"
+                  (click)="toggleLoginPasswordVisibility()">
+                  <i class="{{ hideloginPassword ? 'bi-eye' : 'bi-eye-slash' }}"></i>
+                </button>
+              </div>
+            </div>
           </div>
+       
           <a href="#">Forgot your password?</a>
-          <button class="btn btn-primary btn-block" (click)="navigateToHomePage()">Sign In</button>
+          <div *ngIf="loginError" class="error-message">
+          {{ loginErrorMessage }}
+          </div>
+          <button class="btn btn-primary btn-block" (click)="navigateToHomePage(user.email,user.password)">Sign In</button>
         </form>
+      </div>
       </div>
       <div class="overlay-container">
         <div class="overlay">

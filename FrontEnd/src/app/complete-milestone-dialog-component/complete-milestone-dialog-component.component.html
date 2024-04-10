@@ -1,0 +1,27 @@
+<div class="mat-dialog-content">
+    <form>
+      <div class="form-group">
+        <label for="difficultyLevel">Difficulty Level:</label>
+        <select id="difficultyLevel" [(ngModel)]="data.milestone.difficultyLevel" name="difficultyLevel" class="form-control">
+          <option value="low">Low</option>
+          <option value="moderate">Moderate</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <input type="checkbox" id="markComplete" [(ngModel)]="data.milestone.isComplete" name="completed">
+        <label for="markComplete">Mark as Complete</label>
+      </div>
+      <div class="form-group">
+          <label for="notes">Notes</label>
+        <textarea [(ngModel)]="data.milestone.notes" rows="5" name="notes" class="form-control"></textarea>
+      </div>
+    
+      
+      <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+    </form>
+  
+ 
+  
+  </div>

@@ -1,0 +1,11 @@
+.mat-dialog-content {
+    padding: 20px; /* Adjust the padding as needed */
+  }
+
+  .form-group{
+      padding: 15px;
+  }
+
+  label{
+      padding: 10px;
+  }

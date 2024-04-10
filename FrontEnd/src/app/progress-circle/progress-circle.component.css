@@ -1,0 +1,20 @@
+.circular-progress {
+    height: 200px;
+    width: 200px;
+    position: relative;
+  }
+  .progress-bar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center; /* Center the rotation */
+    transform: translate(-50%, -50%) rotate(0deg); /* Initial rotation */
+    width: 100px; /* Width of the progress bar */
+    height: 100px; /* Height of the progress bar */
+    border-radius: 50%; /* Make it round */
+    border: 10px solid #ccc; /* The background ring */
+    border-top-color: #007bff; /* The color of the progress part */
+    transition: transform 0.5s ease; /* Smooth rotation transition */
+  }
+  
+  

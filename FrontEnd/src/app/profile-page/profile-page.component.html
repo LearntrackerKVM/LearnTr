@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">
+        <h1>My Profile</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="profile-picture" (click)="changeProfilePicture()">
+              <input #fileInput id="fileInput" type="file" (change)="onFileSelected($event)" style="display: none" />
+              <button (click)="uploadImage()">Upload Image</button>
+          
+              <!-- Conditionally show uploaded image or default avatar -->
+              <img *ngIf="profileImageUrl; else defaultAvatar" [src]="profileImageUrl" alt="Profile Image" />
+              <ng-template #defaultAvatar>
+                <img src="assets/icons/user.png" alt="Default Avatar" />
+              </ng-template>
+            </div>
+          </div>
+        <div class="col-sm-6">
+            <div class="profile-details">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <span *ngIf="!editMode">{{ firstName }}</span>
+                        <input *ngIf="editMode" [(ngModel)]="firstName" id="firstName"
+                            placeholder="Enter your first name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <span *ngIf="!editMode">{{ lastName }}</span>
+                        <input *ngIf="editMode" [(ngModel)]="lastName" id="lastName" placeholder="Enter your last name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="lastName">Major</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <span *ngIf="!editMode">{{ major }}</span>
+                        <input *ngIf="editMode" [(ngModel)]="major" id="major" placeholder="Enter your Major">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <span>{{ email }}</span>
+                    </div>
+                </div>
+
+
+                <div class="row buttons">
+                    <div class="col-sm-6">
+                        <button *ngIf="!editMode" (click)="toggleEditMode()">Edit</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button *ngIf="editMode" (click)="SaveDetails()">Save</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <button *ngIf="editMode" (click)="CancelDetails()">Cancel</button>
+                            </div>
+                                
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+  

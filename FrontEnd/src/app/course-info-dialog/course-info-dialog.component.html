@@ -1,0 +1,32 @@
+
+<h2 mat-dialog-title>{{ data.course.courseName }}</h2>
+<mat-dialog-content>
+  <h5>Course Code:</h5>
+  <p>{{ data.course.courseCode }}</p>
+  <h5>Professor:</h5>
+  <p>{{ data.course.createdBy }}</p>
+  <h5>Course Description:</h5>
+  <p>{{ data.course.courseDescription }}</p>
+  <h5>Semester:</h5>
+  <p>{{ data.course.semester }}</p>
+  <h5>No of Assignments:</h5>
+  <p>{{ data.course.noOfAssignments }}</p>
+  <h5>No of Exams:</h5>
+  <p>{{ data.course.noOfExams }}</p>
+  <h5>Start Date:</h5>
+  <p>{{ data.course.startDate | date }}</p>
+  <h5>End Date:</h5>
+  <p>{{ data.course.endDate | date }}</p>
+  <h5>Total Capacity:</h5>
+  <p>{{ data.course.capacity }}</p>
+  <h5>Available Slots:</h5>
+  <p>{{ data.course.availableSlots }}</p>
+  <h5>Schedule:</h5>
+  <div *ngFor="let schedule of data.course.schedules">
+    <p>{{ schedule.dayOfWeek }}: {{ schedule.startTime }} - {{ schedule.endTime }}</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Close</button>
+    <button mat-button mat-dialog-close>Add Course</button>
+  </mat-dialog-actions>

@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Palatino:wght@400;700&display=swap');
+.intro {
+    background-image: url('/assets/img/introsection.jpg');
+    background-size: cover;
+    height: 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 50px; /* Adjust the padding as needed */
+    display: flex;
+    align-items: center; /* This will vertically center the h1 inside the section */
+    justify-content: flex-start;
+}
+  
+
+
+.intro .text{
+    padding-left: 900px;
+    padding-bottom: 200px;
+  }
+  
+  .intro h1 {
+    font-family: 'Palatino', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-weight: bold;
+    font-style: italic;
+    color: black; /* or any color you prefer */
+    width: 100%; /* Make h1 take full width */
+    margin: 0; /* Remove default margin */
+    font-size: 5em;
+  }
+  
+  .feature-section {
+      height: auto;
+      padding-top: 50px; /* Increase padding-top to increase section height */
+      padding-bottom: 100px; 
+    background-color: #f5fcec; /* Replace with your color */
+    padding-top: 0px; /* Adjust based on the amount of overlap you want */
+  }
+  
+  .cards-container {
+    position: relative;
+    top: -60px; /* Half the height of the card to make it overlap the above section */
+    display: flex;
+    justify-content: space-around; /* This will space out the cards evenly */
+    flex-wrap: wrap; /* Allows wrapping if the screen is too small to fit all cards in one row */
+  }
+  
+  .card {
+      background-color: #caf0f8;
+    width: 200px; /* Set the width of the cards */
+    margin: 0 10px; /* Spacing between cards */
+    text-align: center; /* Center the text inside the card */
+    height: 300px;
+  }
+  .card img {
+    display: block; /* Ensures the image is a block element */
+    margin: 50px auto 10px; /* Centers the image horizontally and adds margin to the top */
+    width: 100px; /* Fixed size for the image */
+    height: 100px; /* Fixed size for the image */
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover; /* Ensures the image covers the area, might crop it */
+}
+  .card h3 {
+    margin-top: auto; /* Pushes the h3 to the bottom of the flex container */
+    font-size: 1.2em; /* Adjust the size as needed */
+    color: #000; /* Card text color */
+    padding-bottom: 40px;
+    font-weight: lighter;
+  }
+
+  .description-container {
+    text-align: center; /* Center the paragraph */
+    padding: 0 300px; /* Add padding to the left and right */
+}
+
+.description-container p {
+    letter-spacing: 0.05em;
+    margin: 0; /* Remove default margin */
+}
