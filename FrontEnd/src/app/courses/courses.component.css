@@ -1,5 +1,5 @@
 .greeting-container{
-  background-color: #12372A;
+  background-color: #46166b;
   border-radius: 10px;
   color: white;
   padding: 60px 60px;
@@ -7,10 +7,26 @@
   height: max-content;
 }
 
+.studentMainContainer {
+
+        background-image: url('/assets/bg/dash.jpeg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed; /* Reduce the size of the background image */
+    
+        
+}
+
+
+.hellomessage,.welcomemessage{
+  font-size: 1.3em;
+}
 .head-container{
   font-size: 2em;
   font-family: poppins;
   padding : 20px 20px;
+  padding-top: 90px;
 
 }
 
@@ -22,10 +38,11 @@
   flex-wrap: wrap; 
 }
 .card {
-  background-color: #fff;
+  background-color: lavender;
   width: 300px;
   margin: 0 10px;
   text-align: center;
+  border: 1px solid #000;
   height: 120px;
   border-radius: 15px;
   display: flex;
@@ -44,18 +61,19 @@
 }
 h3.number {
   margin-top: 0;
-  font-size: 1.5em;
+  padding-top: 20px;
+  font-size: 1.7em;
   color: #000;
   font-weight: bold;
 }
 
 h3.title {
   margin-top: 0;
-  font-size: 1.1em;
+  font-size: 1.4em;
   color: #000;
   justify-content: center;
   align-items: center;
-  font-weight: normal;
+  
 }
 .content{
   padding-top: 0;
@@ -63,37 +81,62 @@ h3.title {
 .courses-container {
   display: flex;
   border-radius: 10px;
-  background-color: #ADBC9F;
-  box-shadow: #000;
+  background-color: #DDDDDD;
+  box-shadow: #46166b;
   flex-direction: column;
   padding: 10px 20px;
+  border: 1px solid #000;
 }
-.schedule-container {
+.schedule-container{
   display: flex;
   border-radius: 10px;
-  background-color: #ADBC9F;
-  box-shadow: #000;
+  background-color: #DDDDDD;
+  box-shadow: #46166b;
   flex-direction: column;
+  border: 1px solid #000;
   padding: 10px 20px;
 }
+.course-info{
+  display: flex;
+  border-radius: 10px;
+  background-color: #DDDDDD;
+  box-shadow: #46166b;
+  flex-direction: column;
+  padding: 10px 20px;
+  border: 1px solid #000;
+}
 
-.my-courses-title,.my-schedule-title {
+.my-courses-title,.my-schedule-title,.available-courses-title {
   margin: 0;
   padding: 0;
   font-size: 2em;
   font-family: poppins;
 }
+.available-courses{
+  display: flex;
+  border-radius: 10px;
+  background-color: #DDDDDD;
+  box-shadow: #46166b;
+  flex-direction: column;
+  padding: 10px 20px;
+  margin: 20px 0;
+  border: 1px solid #000;
+}
 .search-courses {
   display: flex;
   margin: 0;
   padding: 0;
-  justify-content: flex-end; /* Aligns the search input and button to the right */
+  justify-content: flex-end; 
 }
 
 .search-course-input {
   margin-right: 10px;
-  margin-top: 0; /* Adds space between the input and button */
+  margin-top: 0;
+  padding: 5px;
+  width: 150px; 
+  height: 50px;/* Adjust the width to your preference */
 }
+
 
 .courses-table {
   width: 100%; /* Makes the table take full width */
@@ -108,7 +151,7 @@ h3.title {
 
 .progress-bar {
   height: 10px;
-  background-color: #4caf50;
+  background-color: #d6d6d6;
   border-radius: 5px;
   padding: 1px 80px;
 }
@@ -116,3 +159,141 @@ h3.title {
 .progress-percent{
   padding-left: 30px;
 }
+
+table {
+  padding: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  align-items: center;
+  margin: 8px;
+}
+
+
+th {
+  background-color: #46166b;
+  color: white;
+  padding: 20px;
+  text-align: left;
+  margin-left: 200px;
+  border: 1px solid #fff; /* Add 1px solid border */
+  text-align: left;
+}
+
+td {
+  margin: 20px;
+  border: 1px solid #46166b; /* Add 1px solid border */
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #fff;
+  color: black;
+}
+
+tr:nth-child(even) .badge,
+tr:nth-child(even) .badge i {
+  background-color: #d6d6d6; /* Or any other color you want for badges background */
+  color: black; /* Or any other color you want for badges text and icons */
+}
+
+tr:nth-child(odd) {
+  color: black;
+}
+
+tr:nth-child(odd) .badge,
+tr:nth-child(odd) .badge i {
+  background-color: transparent; /* Or any other color you want for badges background */
+  color: black; /* Or any other color you want for badges text and icons */
+}
+
+
+.course-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.left-column, .right-column {
+  flex: 1;
+}
+
+.right-column {
+  margin-left: 20px;
+}
+
+.full-width {
+  clear: both;
+}
+
+.btn-close {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-close:hover {
+  background-color: #0056b3;
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+  .course-details {
+      flex-direction: column;
+  }
+  .right-column {
+      margin-left: 0;
+      margin-top: 20px;
+  }
+}
+  button {
+      border-radius: 20px;
+      border: 1px solid #46166b;
+      background-color: #46166b;
+      color: #d6d6d6;
+      font-size: 17px;
+      font-weight: bold;
+      padding: 12px 45px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 10px;
+      transition: transform 80ms ease-in;
+  }
+  
+  button:active {
+      background-color: #DDDDDD;
+      transform: scale(0.95);
+  }
+  
+  button:focus {
+      outline: none;
+  }
+  
+  button.ghost {
+      background-color: transparent;
+      border-color: #FBFADA;
+  }
+  
+  button.clicked {
+      background-color: #eeb211; 
+  }
+  
+  button:hover {
+      background-color: #eeb211; /* Change the hover background color */
+  }
+  
+  .no-bullets {
+    list-style-type: none; /* Removes the bullet points */
+    padding: 0; /* Removes padding, optional */
+    margin: 0; /* Removes margin, optional */
+  }
+
+  th{
+    font-size: 1.4em;
+  }
+
+  td{
+    font-size: 1.3em;
+  }

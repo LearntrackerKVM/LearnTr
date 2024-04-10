@@ -1,43 +1,30 @@
-body {
-    height: 100vh;
-    
-        background-image: url('/assets/bg/leaderbg.jpeg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed; /* Reduce the size of the background image */
-    
-        
-
-  }
-.leaderboard {
+.studentList {
     display: flex;
-    padding-top: 100px;
     flex-direction: column;
+    /* To stack the items vertically */
     align-items: center;
+    /* Align items along the cross axis */
     text-align: center;
-}
-.main-container{
-    display: flex;
-    padding-top: 100px;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-.checkprogress{
-    display: flex;
-    padding-top: 100px;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    /* Align text content center horizontally */
 }
 table {
     width: 70%;
     border-collapse: collapse;
     align-items: center;
-    margin-top: 50px;
 }
 
+html,
+body {
+    min-height: 100vh;
+    /* 100% of the viewport height */
+    margin: 0;
+    padding: 0;
+    background-image: url('/assets/img/6065672.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
 
 th {
     background-color: #46166b;
@@ -45,19 +32,15 @@ th {
     padding: 20px;
     text-align: center;
     margin-left: 200px;
-    font-size: 1.4em;
-    border: 1px solid white;
+    font-size: 1.1em;
 }
 
 td {
     margin-left: 200px;
-    font-size: 1.3em;
+    font-size: 1.1em;
     padding: 20px;
-    border: 1px solid black;
 
 }
-
-  
 
 tr:nth-child(even) {
     background-color: #ccc;
@@ -101,18 +84,17 @@ tr:nth-child(odd) .badge i {
 
 /* Style for the dropdowns */
 select {
-    padding: 15px 10px;
+    padding: 8px 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px;
 
-
 }
 
 /* Style for the button */
 button {
-    padding: 9px 17px;
+    padding: 8px 16px;
     font-size: 16px;
     background-color: #eeb211;
     color: #fff;
@@ -120,8 +102,6 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-
-
 
 /* Hover effect for the button */
 button:hover {
@@ -140,8 +120,6 @@ h5 {
     font-weight: bolder;
     color: white;
 }
-
-h1{
-    font-family: poppins;
-    font-size: 2.0em;
+.filters{
+    padding-bottom: 10px;
 }

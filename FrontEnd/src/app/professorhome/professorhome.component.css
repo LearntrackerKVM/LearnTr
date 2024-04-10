@@ -7,7 +7,7 @@
 }
 
 .greeting-container{
-  background-color: #12372A;
+  background-color: #46166b;
   border-radius: 10px;
   color: white;
   padding: 60px 60px;
@@ -68,7 +68,7 @@ h3.title {
 .courses-container {
   display: flex;
   border-radius: 10px;
-  background-color: #ADBC9F;
+  background-color: #DDDDDD;
   box-shadow: #000;
   flex-direction: column;
   padding: 10px 20px;
@@ -76,7 +76,7 @@ h3.title {
 .schedule-container {
   display: flex;
   border-radius: 10px;
-  background-color: #ADBC9F;
+  background-color: #DDDDDD;
   box-shadow: #000;
   flex-direction: column;
   padding: 10px 20px;
@@ -122,3 +122,55 @@ h3.title {
 .progress-percent{
   padding-left: 30px;
 }
+.no-bullets {
+  list-style-type: none; /* Removes the bullet points */
+  padding: 0; /* Removes padding, optional */
+  margin: 0; /* Removes margin, optional */
+}
+
+table {
+  padding: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  align-items: center;
+  margin: 8px;
+}
+
+
+th {
+  background-color: #46166b;
+  color: white;
+  padding: 20px;
+  text-align: left;
+  margin-left: 200px;
+  border: 1px solid #000; /* Add 1px solid border */
+  text-align: left;
+}
+
+td {
+  margin: 20px;
+  border: 1px solid #000; /* Add 1px solid border */
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #f5fcec;
+  color: black;
+}
+
+tr:nth-child(even) .badge,
+tr:nth-child(even) .badge i {
+  background-color: #f5fcec; /* Or any other color you want for badges background */
+  color: black; /* Or any other color you want for badges text and icons */
+}
+
+tr:nth-child(odd) {
+  color: black;
+}
+
+tr:nth-child(odd) .badge,
+tr:nth-child(odd) .badge i {
+  background-color: transparent; /* Or any other color you want for badges background */
+  color: black; /* Or any other color you want for badges text and icons */
+}
+
