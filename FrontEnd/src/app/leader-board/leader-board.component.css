@@ -10,6 +10,11 @@ body {
         
 
   }
+
+  img{
+      width:50px;
+      height: 50px;
+  }
 .leaderboard {
     display: flex;
     padding-top: 100px;

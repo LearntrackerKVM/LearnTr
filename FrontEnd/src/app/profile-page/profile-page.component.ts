@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -30,12 +31,14 @@ export class ProfilePageComponent {
     aboutMe: '',
     rank: '',
     badge: '',
-    milestonesCompleted : 0
+    milestonesCompleted : 0,
+    profilePicture : ''
   };
   editMode : boolean = false;
   profileImageUrl : boolean = false;
+  userProfilePictureUrl : any;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private sanitizer: DomSanitizer) {
     const currentUserString = sessionStorage.getItem('currentUser');
     if (currentUserString) {
       this.currentUser = JSON.parse(currentUserString);
@@ -50,22 +53,26 @@ export class ProfilePageComponent {
   getUserDetails(){
     this.userService.getUserByEmail(this.email).subscribe((user) => {
       this.user = user;
+      this.loadProfilePicture(this.currentUser.id);
     })
   }
 
   updateUserProfile(): void {
+    this.updateDetails();
     if (this.selectedFile) {
       this.userService.uploadProfilePicture(this.currentUser.id, this.selectedFile).subscribe(event => {
         if (event.type === HttpEventType.Response) {
-          this.userProfilePicture = event.body.profilePictureUrl; // Use the URL from the backend response
+          this.loadProfilePicture(this.currentUser.id);
         }
       }, error => {
         console.error('Error occurred while uploading profile picture:', error);
       });
     } else {
-      this.updateDetails();
+      // Handle case where no file is selected, if necessary
     }
   }
+
+
   
   updateDetails() {
     this.userService.updateUser(this.user).subscribe({
@@ -86,5 +93,15 @@ export class ProfilePageComponent {
 
   cancelEdit(){
 
+  }
+  loadProfilePicture(userId: string): void {
+    this.userService.getProfilePicture(userId).subscribe(blob => {
+      const objectURL = URL.createObjectURL(blob);
+      this.userProfilePictureUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      console.log(this.userProfilePictureUrl);
+    }, error => {
+      console.error('Failed to load profile picture:', error);
+      this.userProfilePictureUrl = this.defaultProfilePicture;
+    });
   }
 }

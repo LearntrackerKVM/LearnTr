@@ -1,39 +1,82 @@
 .profile-container {
-    display: flex;
-    border: 1px solid #ccc;
-    padding: 20px;
-    align-items: flex-start;
-  }
-  
-  .profile-picture {
-    flex: 1;
-    text-align: center;
-    padding-right: 20px;
-  }
-  
-  .profile-picture img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
-  
-  .form-fields {
-    flex: 3;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  border: 1px solid #ccc;
+  padding: 200px; /* Adjusted padding for better layout */
+  align-items: flex-start; /* Keeps items aligned at the start */
+  gap: 20px; /* Adds space between the profile picture and form */
+}
+
+.profile-picture {
+  flex: 0 1 auto; /* Do not grow but can shrink, with auto basis */
+  text-align: center;
+  margin-right: 40px;
+}
+
+.profile-picture img {
+  width: 250px;
+  height: 250px; /* Adjusted to make the image more circular */
+  border-radius: 50%;
+  object-fit: cover; 
+  margin-right: 20px;/* Ensures the image covers the area without distortion */
+}
+
+.form-fields {
+  flex: 1; /* Allows the form section to grow as needed */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Additional styles for better layout and readability */
+.form-control {
+  width: 100%; /* Ensures form controls take full width */
+  padding: 8px; /* Better padding for inputs */
+  margin-top: 5px; /* Space between label and input */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-right: 10px;
+  white-space: nowrap; /* Prevents the label from wrapping */
+}
+
+
+label{
+  font-size: 1.9em;
+  font-family: poppins;
+}
+
+.btn-upload {
+  /* Style your button for uploading pictures */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 10px; /* Add some space above the button */
+}
+
+.btn-upload:hover {
+  background-color: #0056b3;
+}

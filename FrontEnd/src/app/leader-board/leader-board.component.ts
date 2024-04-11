@@ -63,6 +63,11 @@ export class LeaderBoardComponent implements OnInit {
   selectedCourseData: any = null;
   public studentTasks: StudentTaskInfo[] = [];
   public maxTasks: number = 0;
+  selectedTaskId: string = '';
+  filteredStudents : any[] = [];
+  uniqueTasks: { taskId: string; taskName: string }[] = [];
+  defaultProfilePicture = 'assets/icons/user.png';
+
   
 
   constructor(private leaderboardService: LeaderBoardService, private courseService : CourseService) { 
@@ -157,19 +162,17 @@ export class LeaderBoardComponent implements OnInit {
   
     return badges[badgeLower] || null;
   }
-  
-
-  checkProgress() {
-    this.courseService.getCoursesWithTasksAndMilestonesByStudentId(this.selectedCourseId, this.createdByID).subscribe(data => {
-      this.selectedCourseData = data;
-      this.processData(this.selectedCourseData);
-    }, error => {
-      console.error('Failed to fetch course progress', error);
-      this.selectedCourseData = null; 
-    });
-  }
   changeBoard(isleader: any) {
     this.isLeaderBoard = isleader;
+  }
+
+  fetchCourseData() {
+    if (!this.selectedCourseId) return;
+    this.courseService.getCoursesWithTasksAndMilestonesByStudentId(this.selectedCourseId, this.createdByID).subscribe(data => {
+      this.processData(data);
+    }, error => {
+      console.error('Failed to fetch course progress', error);
+    });
   }
 
   processData(data: Course[]): void {
@@ -189,28 +192,51 @@ export class LeaderBoardComponent implements OnInit {
         }
   
         const studentInfo = studentMap.get(studentKey);
-        if (studentInfo) {
-          studentInfo.tasks.push({
-            taskId: task.taskId,
-            taskTitle: task.taskTitle,
-            difficultyLevel: task.difficultyLevel || 'N/A',
-            notes: task.notes || 'No notes',
-            milestonesCompletedOutOfTotal: task.milestonesCompletedOutOfTotal,
-            taskType: task.taskType, // Ensure this data is present in the incoming task object
-            status: task.status, // Ensure this data is present in the incoming task object
-            milestones: task.milestones, // Assuming this matches the Milestone[] type
-            // Additional properties not originally in Task but seems to be included now
-            studentId: task.studentId,
-            studentFirstName: task.studentFirstName,
-            studentLastName: task.studentLastName,
-            studentEmail: task.studentEmail,
-          });
-        }
+        studentInfo?.tasks.push({
+          taskId: task.taskId,
+          taskTitle: task.taskTitle,
+          difficultyLevel: task.difficultyLevel || 'N/A',
+          notes: task.notes || 'No notes',
+          milestonesCompletedOutOfTotal: task.milestonesCompletedOutOfTotal,
+          taskType: task.taskType,
+          status: task.status,
+          milestones: task.milestones,
+          studentId: task.studentId,
+          studentFirstName: task.studentFirstName,
+          studentLastName: task.studentLastName,
+          studentEmail: task.studentEmail
+        });
       });
     });
   
     this.studentTasks = Array.from(studentMap.values());
-    this.maxTasks = Math.max(...this.studentTasks.map(student => student.tasks.length));
+    this.extractUniqueTasks();
+  }
+
+  extractUniqueTasks(): void {
+    const taskSet = new Set<string>();
+    const tempTasks: { taskId: string; taskName: string }[] = [];
+
+    this.studentTasks.forEach(student => {
+      student.tasks.forEach(task => {
+        if (!taskSet.has(task.taskId)) {
+          tempTasks.push({ taskId: task.taskId, taskName: task.taskTitle });
+          taskSet.add(task.taskId);
+        }
+      });
+    });
+
+    this.uniqueTasks = tempTasks;
   }
   
+  populateTable() {
+    if (!this.selectedTaskId) {
+      // Handle scenario where no specific task is selected, if needed
+      return;
+    }
+    this.filteredStudents = this.studentTasks.map(student => {
+      const task = student.tasks.find(t => t.taskId === this.selectedTaskId);
+      return { ...student, task };
+    }).filter(student => student.task); // Filter out students without the selected task
+  }
 }
