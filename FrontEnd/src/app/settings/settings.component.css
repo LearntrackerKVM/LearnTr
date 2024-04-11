@@ -1,0 +1,95 @@
+/* Color Palette */
+:root {
+  --primary-text: #46166b;
+  --secondary-text: #46166b;
+  --accent: #ADBC9F;
+  --background: #FBFADA;
+}
+
+/* Apply some basic styles to the settings container */
+.settings-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.setting-item {
+  margin-bottom: 15px;
+  padding: 0;
+}
+
+.form-check.form-switch {
+  display: flex;
+  align-items: center;
+}
+
+.form-check-label {
+  font-size: 1.3rem; 
+  font-weight: normal; 
+  color: var(--secondary-text);
+  margin-right: 20px; 
+  margin-left: 10px; 
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-text);
+  font-weight: bold;
+}
+
+.labelspace {
+  margin-right: 20px; 
+  margin-left: 20px;
+}
+
+.set {
+  margin-top: 50px; 
+  align-items: center;
+}
+
+.headingspace{
+  padding-top: 20px;
+}
+button {
+  border-radius: 20px;
+  border: 1px solid #46166b;
+  background-color: #46166b;
+  color: #FBFADA;
+  font-size: 13px; /* Adjusted font size */
+  font-weight: bold;
+  padding: 10px 20px; /* Adjusted padding for better size */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 10px;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.ghost {
+  background-color: transparent;
+  border-color: #FBFADA;
+}
+
+button:hover {
+  background-color: #eeb211;
+}
+
+/* Style for radio buttons */
+.form-check-input {
+  width: 25px; 
+  height: 25px; 
+}
+
+/* Style for checked radio button */
+.form-check-input:checked {
+  background-color: #46166b; /* Red color for checked radio button */
+}

@@ -1,39 +1,200 @@
-<section class="mt-3">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card-shadow-lg">
-                    <img src="assets/img/sof.avif" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">Software Engineering</p>
-                        <p class="h5">Professor</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora, alias unde fugiat aliquid sequi culpa dignissimos animi aspernatur id ducimus ut fugit porro adipisci quis a amet obcaecati aut?</p>
-                        <button class="btn btn-primary btn-block">Course Info</button>
+<div class="studentMainContainer">
+    <main>
+        <section class="head-container">
+            Dashboard
+        </section>
+        <section class="greeting-container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div>
+                        <h2 class="hellomessage">Hello, {{ currentUser?.userName }}</h2>
+
+                        <p class="welcomemessage">
+                            how's your learning journey going? 🌈 Remember, every little progress counts. Let's update
+                            your tracker today!</p>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+        <section class="cards">
+            <div class="cards-container">
+                <!-- Cards -->
+                <div class="card">
+                    <img class="ard-img-sm-left" src="/assets/icons/enrolled.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">{{noOfCoursesEnrolled}}</h3>
+                        <h3 class="title">Courses Enrolled</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/inProgress.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">{{noOfAssignmentsDue}}</h3>
+                        <h3 class="title">Assignments Due</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/inProgress.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">{{noOfExamsDue}}</h3>
+                        <h3 class="title">Exams Due</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/completed.svg" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number">{{noOfMilestones}}</h3>
+                        <h3 class="title">Milestones Completed</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card-shadow-lg">
-                    <img src="assets/img/net.avif" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">Computer Networks</p>
-                        <p class="h5">Professor</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora, alias unde fugiat aliquid sequi culpa dignissimos animi aspernatur id ducimus ut fugit porro adipisci quis a amet obcaecati aut?</p>
-                        <button class="btn btn-primary btn-block">Course Info</button>
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Courses Container -->
+                <div class="col-md-6">
+                  <section class="courses-container">
+                    <h2 class="my-courses-title">My Courses</h2>
+                    <div class="search-courses">
+                        <input type="text" placeholder="Search courses" class="search-course-input" #searchmyInput>
+                        <button class="btn btn-primary search-course-btn" (click)="searchMyCourses(searchmyInput.value)">Search</button>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-shadow-lg">
-                    <img src="assets/img/algo.avif" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">Algorithms</p>
-                        <p class="h5">Professor</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit tempora, alias unde fugiat aliquid sequi culpa dignissimos animi aspernatur id ducimus ut fugit porro adipisci quis a amet obcaecati aut?</p>
-                        <button class="btn btn-primary btn-block">Course Info</button>
-                    </div>
-                </div>
-            </div>
+                    <hr>
+                    <table class="courses-table">
+                      <tr>
+                        <th>CourseName</th>
+                        <th>CourseCode</th>
+                      </tr>
+                        <tr *ngFor="let course of myFilteredCourses">
+                            <td>{{ course.courseName }}</td>
+                            <td>{{ course.courseCode }}</td>
+                          
+                        </tr>
+                    </table>
+                </section>
+                
         </div>
+ 
+        <div class="col-md-6">
+          <section class="schedule-container">
+            <h2 class="my-schedule-title">My Class Schedule</h2>
+            <table>
+              <tr>
+                <th>Course</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+              </tr>
+              <tr *ngFor="let course of MySchedules">
+                <td>{{ course.courseName }}</td>
+                <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+                  <ul class="no-bullets">
+                    <li *ngFor="let session of course.weekSchedule[day]">
+                     {{ session.timeRange }}
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </section>
+          
     </div>
-</section>
+</div>
+</div>
+        <div class="container-fluid">
+            <div class="row">
+              <div *ngIf="courseAlreadyExists" class="alert alert-danger">
+              Course Already Added
+              </div>
+                <!-- Courses Container -->
+                <div class="col-md-6">
+        <section class="course-info" *ngIf="isCourseInfo">
+            <h2>{{ CourseInfo.courseName }}</h2>
+            <div class="course-details">
+                <div class="left-column">
+                    <h5>Course Code:</h5>
+                    <p>{{ CourseInfo.courseCode }}</p>
+                    <h5>Professor:</h5>
+                    <p>{{ CourseInfo.createdBy }}</p>
+                    <h5>Semester:</h5>
+                    <p>{{ CourseInfo.semester }}</p>
+                    <h5>No of Assignments:</h5>
+                    <p>{{ CourseInfo.noOfAssignments }}</p>
+                    <h5>No of Exams:</h5>
+                    <p>{{ CourseInfo.noOfExams }}</p>
+                </div>
+                <div class="right-column">
+                    <h5>Start Date:</h5>
+                    <p>{{ CourseInfo.startDate | date }}</p>
+                    <h5>End Date:</h5>
+                    <p>{{ CourseInfo.endDate | date }}</p>
+                    <h5>Total Capacity:</h5>
+                    <p>{{ CourseInfo.capacity }}</p>
+                    <h5>Available Slots:</h5>
+                    <p>{{ CourseInfo.availableSlots }}</p>
+                </div>
+            </div>
+            <div class="full-width">
+                <h5>Course Description:</h5>
+                <p>{{ CourseInfo.courseDescription }}</p>
+                <h5>Schedule:</h5>
+                <div *ngFor="let schedule of CourseInfo.schedules">
+                    <p>{{ schedule.dayOfWeek }}: {{ schedule.startTime }} - {{ schedule.endTime }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn-btn-secondary button" (click)="AddCourse(CourseInfo)">Add Course</button>
+                    </div>
+                <div class="col-sm-6">
+                    <button class="btn-btn-secondary button" (click)="closeDialog()">Close</button>
+                </div>
+             
+            </div>
+      
+        </section>
+        </div>
+        <div class="col-md-6">    
+          <section class="available-courses">
+            <h2 class="available-courses-title">Available Courses</h2>
+            <div class="search-courses">
+                <input type="text" placeholder="Search courses" class="search-course-input" #searchInput>
+                <button class="btn btn-primary search-course-btn" (click)="searchCourses(searchInput.value)">Search</button>
+              </div>              
+            <table>
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Course Name</th>
+                  <th>Professor</th>
+                  <th>Course Info</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let course of filteredCourses">
+                  <td>{{ course.courseCode }}</td>
+                  <td>{{ course.courseName }}</td>
+                  <td>{{ course.createdBy }}</td>
+                  <td>
+                    <button class="button btn-btn-secondary" (click)="openDialog(course)">Course Info</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+  </div>
+        </div>
+        </div>
+    
+        
+    
+
+    </main>
+
+</div>

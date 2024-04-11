@@ -1,0 +1,82 @@
+<div class="task-container">
+  <div class="top-container">
+    <div *ngIf="task" class="task-details">
+      <h2>Task Details</h2>
+      <form>
+        <div class="fields-container">
+          <div class="field">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input type="text" id="title" name="title" class="form-control" [value]="task.title" disabled>
+            </div>
+            <div class="form-group">
+              <label for="courseName">Course Name:</label>
+              <input type="text" id="courseName" name="courseName" class="form-control" [value]="task.courseName" disabled>
+            </div>
+            <div class="form-group">
+              <label for="taskType">Task Type:</label>
+              <input type="text" id="taskType" name="taskType" class="form-control" [value]="task.taskType" disabled>
+            </div>
+            <div class="form-group">
+              <label for="status">Status:</label>
+              <input type="text" id="status" name="status" class="form-control" [value]="task.status" disabled>
+            </div>
+            <div class="form-group">
+              <label for="dueDate">Due Date:</label>
+              <input type="text" id="dueDate" name="dueDate" class="form-control" [value]="task.dueDate | date" disabled>
+            </div>
+          </div>
+          <div class="field">
+            <!-- Editable fields -->
+            <div class="form-group">
+              <label for="difficultyLevel">Difficulty Level:</label>
+              <select id="difficultyLevel" name="difficultyLevel" class="form-control" [(ngModel)]="task.difficultyLevel">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes:</label>
+              <textarea id="notes" name="notes" class="form-control" rows="4" [(ngModel)]="task.notes"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="completionDate">Completion Date:</label>
+              <input type="text" id="completionDate" name="completionDate" class="form-control" [value]="task.completionDate ? (task.completionDate | date) : 'N/A'" disabled>
+            </div>
+            <div class="form-group">
+              <label for="milestones">Milestones:</label>
+              <input type="text" id="milestones" name="milestones" class="form-control" [value]="task.milestones" disabled>
+            </div>
+            <div class="form-group">
+              <label>Assignment File</label>
+              <button type="button" class="btn btn-secondary" (click)="downloadFile()">Download File</button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="saveTaskChanges()" name="saveTask">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="milestones.length > 0; else noMilestones" class="timeline">
+  <div *ngFor="let milestone of milestones; let i = index" [class]="i % 2 === 0 ? 'container left' : 'container right'">
+    <div class="date">{{ milestone.dueDate | date: 'dd MMM' }}</div>
+    <i class="icon bi bi-question-circle"></i>
+    <div class="content">
+      <h2>{{ milestone.title }}</h2>
+      <!-- Conditional button rendering based on isComplete status -->
+      <button *ngIf="!milestone.isComplete; else completedButton" type="button" class="btn btn-primary" (click)="openCompleteBox(milestone)">Edit</button>
+      <ng-template #completedButton>
+        <button type="button" class="btn btn-secondary" disabled>Completed</button>
+      </ng-template>
+      <button type="button" class="btn btn-primary" (click)="openInsightsBox(milestone)">Discover Insights</button>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #noMilestones>
+  <p>No milestones found.</p>
+</ng-template>

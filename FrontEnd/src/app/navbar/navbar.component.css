@@ -1,0 +1,149 @@
+.navbar-container {
+  position: fixed;
+  background-color: #333;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  font-size: 30px;
+  font-weight: bolder;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+  width: 100%; /* Update to span full width */
+}
+
+.brand {
+  color: #46166b;
+  font-weight: bold;
+  display: flex; /* Use flexbox to align items */
+}
+
+
+
+.profile-icon {
+  color: #46166b;
+  font-weight: bold;
+}
+
+.profile-icon img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.profile-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-icon img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #46166b; /* Update with your desired background color */
+  border: 1px solid #FBFADA; /* Update with your desired border color */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  font-size: 14px;
+}
+
+.dropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.dropdown-content li {
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.dropdown-content a {
+  text-decoration: none;
+  color: #FBFADA;
+}
+
+.dropdown-content a:hover {
+  background-color: #ADBC9F;
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+}
+.nav-item{
+  margin : 0 20px;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.gtstartedwithus {
+  color: #000;
+  font-family: publicsans;
+}
+
+
+button {
+  border-radius: 0px;
+  border: 1px solid #eeb211;
+  background-color: #d6d6d6;
+  color: #d6d6d6;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 10px;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  background-color: #ADBC9F;
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.ghost {
+  background-color: transparent;
+  border-color: #FBFADA;
+}
+
+button.clicked {
+  background-color: #eeb211; 
+}
+
+button:hover {
+  background-color: #eeb211; /* Change the hover background color */
+}
+
+.nav-item a:hover {
+  color: #eeb211;
+}
+
+.profilelogo {
+  width: 300px;
+  height: 70px;
+}

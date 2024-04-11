@@ -1,0 +1,40 @@
+<div class="container mt-5">
+    <h2>Badge Information</h2>
+
+    <blockquote class="blockquote">
+        <p class="mb-0"> "Each badge symbolizes a step forward in your journey, encouraging you to aim higher, push
+            further, and celebrate every achievement, big or small."</p>
+
+    </blockquote>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Milestones</th>
+                <th scope="col">Badge Icons</th>
+                <th scope="col">Badges</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let badge of badges">
+                <td>{{ badge.milestone }}</td>
+                <td><img [src]="badge.iconPath" class="badge-icon" alt="{{ badge.badge }} Icon"></td>
+                <td>{{ badge.badge }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="super">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="assets/badges/superlearner.ico" class="badge-icon" alt="super leaner Icon">
+            </div>
+            <div class="col-md-9">
+                <p> The "Super Learner Award" icon has been created to celebrate completing all milestones on time,
+                    symbolizing outstanding dedication and achievement.</p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

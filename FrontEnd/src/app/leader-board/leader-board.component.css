@@ -1,31 +1,94 @@
+body {
+    height: 100vh;
+    
+        background-image: url('/assets/bg/leaderbg.jpeg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed; /* Reduce the size of the background image */
+    
+        
 
+  }
+
+  img{
+      width:50px;
+      height: 50px;
+  }
 .leaderboard {
-    margin: 20px;
+    display: flex;
+    padding-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
-
+.main-container{
+    display: flex;
+    padding-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.checkprogress{
+    display: flex;
+    padding-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 table {
     width: 70%;
     border-collapse: collapse;
     align-items: center;
+    margin-top: 50px;
 }
 
 
 th {
-    background-color: #12372A;
+    background-color: #46166b;
     color: white;
     padding: 20px;
-    text-align: left;
+    text-align: center;
     margin-left: 200px;
+    font-size: 1.4em;
+    border: 1px solid white;
 }
 
-td{
-    margin: 20px;
+td {
+    margin-left: 200px;
+    font-size: 1.3em;
+    padding: 20px;
+    border: 1px solid black;
 
 }
+
+  
 
 tr:nth-child(even) {
-    background-color: #436850;
+    background-color: #ccc;
+    color: black;
 }
+
+tr:nth-child(even) .badge,
+tr:nth-child(even) .badge i {
+    background-color: #ccc;
+    /* Or any other color you want for badges background */
+    color: black;
+    /* Or any other color you want for badges text and icons */
+}
+
+tr:nth-child(odd) {
+    color: black;
+}
+
+tr:nth-child(odd) .badge,
+tr:nth-child(odd) .badge i {
+    background-color: transparent;
+    /* Or any other color you want for badges background */
+    color: white;
+    /* Or any other color you want for badges text and icons */
+}
+
 
 
 .player-number {
@@ -39,28 +102,51 @@ tr:nth-child(even) {
 }
 
 
-/* Style for progress column */
-.progress {
-    width: 50%;
-    position: relative;
+
+
+/* Style for the dropdowns */
+select {
+    padding: 15px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+
+
 }
 
-.progress-bar {
-    height: 20px;
-    background-color: #5C9444; /* Yellow color for the first part */
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Style for the button */
+button {
+    padding: 9px 17px;
+    font-size: 16px;
+    background-color: #eeb211;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* Style for the second part of the progress bar */
-.progress-bar::after {
-    content: '';
-    height: 100%;
-    width: calc(100% - 3px); /* Adjusted width to leave a small gap between the two parts */
-    background-color: #8E5335; /* Red color for the second part */
-    position: absolute;
-    top: 0;
-    left: calc(100% - 3px);
+
+
+/* Hover effect for the button */
+button:hover {
+    background-color: #eeb211;
 }
 
+.filters {
+    margin: 20px;
+}
+
+h5 {
+    margin: 20px;
+    font-size: 1.9em;
+    letter-spacing: 0.1em;
+    font-family: poppins;
+    font-weight: bolder;
+    color: white;
+}
+
+h1{
+    font-family: poppins;
+    font-size: 2.0em;
+}

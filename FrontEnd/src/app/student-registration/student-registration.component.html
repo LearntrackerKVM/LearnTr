@@ -1,0 +1,112 @@
+<div class="welcomecontainer">
+</div>
+<div class="container" id="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <div class="form-container sign-up-container">
+        <form>
+          <h1>Create Account</h1>
+          <div class="form-group col-md-10">
+            <input type="text" class="form-control" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName" />
+          </div>
+          <div class="form-group col-md-10">
+            <input type="text" class="form-control" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName" />
+          </div>
+          <div class="form-group col-md-10">
+            <input type="text" class="form-control" placeholder="User Name" name="userName" [(ngModel)]="user.userName" />
+          </div>
+          <div class="form-group col-md-10">
+            <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="user.email" />
+          </div>
+          <div class="col-md-10">
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <input type="{{ hidePassword ? 'password' : 'text' }}" class="form-control" name="password"
+                  placeholder="Password" [(ngModel)]="user.password" />
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-outline-secondary eye-icon-btn" type="button"
+                  (click)="togglePasswordVisibility()">
+                  <i class="{{ hidePassword ? 'bi-eye' : 'bi-eye-slash' }}"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <input type="{{ hideconfirmPassword ? 'password' : 'text' }}" class="form-control"
+                  name="confirmPassword" placeholder="Confirm Password" [(ngModel)]="confirmpassword"
+                  (ngModelChange)="checkPasswordMatch()" />
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-outline-secondary eye-icon-btn" type="button"
+                  (click)="toggleConfirmPasswordVisibility()">
+                  <i class="{{ hideconfirmPassword ? 'bi-eye' : 'bi-eye-slash' }}"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="passwordMatchError" class="text-danger">
+            Passwords do not match.
+          </div>
+
+          <div class="form-group col-md-10">
+            <div class="custom-dropdown-wrapper">
+              <label for="role"></label>
+              <select id="role" [(ngModel)]="user.role" class="custom-dropdown" name="selectedRole">
+                  <option [ngValue]="undefined">Select role</option>
+                  <option *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
+              </select>
+          </div>
+</div>          
+          <button class="btn btn-primary btn-block" (click)="registerUser(user)">Sign Up</button>
+        </form>
+      </div>
+      <div class="col-md-10 mx-auto">
+      <div class="form-container sign-in-container">
+        <form>
+          <h1>Log In</h1>
+          <div class="form-group col-md-10">
+            <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)] ="user.email"/>
+          </div>
+          <div class=" col-md-10">
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <input type="{{ hideloginPassword ? 'password' : 'text' }}" class="form-control"
+                  name="password" placeholder="Password" [(ngModel)]="user.password" />
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-outline-secondary eye-icon-btn" type="button"
+                  (click)="toggleLoginPasswordVisibility()">
+                  <i class="{{ hideloginPassword ? 'bi-eye' : 'bi-eye-slash' }}"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+       
+          <a href="#">Forgot your password?</a>
+          <div *ngIf="loginError" class="error-message">
+          {{ loginErrorMessage }}
+          </div>
+          <button class="btn btn-primary btn-block" (click)="navigateToHomePage(user.email,user.password)">Sign In</button>
+        </form>
+      </div>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>To keep connected with us, please login with your personal info</p>
+            <button class="btn btn-outline-primary" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start the journey with us</p>
+            <button class="btn btn-outline-primary" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

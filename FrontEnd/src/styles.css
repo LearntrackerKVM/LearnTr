@@ -1,3 +1,4 @@
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
 body {
     background-color: #f5fcec; /* Set the desired background color */
   }

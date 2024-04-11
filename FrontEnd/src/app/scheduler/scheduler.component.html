@@ -1,0 +1,35 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+    <html>
+        <body>
+            <div class="journal-page-container">
+                <header class="journal-header">
+                    <h2>My Journal</h2>
+                </header>
+                <div class="journal-container">
+                    <div class="calendar-container">
+                        <full-calendar [options]="calendarOptions" (dateClick)="onDateClick($event)"></full-calendar>
+                    </div>
+                    <div class="journal-entry-container" *ngIf="showTextarea">
+                        <h3>Fill your paper with the breathings of your heart</h3>
+                        <hr>
+                        <div class="date-heading" style="text-align: left;">
+                            <div class="row">
+                                
+                                <div class="col-sm-1" style="padding-right: 0;margin:0;"> <i class="fa fa-calendar"></i></div>
+                                <div class="col-sm-5" style="padding-left: 0;margin:0;">
+                                    <h3>{{ selectedDate | date:'EEE MM/dd/yyyy' }}</h3>
+                                </div>
+                     
+                            </div>
+                            
+                        </div>
+                        
+                        <textarea [(ngModel)]="journalText" rows="4" cols="50"></textarea>
+                        <button class="btn btn-primary">Save Your Journal</button>
+                    </div>
+                </div>
+            </div>
+        
+        </body>
+    </html>

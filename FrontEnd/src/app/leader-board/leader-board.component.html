@@ -1,26 +1,101 @@
-<!-- Modify the HTML structure for the leaderboard -->
-<div class="leaderboard">
-    <h5>Leaderboard</h5>
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">Name</th>
-                <th scope="col">Progress</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let player of leaderboardData; let i = index">
-                <td class="player-number">{{ i + 1 }}</td>
-                <td class="player-name" [style.color]="i % 2 === 0 ? '#436850' : '#ADBC9F'">{{ player.name }}</td>
-                <td class="progress">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" [style.width.%]="player.progress"></div>
-                        <div class="progress-label">{{ player.progress }}%</div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
 
-    </table>
+<body>
+  <div class="main-container">
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="changeBoard(true)">LeaderBoard</button>
+    </div>
+    <div class="col-md-8 text-right">
+      <button class="btn checkprogressbtn" (click)="changeBoard(false)">Check Progress</button>
+    </div>
+  </div>
 </div>
+
+<div class="leaderboard" *ngIf="isLeaderBoard">
+
+  
+    <h1>Leaderboard</h1>
+
+    <div>
+      <label>Filter:</label>
+      <select [(ngModel)]="selectedFilter" (change)="filterData()">
+        <option value="allStudents">All Students</option>
+        <option value="studentsWithCourses">Students with Your Courses</option>
+        <option value="yourFriends">My Friends</option>
+        <option value="friendsWithCourses">Friends in Your Courses Only</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th (click)="sortData('rank')">Rank</th>
+          <th (click)="sortData('profilePicture')">Profile Picture</th>
+          <th (click)="sortData('userName')">Username</th>
+          <th (click)="sortData('badge')">Badge</th>
+          <th (click)="sortData('milestonesCompleted')">Milestones Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of leaderboardData">
+          <td>{{ user.rank }}</td>
+          <td><div class="profile-picture">
+            <img *ngIf="user.profilePicture" [src]="'data:image/jpeg;base64,' + user.profilePicture" alt="Profile Picture">
+            <!-- Fallback image if no profile picture is available -->
+            <img *ngIf="!user.profilePicture" [src]="defaultProfilePicture" alt="Profile Picture">
+  
+          </div></td>
+          <td>
+          {{ user.userName }}</td>
+          <td>
+            <ng-container *ngIf="getBadgeImagePath(user.badge); else noBadge">
+              <img [src]="getBadgeImagePath(user.badge)" [alt]="user.badge" style="height: 24px; width: 24px;">
+              {{ user.badge }}
+            </ng-container>
+            <ng-template #noBadge>No Badge</ng-template>
+          </td>
+          <td>{{ user.milestonesCompleted }}</td>
+        </tr>
+      </tbody>
+      
+      
+    </table>
+  </div>
+  <div class="checkprogress" *ngIf="!isLeaderBoard">
+    <h1>Student Progress</h1>
+    <div>
+      <label for="filterCourse">Course:</label>
+      <select id="filterCourse" class="form-control" [(ngModel)]="selectedCourseId" (ngModelChange)="fetchCourseData()">
+        <option value="" disabled selected>Select Course</option>
+        <option *ngFor="let course of myCourses" [value]="course.courseId">{{ course.courseName }}</option>
+      </select>
+      
+      <label for="taskDropdown">Task:</label>
+      <select id="taskDropdown" class="form-control" [(ngModel)]="selectedTaskId" [disabled]="!selectedCourseId">
+        <option value="" disabled selected>Select Task</option>
+        <option *ngFor="let task of uniqueTasks" [value]="task.taskId">{{ task.taskName }}</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" (click)="populateTable()" [disabled]="!selectedTaskId">Check Progress</button>
+    
+    <table *ngIf="selectedCourseId">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Notes</th>
+          <th>Difficulty</th>
+          <th>Milestones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of filteredStudents">
+          <td>{{ student.studentfirstName }} {{ student.studentlastName }}</td>
+          <td>{{ student.task?.notes || 'N/A' }}</td>
+          <td>{{ student.task?.difficultyLevel || 'N/A' }}</td>
+          <td>{{ student.task?.milestonesCompletedOutOfTotal }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</body>
+  

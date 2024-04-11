@@ -1,0 +1,32 @@
+<div class="container">
+
+   <div class="heading"> Milestone :{{ data.milestone.title}}
+       <hr/>
+       Average Difficulty Level : {{avgDiffLevel}}
+   </div>
+    <table>
+        <thead>
+          <tr>
+            <th>Student Username</th>
+            <th>Notes</th>
+            <th>Difficulty Level</th>
+            <th>Is Complete?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let info of milestoneUserInfos">
+            <td>
+              <!-- Conditionally display "me" if studentId matches currentUserId -->
+              <span *ngIf="info.milestone.studentId === createdByID; else userName">
+                me
+              </span>
+              <ng-template #userName>{{ info.user.userName }}</ng-template>
+            </td>
+            <td>{{ info.milestone.notes }}</td>
+            <td>{{ info.milestone.difficultyLevel }}</td>
+            <td>{{ info.milestone.isComplete ? 'Yes' : 'No' }}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+  

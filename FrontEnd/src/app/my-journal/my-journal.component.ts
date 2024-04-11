@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import '@angular/localize/init';
+import { SchedulerComponent } from '../scheduler/scheduler.component';
 
 
 interface Habit {
@@ -14,7 +15,7 @@ interface Habit {
 @Component({
   selector: 'app-my-journal',
   standalone: true,
-  imports: [CommonModule,FormsModule,NgbDatepicker],
+  imports: [CommonModule,FormsModule,NgbDatepicker,SchedulerComponent],
   templateUrl: './my-journal.component.html',
   styleUrl: './my-journal.component.css'
 })

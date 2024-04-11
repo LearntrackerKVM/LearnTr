@@ -1,61 +1,111 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 welcomemessage">
-            <h4>Welcome Back, Professor!</h4>
-        </div>
-        <div class="col-md-12">
-            <button class="btn btn-primary mt-3 float-right" (click)="addCourse()">Add a Course</button>
-        </div>
-    </div>
+<div class="professorHomeContainer">
+    <main>
+        <section class="head-container">
+            Dashboard
+        </section>
+        <section class="greeting-container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="hellomessage">Hello, Professor</h2>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-deck">
-                <div class="card card-flip h-100" *ngFor="let course of courses">
-                    <div class="card-front">
-                        <i class="fa fa-arrow-circle-right fa-5x float-right"></i>
-                        <h3 class="card-title">{{ course.courseName }}</h3>
+                    <p class="welcomemessage">
+                        The academic world is eager for your insights and contributions.</p>
+
+
+                </div>
+            </div>
+        </section>
+        <section class="cards">
+            <div class="cards-container">
+                <!-- Cards -->
+                <div class="card">
+                    <img class="ard-img-sm-left" src="/assets/icons/courses.png" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number"> {{noOfCourses}}</h3>
+                        <h3 class="title">Courses Added</h3>
                     </div>
-                    <div class="card-back">
-                        <div class="card-body text-primary">
-                            <p class="card-text">Added Date: {{ course.addedDate }}</p>
-                            <p class="card-text">No of Students Enrolled: {{ course.studentsEnrolled }}</p>
-                            <button class="btn btn-primary btn-block w-100">Course Info</button>
-                        </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/students.png" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number"> {{noOfStudentsEnrolled}}</h3>
+                        <h3 class="title">Students Enrolled</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/assignments.png" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number"> {{noOfAssignments}}</h3>
+                        <h3 class="title">Assignments Added</h3>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="/assets/icons/exams.png" alt="Feature 1">
+                    <div class="content">
+                        <h3 class="number"> {{noOfExams}}</h3>
+                        <h3 class="title">Exams Added</h3>
                     </div>
                 </div>
             </div>
+        </section>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Courses Container -->
+                <div class="col-md-6">
+                    <section class="courses-container">
+                        <h2 class="my-courses-title">My Courses</h2>
+                        <div class="search-courses">
+                            <input type="text" placeholder="Search courses" class="search-course-input">
+                            <button class="btn btn-primary search-course-btn">Search</button>
+                        </div>
+                        <hr>
+                        <table class="courses-table">
+                            <tr>
+                                <th>Course Name
+                                </th>
+                                <th>Course Code</th>
+                            </tr>
+                            <tr *ngFor="let course of professorCourses; let i = index">
+                                <td>{{ course.courseName }} </td>
+                                <td>{{ course.courseCode }}</td>
+                              
+                            </tr>
+                        </table>
+                    </section>
+                    
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <div id="calendar"></div>
+        <div class="col-md-6">
+            <section class="schedule-container">
+                <h2 class="my-schedule-title">My Class Schedule</h2>
+                <table>
+                  <tr>
+                    <th>Course</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                  </tr>
+                  <tr *ngFor="let course of courseswithSchedules">
+                    <td>{{ course.courseName }}</td>
+                    <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+                      <ul class="no-bullets">
+                        <li *ngFor="let session of course.weekSchedule[day]">
+                         {{ session.timeRange }}
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </table>
+              </section>
+              
+              
+              
         </div>
-    </div>
+        </div>
+        </div>
+    </main>
 </div>
 
 
-<div class="progress-container">
-    <div>
-        <circle-progress
-        [percent]="70"
-        [space]="-10"
-        [radius]="100"
-        [outerStrokeWidth]="10"
-        [innerStrokeWidth]="10"
-        [outerStrokeColor]="'#4882c2'"
-        [innerStrokeColor]="'#e7e8ea'"
-        [animation]="true"
-        [animationDuration]="1000"
-      ></circle-progress>
-      
-      </div>
-      
-</div>
 
-<!-- feature.component.html -->
-<div class="progress-container">
-    <app-progress-circle [progress]="currentProgressValue"></app-progress-circle>
-  </div>
-  

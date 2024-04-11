@@ -1,0 +1,46 @@
+
+button {
+    border-radius: 20px;
+    border: 1px solid #46166b;
+    background-color: #46166b;
+    color: #FBFADA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 10px;
+    transition: transform 80ms ease-in;
+    width:10%
+}
+
+button:active {
+    background-color: #ADBC9F;
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FBFADA;
+}
+
+button.clicked {
+    background-color: #eeb211; 
+}
+
+button:hover {
+    background-color: #eeb211; /* Change the hover background color */
+}
+
+.journalcontainer {
+    background-size: cover;
+    height: 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+  

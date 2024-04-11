@@ -1,91 +1,176 @@
 
+.head-container{
+  font-size: 2em;
+  font-family: poppins;
+  padding : 20px 20px;
 
-  
-
-  button {
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    border: 1px solid #436850;
-    background-color: #436850;
-    color: #FBFADA;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin: 10px;
-    transition: transform 80ms ease-in;
 }
 
-button:active {
-    transform: scale(0.95);
+.greeting-container{
+  background-color: #46166b;
+  border-radius: 10px;
+  color: white;
+  padding: 60px 60px;
+  margin: 20px 20px;
+  height: max-content;
 }
 
-button:focus {
-    outline: none;
+
+.cards-container {
+  position: relative;
+  top: -60px; 
+  display: flex;
+  justify-content: space-around; 
+  flex-wrap: wrap; 
+}
+.card {
+  background-color: #fff;
+  width: 300px;
+  margin: 0 10px;
+  text-align: center;
+  height: 120px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-button.ghost {
-    background-color: transparent;
-    border-color: #FBFADA;
+.card img{
+  display: block;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 80px;
+  height :80px;
+  border-radius: 50%;
+  object-fit: cover; 
 }
-button:hover {
-    background-color: #ADBC9F; /* Change the hover background color */
-  }
 
-  .card-flip {
-    width: 300px; /* Set the desired fixed width for the card */
-    height: 300px; /* Set the desired fixed height for the card */
-    margin: 20px 10px; /* Add margin for gaps between cards */
-    box-sizing: border-box;
-    overflow: hidden; /* Ensure content doesn't overflow */
-  }
-  
-  .card-front,
-  .card-back {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 100px; /* Set the desired fixed padding around the title */
-    box-sizing: border-box;
-    text-align: center; /* Center the text within the card */
-    background-color: #fff; /* Ensure a white background for the card content */
-  }
-  
-  .card-title {
-    margin: 0; /* Remove default margin */
-  }
-  
-  .card-flip > div {
-    backface-visibility: hidden;
-    transition: transform 300ms;
-    transition-timing-function: linear;
-  }
-  .card-deck {
-    display: flex;
-    flex-wrap: wrap; /* Allow cards to wrap to the next line if needed */
-    justify-content: space-between; /* Adjust the alignment as needed */
-    margin: 0 -10px;
-  }
-  
-  .card-front {
-    transform: rotateY(0deg);
-  }
-  
-  .card-back {
-    transform: rotateY(180deg);
-    position: absolute;
-    top: 0;
-  }
-  
-  .card-flip:hover .card-front {
-    transform: rotateY(-180deg);
-  }
-  
-  .card-flip:hover .card-back {
-    transform: rotateY(0deg);
-  }
+h3.number {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #000;
+  font-weight: bold;
+}
+
+h3.title {
+  margin-top: 0;
+  font-size: 1.1em;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+  font-weight: normal;
+}
+
+
+.content{
+  padding-top: 0;
+}
+.courses-container {
+  display: flex;
+  border-radius: 10px;
+  background-color: #DDDDDD;
+  box-shadow: #000;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+.schedule-container {
+  display: flex;
+  border-radius: 10px;
+  background-color: #DDDDDD;
+  box-shadow: #000;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+
+.my-courses-title,.my-schedule-title {
+  margin: 0;
+  padding: 0;
+  font-size: 2em;
+  font-family: poppins;
+}
+
+.search-courses {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end; /* Aligns the search input and button to the right */
+}
+
+.search-course-input {
+  margin-right: 10px;
+  margin-top: 0; /* Adds space between the input and button */
+}
+
+.courses-table {
+  width: 100%; /* Makes the table take full width */
+  margin-top: 20px; /* Adds space above the table */
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #4caf50;
+  border-radius: 5px;
+  padding: 1px 80px;
+}
+
+.progress-percent{
+  padding-left: 30px;
+}
+.no-bullets {
+  list-style-type: none; /* Removes the bullet points */
+  padding: 0; /* Removes padding, optional */
+  margin: 0; /* Removes margin, optional */
+}
+
+table {
+  padding: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  align-items: center;
+  margin: 8px;
+}
+
+
+th {
+  background-color: #46166b;
+  color: white;
+  padding: 20px;
+  text-align: left;
+  margin-left: 200px;
+  border: 1px solid #000; /* Add 1px solid border */
+  text-align: left;
+}
+
+td {
+  margin: 20px;
+  border: 1px solid #000; /* Add 1px solid border */
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #f5fcec;
+  color: black;
+}
+
+tr:nth-child(even) .badge,
+tr:nth-child(even) .badge i {
+  background-color: #f5fcec; /* Or any other color you want for badges background */
+  color: black; /* Or any other color you want for badges text and icons */
+}
+
+tr:nth-child(odd) {
+  color: black;
+}
+
+tr:nth-child(odd) .badge,
+tr:nth-child(odd) .badge i {
+  background-color: transparent; /* Or any other color you want for badges background */
+  color: black; /* Or any other color you want for badges text and icons */
+}
+
