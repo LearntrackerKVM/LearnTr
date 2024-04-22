@@ -84,6 +84,11 @@ public class AssignmentController {
         int numberOfAssignments = assignmentService.countAssignmentsByCreatedId(createdById);
         return ResponseEntity.ok(numberOfAssignments);
     }
+    @GetMapping("/getAssignments/{courseId}")
+    public ResponseEntity<List<Assignment>> getAssignmentsAddedByProfessor(@PathVariable String courseId) {
+        List<Assignment> numberOfAssignments = assignmentService.getAssignmentsByCourseId(courseId);
+        return ResponseEntity.ok(numberOfAssignments);
+    }
     
     @GetMapping("/file/{courseId}/{title}")
     public ResponseEntity<byte[]> downloadAssignmentFile(@PathVariable String courseId, @PathVariable String title) {

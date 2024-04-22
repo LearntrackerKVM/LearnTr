@@ -22,9 +22,17 @@ export class StudentRegistrationComponent {
     userName: '',
     email: '',
     password: '',
-    role: ''
+    role: '',
+    id: '',
+    aboutMe : '',
+    rank: '',
+    badge: '',
+    milestonesCompleted : 0,
+    profilePicture : ''
   };
 
+  registerError : boolean = false;
+  registerErrorMessage : string = '';
   password: string = '';
   confirmpassword: string = '';
   hidePassword: boolean = true;
@@ -111,9 +119,8 @@ export class StudentRegistrationComponent {
         signInButton?.click();
       },
       (error) => {
-        // Handle registration error
-        console.error('Error occurred during registration:', error);
-        // Optionally, you can display an error message to the user
+        this.registerError = true;
+        this.registerErrorMessage = error.error;
       }
     );
     }

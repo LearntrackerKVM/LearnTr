@@ -1,0 +1,26 @@
+<body>
+    <h1>Notebook</h1>
+    <div class="save-status">
+        <div class="row">
+            <div class="col-md-9">
+
+            </div>
+            <div class="col-md-3">
+                <span *ngIf="isSaved" class="auto-saved">&#10003; Auto-saved </span>
+                <span *ngIf="lastSavedTime" class="last-saved">{{ lastSavedTime | date:'medium' }}</span>
+            </div>
+        </div>
+    
+
+    </div>
+    <div class="notebook-container">
+        <!-- notebook.component.html -->
+<form [formGroup]="notebookForm">
+    <textarea class="styled-textarea" [(ngModel)]="notebook.notes" formControlName="notes" placeholder="Notes....."></textarea>
+  </form>
+
+    </div>
+</body>
+
+
+

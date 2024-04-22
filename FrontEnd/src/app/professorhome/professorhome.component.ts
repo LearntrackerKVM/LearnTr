@@ -28,10 +28,36 @@ export class ProfessorhomeComponent {
   createdBy : string = '';
   createdByID : number = 0;
   courseswithSchedules : any[] = [];
-  noOfCourses : number = 0;
-   noOfStudentsEnrolled : number = 0;
-    noOfAssignments : number = 0;
-    noOfExams : number = 0;
+    cards = [
+      {
+        icon: '/assets/icons/courses.png',
+        number: 0,
+        title: 'Courses Added',
+        color: '#c4e7f7',
+        hoverColor: ''
+      },
+      {
+        icon: '/assets/icons/students.png',
+        number: 0,
+        title: 'Students Enrolled',
+        color: '#E6E6FA',
+        hoverColor: ''
+      },
+      {
+        icon: '/assets/icons/assignments.png',
+        number: 0,
+        title: 'Assignments Added',
+        color: '#FADADD',
+        hoverColor: ''
+      },
+      {
+        icon: '/assets/icons/exams.png',
+        number: 0,
+        title: 'Exams Added',
+        color: '#FFDAB9',
+        hoverColor: ''
+      }
+    ];
 
   constructor(private courseService : CourseService,private assignmentService : AssignmentService,private examService : ExamService){
     const currentUserString = sessionStorage.getItem('currentUser');
@@ -45,21 +71,29 @@ export class ProfessorhomeComponent {
     this.getDefaultNumbers();
 
   }
-  getDefaultNumbers(){
-    this.courseService.getNoOfCoursesAddedByProfessor(this.createdByID.toString()).subscribe((num)=>{
-      this.noOfCourses = num;
+  getDefaultNumbers() {
+    this.courseService.getNoOfCoursesAddedByProfessor(this.createdByID.toString()).subscribe(num => {
+      this.updateCardNumber('Courses Added', num);
     });
+
     this.courseService.getNumberOfStudentsEnrolled(this.createdByID.toString()).subscribe(num => {
-      this.noOfStudentsEnrolled = num;
+      this.updateCardNumber('Students Enrolled', num);
     });
-  
+
     this.assignmentService.getNoOfAssignmentsAddedByProfessor(this.createdByID.toString()).subscribe(num => {
-      this.noOfAssignments = num;
+      this.updateCardNumber('Assignments Added', num);
     });
-  
+
     this.examService.getNoOfExamsAddedByProfessor(this.createdByID.toString()).subscribe(num => {
-      this.noOfExams = num;
+      this.updateCardNumber('Exams Added', num);
     });
+  }
+
+  updateCardNumber(title: string, num: number) {
+    const cardIndex = this.cards.findIndex(card => card.title === title);
+    if (cardIndex !== -1) {
+      this.cards[cardIndex].number = num;
+    }
   }
   loadAllCourses(): void {
     this.courseService.getCoursesByprofessorId(this.createdByID).subscribe(
@@ -78,7 +112,13 @@ export class ProfessorhomeComponent {
     );
   }
   
-  
+  setHoverColor(card: any, event: boolean) {
+    if (event) {
+      card.hoverColor = card.color;  // on mouse enter
+    } else {
+      card.hoverColor = '#fff';  // on mouse leave, revert to original
+    }
+  }
   loadCoursesSchedules(courseIds: string[],courses:Course[]): void {
     this.courseService.getCoursesSchedulesByCourseIds(courseIds).subscribe(
       (schedules: CourseSchedule[]) => {

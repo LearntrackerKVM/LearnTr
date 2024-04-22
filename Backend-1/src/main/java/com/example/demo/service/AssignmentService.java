@@ -1,114 +1,105 @@
+
+
 package com.example.demo.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.data.*;
+import com.example.demo.repository.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.example.demo.data.Assignment;
-import com.example.demo.data.StudentCourses;
-import com.example.demo.data.StudentTasks;
-import com.example.demo.data.TasksMilestones;
-import com.example.demo.data.User;
-import com.example.demo.repository.AssignmentRepository;
-import com.example.demo.repository.StudentCoursesRepository;
-import com.example.demo.repository.StudentTasksRepository;
-import com.example.demo.repository.TaskMilestonesRepository;
-
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-
 @Service
 public class AssignmentService {
+    @Autowired private AssignmentRepository assignmentRepository;
+    @Autowired private StudentTasksRepository studentTasksRepository;
+    @Autowired private TaskMilestonesRepository taskMilestonesRepository;
+    @Autowired private StudentCoursesRepository studentCoursesRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private EmailService emailService;
 
-    
-
-    private final AssignmentRepository assignmentRepository;
-    private final StudentTasksRepository studentTasksRepository;
-    private final TaskMilestonesRepository taskMilestonesRepository;
-    private final StudentCoursesRepository studentCoursesRepository; // Assuming this service can fetch students enrolled in a course
-
-    @Autowired
-    public AssignmentService(AssignmentRepository assignmentRepository, StudentTasksRepository studentTasksRepository, TaskMilestonesRepository taskMilestonesRepository, StudentCoursesRepository studentCoursesRepository) {
-        this.assignmentRepository = assignmentRepository;
-        this.studentTasksRepository = studentTasksRepository;
-        this.taskMilestonesRepository = taskMilestonesRepository;
-        this.studentCoursesRepository = studentCoursesRepository;
-    }
     public Assignment createAssignment(Assignment assignment, MultipartFile file) throws IOException {
-        // Save the Assignment
+    	   String fileType = file.getContentType();
+
+           if ("application/pdf".equals(fileType)) {
+           	assignment.setFileType("PDF");
+           } else if ("application/vnd.openxmlformats-officedocument.wordprocessingml.document".equals(fileType)) {
+        		assignment.setFileType("DOCX");
+           } else {
+               throw new IllegalArgumentException("Unsupported file type: " + fileType);
+           }
         Assignment savedAssignment = assignmentRepository.save(assignment);
-
-        // Extract Questions
         List<String> questions = extractQuestionNumbersFromDocument(file);
-
-        // Calculate interval between creation date and due date
         long creationDateInMillis = savedAssignment.getCreatedDate().getTime();
         long dueDateInMillis = assignment.getDueDate().getTime();
         long interval = dueDateInMillis - creationDateInMillis;
-
-        // Calculate interval between each question
         long questionInterval = interval / questions.size();
-
-        // Fetch students enrolled in the course using the StudentCourses model
         List<StudentCourses> enrollments = studentCoursesRepository.findByCourseId(assignment.getCourseId());
 
-        // Iterate over each enrollment and create StudentTasks and TaskMilestones
-        for (StudentCourses enrollment : enrollments) {
-            StudentTasks studentTask = new StudentTasks();
-            studentTask.setStudentId(enrollment.getStudentId());
-            studentTask.setTaskId(savedAssignment.getId());
-            studentTask.setCourseId(assignment.getCourseId());
-            studentTask.setCourseName(assignment.getCourseName());
-            studentTask.setStatus("Not Started");
-            studentTask.setTitle(assignment.getAssignmentName());
-            studentTask.setTaskType("Assignment");
-            studentTask.setDueDate(assignment.getDueDate());
-            studentTask.setMilestones(questions.size());
-            StudentTasks savedStudentTask = studentTasksRepository.save(studentTask);
-
-            // Initialize milestone due date
-            long milestoneDueDate = creationDateInMillis;
-
-            // Create TaskMilestones for each question
-            for (int i = 0; i < questions.size(); i++) {
-                TasksMilestones milestone = new TasksMilestones();
-                milestone.setStudentTaskId(savedStudentTask.getId());
-                milestone.setTitle("Question " + (i + 1));
-                milestone.setStudentId(savedStudentTask.getStudentId());
-                milestone.setDescription("Complete question " + questions.get(i));
-                milestone.setIsComplete(false);
-                // Calculate milestone due date
-                milestoneDueDate += questionInterval;
-                milestone.setDueDate(new Date(milestoneDueDate));
-
-                milestone.setStatus("Not Started");
-                taskMilestonesRepository.save(milestone);
+     
+        // Iterate over each enrollment to send notifications and create tasks
+        enrollments.forEach(enrollment -> {
+            User student = userRepository.findById(enrollment.getStudentId()).orElse(null);
+            if (student != null) {
+                String notificationMessage = buildNotificationMessage(savedAssignment, student);
+                emailService.sendSimpleMessage(student.getEmail(), "New Assignment Notification", notificationMessage);
             }
-        }
+            createStudentTasksAndMilestones(enrollment.getStudentId(), savedAssignment, questions, creationDateInMillis, questionInterval);
+        });
 
         return savedAssignment;
     }
 
+    private String buildNotificationMessage(Assignment assignment, User student) {
+        return String.format("New Assignment posted for: %s\nBy professor: %s\nAssignment: %s\nDue date: %s\n",
+                assignment.getCourseName(), assignment.getCreatedBy(), assignment.getAssignmentName(), assignment.getDueDate());
+    }
 
     public Iterable<Assignment> getAllAssignments() {
         return assignmentRepository.findAll();
     }
+    public void createStudentTasksAndMilestones(String studentId, Assignment assignment, List<String> questions, long startMillis, long interval) {
+        StudentTasks studentTask = new StudentTasks();
+        studentTask.setStudentId(studentId);
+        studentTask.setTaskId(assignment.getId());
+        studentTask.setCourseId(assignment.getCourseId());
+        studentTask.setCourseName(assignment.getCourseName());
+        studentTask.setStatus("Not Started");
+        studentTask.setTitle(assignment.getAssignmentName());
+        studentTask.setTaskType("Assignment");
+        studentTask.setDueDate(assignment.getDueDate());
+        studentTask.setMilestones(questions.size());
+        studentTask.setMilestonesCompleted(0);
+        StudentTasks savedStudentTask = studentTasksRepository.save(studentTask);
+
+        long milestoneDueDate = startMillis;
+        for (int i = 0; i < questions.size(); i++) {
+            TasksMilestones milestone = new TasksMilestones();
+            milestone.setStudentTaskId(savedStudentTask.getId());
+            milestone.setTitle("Question " + (i + 1));
+            milestone.setStudentId(studentId);
+            milestone.setDescription("Complete question " + questions.get(i));
+            milestone.setIsComplete(false);
+            milestoneDueDate += interval;
+            milestone.setDueDate(new Date(milestoneDueDate));
+            milestone.setStatus("Not Started");
+            taskMilestonesRepository.save(milestone);
+        }
+    }
+
 
     public List<String> extractQuestionNumbersFromDocument(MultipartFile file) throws IOException {
         String fileType = file.getContentType();
@@ -190,4 +181,10 @@ public class AssignmentService {
     public int countAssignmentsByCreatedId(String createdById) {
         return assignmentRepository.countByCreatedById(createdById);
     }
+    public List<Assignment> getAssignmentsByCourseId(String courseId) {
+        List<Assignment> assignments = assignmentRepository.findByCourseId(courseId);
+        return assignments.stream().distinct().collect(Collectors.toList());  // Ensure distinct only if absolutely necessary
+    }
+
+
 }

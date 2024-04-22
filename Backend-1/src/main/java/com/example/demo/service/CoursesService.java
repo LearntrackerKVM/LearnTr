@@ -21,7 +21,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -33,9 +36,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 public class CoursesService {
 
+
+    private static final String[] COLORS = new String[]{"#c4e7f7", "#E6E6FA", "#FADADD", "#FFDAB9", "#98FF98", 
+            "#FBDF78", "#F5B3AE", "#F5DEDE", "#B0E0E6", "#E0E0F8", 
+            "#DFF0D8", "#FFE4B5", "#D3D3D3", "#F5F5DC", "#D8BFD8", "#cb9a9a"};
+    private Map<String, Set<String>> colorsprof = new HashMap<>();
+    
  private final CoursesRepository courseRepository;
  private final StudentCoursesRepository studentCoursesRepository;
  private final UserRepository userRepository;
@@ -62,7 +72,8 @@ public class CoursesService {
      // Generate courseCode based on the course name and existing courses
      String courseCode = generateCourseCode(course.getCourseName());
      course.setCourseCode(courseCode);
-     
+     String color = assignColorToStudent(course.getCreatedByID());
+     course.setColor(color);
      // Save the course with the new courseCode
      Courses savedCourse = courseRepository.save(course);
      return savedCourse;
@@ -85,6 +96,23 @@ public class CoursesService {
      return baseCode + nextNumber;
  }
 
+
+ private String assignColorToStudent(String profId) {
+     if (!colorsprof.containsKey(profId)) {
+    	 colorsprof.put(profId, new HashSet<>());
+     }
+
+     Set<String> usedColors = colorsprof.get(profId);
+     for (String color : COLORS) {
+         if (!usedColors.contains(color)) {
+             usedColors.add(color);
+             return color;
+         }
+     }
+
+     // If all colors are used, default to white
+     return "#FFFFFF";
+ }
  private Integer findHighestNumberForBaseCode(String baseCode) {
      Pattern pattern = Pattern.compile("^" + baseCode + "(\\d{3})$");
      int highestNumber = 0;
@@ -138,7 +166,7 @@ public class CoursesService {
              .collect(Collectors.toList());
 
      // Assuming you have a UserRepository to retrieve users by their IDs
-     return userRepository.findAllById(studentIds);
+     return userRepository.findUsersByIds(studentIds);
  }
 
 

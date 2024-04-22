@@ -1,0 +1,177 @@
+.student-courses-container{
+    background-color: #fff;
+    padding: 10px;
+    margin: 70px;
+}
+body {
+    padding: 50px;
+    background-color: #E6E6FA;
+    height: 100vh;
+  }
+  .page-container {
+    display: flex;
+    height: 100%;
+  }
+  
+  .tasks-column {
+    flex: 7; /* 70% of the space */
+    padding: 10px;
+    border-right: 2px solid #ccc; /* Line between columns */
+  }
+  
+  .analytics-column {
+    flex: 5; /* 30% of the space */
+    padding: 10px;
+  }
+  
+
+  table {
+    padding: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    align-items: center;
+    margin: 8px;
+  }
+  
+  
+  
+  th {
+    background-color: #E6E6FA;
+    color: black;
+    padding: 20px;
+    text-align: left;
+    margin-left: 200px;
+    text-align: left;
+    font-size: 1.2em;
+  }
+  
+  td {
+    margin: 20px;
+    text-align: left;
+    padding: 10px;
+    font-size: 1.2em;
+    border-left: 1px solid #ccc; /* Adds a border to the left side of each cell */
+    border-right: 1px solid #ccc; /* Adds a border to the right side of each cell */
+  }
+  tr:nth-child(even) {
+    background-color: #fff;
+    color: black;
+    font-size: 1.1em;
+  }
+  
+  tr:nth-child(even) .badge,
+  tr:nth-child(even) .badge i {
+    background-color: #E6E6FA; /* Or any other color you want for badges background */
+    color: black; /* Or any other color you want for badges text and icons */
+  }
+  
+  tr:nth-child(odd) {
+  
+    background-color: #E6E6FA;
+    color: black;
+    font-size: 1.1em;
+  }
+  
+  tr:nth-child(odd) .badge,
+  tr:nth-child(odd) .badge i {
+    background-color: #fff; /* Or any other color you want for badges background */
+    color: black; /* Or any other color you want for badges text and icons */
+  }
+.overdue {
+    color: red; /* Styling for overdue tasks */
+  }
+  
+  .task-card {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  
+  
+  .sub-headings {
+    background-color: #E6E6FA;
+    padding: 10px;
+  }
+  h3{
+      font-size: 1.3em;
+      font-family: poppins;
+      font-weight: bold;
+  }
+  h4{
+      font-weight: bold;
+  }
+  
+  .tasks-buttons, .type-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none; /* Removes border */
+    background-color: transparent; /* Transparent background */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+button{
+    color: #000;
+}
+
+.btn:hover, .btn.active {
+    color: #000;
+    border-radius: 5px; /* Optional for rounded corners */
+}
+
+.btn.active {
+    font-weight: bold;
+    position: relative;
+}
+
+.btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #000;
+}
+.progress-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* This will space out the child elements evenly */
+  }
+  
+  .task {
+    flex: 0 0 60%; /* This sets the task to take up 48% of the row width, allowing for two per row */
+    box-sizing: border-box;
+    padding: 10px; /* Optional: add padding around each task for spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the content vertically */
+    margin-bottom: 90px; /* Space between rows */
+  }
+  @media (max-width: 600px) {
+    .task {
+      flex: 0 0 100%; /* Each task takes full width on small screens */
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 1024px) {
+    .task {
+      flex: 0 0 48%; /* Each task takes about half width on medium screens */
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .task {
+      flex: 0 0 32%; /* Each task takes about one-third width on large screens, for three in a row */
+    }
+  }
+  .course-analytics{
+      border: 1px solid #000;
+      padding: 30px;
+  }
+    

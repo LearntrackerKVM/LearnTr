@@ -1,0 +1,31 @@
+<div class="progress-container">
+    <div *ngIf="progressData; else noDataTemplate">
+        <h2>{{friend.firstName}} {{friend.lastName}}'s Progress</h2>
+    
+        <div *ngFor="let course of progressData" class="course-box">
+            <h3><strong>{{ course.name }}</strong></h3>
+            <h3><strong>{{ course.code }}</strong></h3>
+            <div *ngFor="let task of course.tasks" class="task-box">
+                <p><strong>Task:</strong> {{ task.taskTitle }} ({{ task.taskType }}) - {{ task.difficultyLevel }}</p>
+                <p><strong>Status:</strong> {{ task.status }}</p>
+                <p><strong>Notes:</strong> {{ task.notes }}</p>
+                <div *ngFor="let milestone of task.milestones" class="milestone-box">
+                    <h4><strong>Milestone:</strong> {{ milestone.title }}</h4>
+                    <p><strong>Difficulty: </strong>{{ milestone.difficultyLevel }}</p>
+                    <p><strong>Notes: </strong>{{ milestone.notes }}</p>
+                    <p><strong>Status:</strong> {{ milestone.status }}</p>
+                </div>
+                <!-- In friends-progress.component.html -->
+                <div class="progress-bar-background">
+                    <div class="progress-bar" [style.width]="calculateProgress(task)"></div>
+                </div>
+    
+    
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #noDataTemplate>
+        <p>No progress data available.</p>
+    </ng-template>
+</div>

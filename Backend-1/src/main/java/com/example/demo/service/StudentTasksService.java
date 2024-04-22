@@ -79,6 +79,9 @@ public class StudentTasksService {
     public List<StudentTasks> getAllTasksByStudentId(String studentId) {
         return studentTasksRepository.findByStudentId(studentId);
     }
+    public List<StudentTasks> getAllTasksByStudentIdandCourseId(String studentId, String courseId) {
+        return studentTasksRepository.findByCourseIdAndStudentId( courseId, studentId);
+    }
 
     
     public StudentTasks updateTask(String id, String difficultyLevel, String notes, String status, LocalDate completionDate) {

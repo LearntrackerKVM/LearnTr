@@ -8,6 +8,7 @@ public class CourseDetails {
     private String courseName;
     private String courseCode;
     private int availableSlots;
+    private String color;
     private List<Courseschedule> courseSchedules;
     public String getCourseId() {
         return courseId;
@@ -48,4 +49,12 @@ public class CourseDetails {
     public void setCourseSchedules(List<Courseschedule> courseSchedules) {
         this.courseSchedules = courseSchedules;
     }
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 }

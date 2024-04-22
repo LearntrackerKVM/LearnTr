@@ -72,7 +72,7 @@
       <label for="taskDropdown">Task:</label>
       <select id="taskDropdown" class="form-control" [(ngModel)]="selectedTaskId" [disabled]="!selectedCourseId">
         <option value="" disabled selected>Select Task</option>
-        <option *ngFor="let task of uniqueTasks" [value]="task.taskId">{{ task.taskName }}</option>
+        <option *ngFor="let task of uniqueTasks" [value]="task.taskId">{{ task.title }}</option>
       </select>
     </div>
     <button class="btn btn-primary" (click)="populateTable()" [disabled]="!selectedTaskId">Check Progress</button>

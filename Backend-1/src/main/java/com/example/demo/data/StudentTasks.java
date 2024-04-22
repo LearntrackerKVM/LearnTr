@@ -23,6 +23,7 @@ public class StudentTasks {
     private String notes; // Notes about the task, shared upon completion
     private Integer milestones;
     private String courseName;
+    private Integer milestonesCompleted;
     // Constructor
     public StudentTasks() {
     }
@@ -139,5 +140,13 @@ public class StudentTasks {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public Integer getMilestonesCompleted() {
+		return milestonesCompleted;
+	}
+
+	public void setMilestonesCompleted(Integer milestonesCompleted) {
+		this.milestonesCompleted = milestonesCompleted;
 	}
 }

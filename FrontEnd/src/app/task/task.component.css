@@ -1,0 +1,105 @@
+.Upcoming-Tasks,
+.Completed-Tasks,
+.OverDue-Tasks {
+    display: flex;
+    border-radius: 10px;
+    background-color: #ADBC9F;
+    box-shadow: #000;
+    flex-direction: column;
+    padding: 10px 20px;
+    margin: 15px;
+}
+
+body {
+    height: 100vh;
+    background-image: url('/assets/bg/taskbg.jpeg'); /* Path to your background image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; 
+
+  }
+  
+  
+h3 {
+    font-size: 1.5em;
+    font-family: poppins;
+    letter-spacing: 0.2em;
+    padding: 10px;
+}
+
+h4 {
+    font-size: 1.3em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: 0.1em;
+}
+.container{
+    padding-top: 90px;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #46166b;
+    background-color: #46166b;
+    color: #d6d6d6;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 5px;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    background-color: #DDDDDD;
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FBFADA;
+}
+
+button.clicked {
+    background-color: #eeb211;
+}
+
+button:hover {
+    background-color: #eeb211;
+    /* Change the hover background color */
+}
+
+th {
+    background-color: #46166b;
+    color: white;
+    padding: 30px;
+    text-align: left;
+    margin-left: 200px;
+    border: 1px solid #fff;
+    /* Add 1px solid border */
+    text-align: left;
+    font-size: 1.3em;
+}
+
+td {
+    margin: 20px;
+    border: 1px solid #46166b;
+    /* Add 1px solid border */
+    text-align: left;
+    padding: 30px;
+    font-size: 1.3em;
+}
+
+label {
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+input ,select{
+    font-size: 1.4em;
+}

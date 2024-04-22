@@ -1,8 +1,18 @@
-
+.professorHomeContainer{
+  padding-top: 90px;
+  background-color: #E6E6FA;
+  height: 100vh;
+}
+main{
+  background-color: #fff;
+  padding: 40px;
+  margin: 30px;
+}
 .head-container{
   font-size: 2em;
   font-family: poppins;
-  padding : 20px 20px;
+  padding : 20px 35px;
+  font-weight: bold;
 
 }
 
@@ -10,11 +20,10 @@
   background-color: #46166b;
   border-radius: 10px;
   color: white;
-  padding: 60px 60px;
+  padding: 65px 65px;
   margin: 20px 20px;
   height: max-content;
 }
-
 
 .cards-container {
   position: relative;
@@ -23,38 +32,42 @@
   justify-content: space-around; 
   flex-wrap: wrap; 
 }
+
 .card {
-  background-color: #fff;
   width: 300px;
-  margin: 0 10px;
+  margin: 0px 10px;
   text-align: center;
   height: 120px;
   border-radius: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  cursor: pointer; /* Indicates the card is interactive */
 }
 
-.card img{
+
+.card img {
   display: block;
   margin-left: 20px;
   margin-right: 20px;
   width: 80px;
-  height :80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover; 
+  object-fit: cover;
 }
+
 
 h3.number {
   margin-top: 0;
-  font-size: 1.5em;
+  font-size: 1.6em;
   color: #000;
   font-weight: bold;
 }
 
 h3.title {
   margin-top: 0;
-  font-size: 1.1em;
+  font-size: 1.3em;
   color: #000;
   justify-content: center;
   align-items: center;
@@ -68,7 +81,6 @@ h3.title {
 .courses-container {
   display: flex;
   border-radius: 10px;
-  background-color: #DDDDDD;
   box-shadow: #000;
   flex-direction: column;
   padding: 10px 20px;
@@ -76,7 +88,6 @@ h3.title {
 .schedule-container {
   display: flex;
   border-radius: 10px;
-  background-color: #DDDDDD;
   box-shadow: #000;
   flex-direction: column;
   padding: 10px 20px;
@@ -85,10 +96,12 @@ h3.title {
 .my-courses-title,.my-schedule-title {
   margin: 0;
   padding: 0;
-  font-size: 2em;
+  font-size: 2.1em;
   font-family: poppins;
 }
-
+.my-schedule-title{
+  padding-bottom: 20px;
+}
 .search-courses {
   display: flex;
   margin: 0;
@@ -136,41 +149,52 @@ table {
   margin: 8px;
 }
 
-
+h2{
+  font-size: 1.7em;
+}
+p{
+  font-size: 1.5em;
+}
 th {
   background-color: #46166b;
   color: white;
   padding: 20px;
   text-align: left;
   margin-left: 200px;
-  border: 1px solid #000; /* Add 1px solid border */
   text-align: left;
+  font-size: 1.3em;
 }
 
 td {
   margin: 20px;
-  border: 1px solid #000; /* Add 1px solid border */
   text-align: left;
-  padding: 8px;
+  padding: 10px;
+  font-size: 1.2em;
+  border-left: 1px solid #ccc; /* Adds a border to the left side of each cell */
+  border-right: 1px solid #ccc; /* Adds a border to the right side of each cell */
 }
 tr:nth-child(even) {
-  background-color: #f5fcec;
+  background-color: #fff;
   color: black;
+  font-size: 1.1em;
 }
 
 tr:nth-child(even) .badge,
 tr:nth-child(even) .badge i {
-  background-color: #f5fcec; /* Or any other color you want for badges background */
+  background-color: #E6E6FA; /* Or any other color you want for badges background */
   color: black; /* Or any other color you want for badges text and icons */
 }
 
 tr:nth-child(odd) {
+
+  background-color: #E6E6FA;
   color: black;
+  font-size: 1.1em;
 }
 
 tr:nth-child(odd) .badge,
 tr:nth-child(odd) .badge i {
-  background-color: transparent; /* Or any other color you want for badges background */
+  background-color: #fff; /* Or any other color you want for badges background */
   color: black; /* Or any other color you want for badges text and icons */
 }
 

@@ -10,29 +10,24 @@
 
         </section>
         <section class="feature-section">
-            <div class="cards-container">
-              <!-- Cards -->
-              <div class="card">
-                <img src="/assets/icons/download.jpeg" alt="Feature 1">
-                <h3>Progress Tracking</h3>
-              </div>
-              <div class="card">
-                <img src="/assets/icons/remainders.jpeg" alt="Feature 1">
-                <h3>Remainders</h3>
-              </div>
-              <div class="card">
-                <img src="/assets/icons/leaderboards.svg" alt="Feature 1">
-                <h3>LeaderBoards</h3>
-              </div>
-              <div class="card">
-                <img src="/assets/icons/images.png" alt="Feature 1">
-                <h3>Personlized settings</h3>
-              </div>
-              <div class="card">
-                <img src="/assets/icons/journal.jpeg" alt="Feature 1">
-                <h3>My Journal</h3>
+          <div class="cards-container">
+
+            <div class="card" *ngFor="let feature of features" 
+            (click)="feature.flipped = !feature.flipped"
+            [ngStyle]="{'--hover-color': feature.color}" 
+            [class.flipped]="feature.flipped">
+              <div [class]="feature.flipped ? 'card-inner flipped' : 'card-inner'">
+                <div class="card-front">
+                  <img [src]="feature.icon" [alt]="feature.title">
+                  <h3>{{ feature.title }}</h3>
+                </div>
+                <div class="card-back" [style.backgroundColor]="feature.color">
+                  <p>{{ feature.description }}</p>
+                </div>
               </div>
             </div>
+          </div>
+          
             <div class="description-container">
                 <p>
                     Introducing LearnTracker: Your Fun Companion for Learning Adventures!

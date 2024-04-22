@@ -20,40 +20,25 @@
             </div>
         </section>
         <section class="cards">
-            <div class="cards-container">
-                <!-- Cards -->
-                <div class="card">
-                    <img class="ard-img-sm-left" src="/assets/icons/enrolled.svg" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number">{{noOfCoursesEnrolled}}</h3>
-                        <h3 class="title">Courses Enrolled</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/assets/icons/inProgress.svg" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number">{{noOfAssignmentsDue}}</h3>
-                        <h3 class="title">Assignments Due</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/assets/icons/inProgress.svg" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number">{{noOfExamsDue}}</h3>
-                        <h3 class="title">Exams Due</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/assets/icons/completed.svg" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number">{{noOfMilestones}}</h3>
-                        <h3 class="title">Milestones Completed</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <div class="cards-container">
+              <div class="card" [style.backgroundColor]="card.color" *ngFor="let card of cards">
+                  <img src="{{ card.icon }}" alt="{{ card.title }}">
+                  <div class="content">
+                      <h3 class="number">{{ card.number }}</h3>
+                      <h3 class="title">{{ card.title }}</h3>
+                  </div>
+              </div>
+          </div>
+          
+          
+      </section>
 
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    
+                </div>
+            </div>
             <div class="row">
                 <!-- Courses Container -->
                 <div class="col-md-6">
@@ -162,32 +147,38 @@
         </div>
         <div class="col-md-6">    
           <section class="available-courses">
-            <h2 class="available-courses-title">Available Courses</h2>
-            <div class="search-courses">
-                <input type="text" placeholder="Search courses" class="search-course-input" #searchInput>
-                <button class="btn btn-primary search-course-btn" (click)="searchCourses(searchInput.value)">Search</button>
-              </div>              
-            <table>
-              <thead>
-                <tr>
-                  <th>Course Code</th>
-                  <th>Course Name</th>
-                  <th>Professor</th>
-                  <th>Course Info</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let course of filteredCourses">
-                  <td>{{ course.courseCode }}</td>
-                  <td>{{ course.courseName }}</td>
-                  <td>{{ course.createdBy }}</td>
-                  <td>
-                    <button class="button btn-btn-secondary" (click)="openDialog(course)">Course Info</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+            <h2 class="available-courses-title" (click)="toggleCoursesVisibility()">
+                Available Courses
+                <i [ngClass]="{'fa fa-chevron-down': !coursesVisible, 'fa fa-chevron-up': coursesVisible}" style="float: right; cursor: pointer;"></i>
+            </h2>
+            <div *ngIf="coursesVisible">
+                <div class="search-courses">
+                    <input type="text" placeholder="Search courses" class="search-course-input" #searchInput>
+                    <button class="btn btn-primary search-course-btn" (click)="searchCourses(searchInput.value)">Search</button>
+                </div>              
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Professor</th>
+                            <th>Course Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let course of filteredCourses">
+                            <td>{{ course.courseCode }}</td>
+                            <td>{{ course.courseName }}</td>
+                            <td>{{ course.createdBy }}</td>
+                            <td>
+                                <button class="button btn-btn-secondary" (click)="openDialog(course)">Course Info</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
   </div>
         </div>
         </div>

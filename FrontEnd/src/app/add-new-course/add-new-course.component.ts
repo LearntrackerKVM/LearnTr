@@ -1,4 +1,4 @@
-import { BlockScrollStrategy } from '@angular/cdk/overlay';
+
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,6 @@ import { AnnouncementService } from '../services/announcement.service';
 import { AssignmentService } from '../services/assignment.service';
 import { CourseService } from '../services/course.service';
 import { ExamService } from '../services/exam.service';
-import { UserService } from '../services/user.service';
 
 
 export interface ClassSchedule {
@@ -56,6 +55,7 @@ export class AddNewCourseComponent {
     courseCode: '',
     semester: '',
     availableSlots: 0,
+    color:''
   };
   currentUser: any;
   schedules: CourseSchedule = {
@@ -124,8 +124,16 @@ export class AddNewCourseComponent {
   };
   noofMilestones : number = 0;
   milestone : boolean = false;
+  allCourses : any[] =[];
+  courseNameExists = false;
+  assignmentNameExists = false;
+  examNameExists = false;
+  backgroundColor: string = '#c4e7f7';
+  exams: any[] = []; 
+  assignments: any[] = [];
   
-  constructor(private courseService: CourseService, private datePipe: DatePipe, private examService: ExamService,private announcementService : AnnouncementService,private assignmentService : AssignmentService) {
+  constructor(private courseService: CourseService, private datePipe: DatePipe, private examService: ExamService,private announcementService : AnnouncementService,
+    private assignmentService : AssignmentService) {
     const currentUserString = sessionStorage.getItem('currentUser');
     if (currentUserString) {
       this.currentUser = JSON.parse(currentUserString);
@@ -135,6 +143,7 @@ export class AddNewCourseComponent {
       this.announcement.createdBy = this.currentUser.userName
     }
     this.loadAllCourses();
+    this.getAllCourses();
   }
   loadAllCourses(): void {
     this.courseService.getCoursesByprofessorId(this.currentUser.id).subscribe(
@@ -174,11 +183,102 @@ export class AddNewCourseComponent {
     }
   }
   
-  // getAllCourses() {
-  //   this.courseService.getAllCourses().subscribe((course) => {
-  //     this.courses = course;
-  //   })
-  // }
+  getAllCourses() {
+    this.courseService.getAllCourses().subscribe((courses) => {
+      this.allCourses = courses.map(course => course.courseName);
+    })
+  }
+
+  isCourseNameExists(name: string) {
+    this.courseNameExists = this.allCourses.includes(name); 
+  }
+
+  isAssignmentNameExists(name: string) {
+    this.assignmentNameExists = this.assignments.some(assignment =>
+      assignment.assignmentName.toLowerCase() === name.toLowerCase());
+  }
+  isExamNameExists(name: string){
+    this.examNameExists = this.exams.some(exam =>
+      exam.examName.toLowerCase() === name.toLowerCase());
+  }
+  onExamCourseChange() {
+    const course = this.courses.find((c: Course) => c.courseName === this.exam.courseName);
+    if (course !== undefined && course !== null) {
+      this.exam.courseCode = course.courseCode;
+      this.exam.courseId = course.courseId
+    }
+ this.exam.examNumber = 0;
+
+    this.getExams(this.exam.courseId);
+  }
+  getExams(courseId: string): void {
+    this.examService.getExamsByCourseId(courseId).subscribe({
+      next: (exams) => {
+        this.exams = exams.map(ex => ex.examName);
+        this.setNextExamNumber(exams);
+      },
+      error: (err) => console.error('Error fetching exams:', err)
+    });
+  }
+  setNextExamNumber(exams: any[]): void {
+    const existingNumbers = exams.map(ex => ex.examNumber).filter(n => !isNaN(n)).map(Number).sort((a, b) => a - b);
+    const maxExamNumber = existingNumbers.length > 0 ? existingNumbers[existingNumbers.length - 1] : 0;
+    
+    // Calculate the next exam number
+    let nextNumber = 1;
+    for (let i = 1; i <= maxExamNumber + 1; i++) {
+      if (!existingNumbers.includes(i)) {
+        nextNumber = i;
+        break;
+      }
+    }
+  
+    this.exam.examNumber = nextNumber;
+  }
+  
+  onCourseChange(){
+    const course = this.courses.find((c: Course) => c.courseName === this.assignment.courseName);
+    if (course !== undefined && course !== null) {
+      this.assignment.courseName = course.courseName;
+      this.assignment.courseId = course.courseId
+    }
+    this.assignment.assignmentNumber = ''
+    this.assignment.assignmentName = ''
+    this.getAllAssignments(this.assignment.courseId);
+   
+  }
+  getAllAssignments(courseId: string): void {
+  this.assignmentService.getAssignmentsByCourseId(courseId).subscribe((data)=>{
+    this.assignments = data;
+    this.getNextAssignmentNumber();
+  })
+    
+  }
+  getNextAssignmentNumber() {
+    const course = this.courses.find((c: { courseName: string; totalAssignments: number }) => c.courseName === this.assignment.courseName);
+    if (!course) return;  // Ensure the course is selected
+  
+    const maxAssignments = course.noOfAssignments;  // The total number of assignments expected
+    const existingNumbers = this.assignments.map(a => a.assignmentNumber).filter(n => !isNaN(n)).map(Number);
+    
+    // Check if there are no assignments added yet and maxAssignments is 1
+    if (existingNumbers.length === 0 && maxAssignments === 1) {
+      this.assignment.assignmentNumber = '1'; // Directly set to 1 if no assignments are present
+      return;
+    }
+    
+    // Find the smallest number from 1 to maxAssignments not in existingNumbers
+    for (let i = 1; i <= maxAssignments; i++) {
+      if (!existingNumbers.includes(i)) {
+        this.assignment.assignmentNumber = i.toString();
+        return;
+      }
+    }
+    
+    // If all numbers are taken, maybe clear the field or set it to some default value
+    this.assignment.assignmentNumber = '';  // No available numbers
+  }
+  
   formatTimeForJavaSqlTime(timeString: string): string {
     const [hours, minutes] = timeString.split(':');
 
@@ -238,7 +338,8 @@ export class AddNewCourseComponent {
       schedules: [],
       semester: '',
       courseCode: '',
-      availableSlots: 0
+      availableSlots: 0,
+      color : ''
     }; // Assuming Course is a class representing your course model
     this.classSchedules = []; // Clear class schedules array
     this.isSubmit = false; // Reset submit flag
@@ -275,8 +376,22 @@ export class AddNewCourseComponent {
     this.milestone = false;
     this.activeButton = buttonName;
     this.moveSlider(event.target);
+    if (['Courses', 'Assignments', 'Exams', 'Announcements'].includes(buttonName)) {
+      this.changeBodyColor(buttonName as 'Courses' | 'Assignments' | 'Exams' | 'Announcements');
+    } else {
+      console.error('Invalid button name');
+    }
   }
 
+  changeBodyColor(buttonName: 'Courses' | 'Assignments' | 'Exams' | 'Announcements') {
+    const colorMap: Record<'Courses' | 'Assignments' | 'Exams' | 'Announcements', string> = {
+      'Courses': '#c4e7f7',
+      'Assignments': '#E6E6FA',
+      'Exams': '#FADADD',
+      'Announcements': '#FFDAB9'
+    };
+    this.backgroundColor = colorMap[buttonName];
+  }
   moveSlider(button: HTMLElement) {
     const sliderWidth = button.offsetWidth;
     const sliderOffset = button.offsetLeft;
@@ -328,26 +443,10 @@ export class AddNewCourseComponent {
       error: (error) => {
         this.isSubmit = true;
         this.success = false;
-        this.message = 'Failed to create course';
+        this.message = 'Failed to create exam';
         console.error('There was an error:', error);
       }
     });
-  }
-  onExamCourseChange() {
-    const course = this.courses.find((c: Course) => c.courseName === this.exam.courseName);
-    if (course !== undefined && course !== null) {
-      this.exam.courseCode = course.courseCode;
-      this.exam.courseId = course.courseId
-    }
-
-  }
-  onCourseChange(){
-    const course = this.courses.find((c: Course) => c.courseName === this.assignment.courseName);
-    if (course !== undefined && course !== null) {
-      this.assignment.courseName = course.courseName;
-      this.assignment.courseId = course.courseId
-    }
-
   }
 
   createNewAnnouncement(){
@@ -369,7 +468,7 @@ this.announcement.visibility = visibilityArray;
       error: (error) => {
         this.isSubmit = true;
         this.success = false;
-        this.message = 'Failed to create course';
+        this.message = 'Failed to create Announcement';
         console.error('There was an error:', error);
       }
     });
@@ -400,7 +499,7 @@ this.announcement.visibility = visibilityArray;
     error: (error) => {
       this.isSubmit = true;
       this.success = false;
-      this.message = 'Failed to create course';
+      this.message = 'Failed to create Assignment';
       console.error('There was an error:', error);
     }
   });

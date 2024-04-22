@@ -1,14 +1,20 @@
 <div *ngIf="isLoggedIn">
     <div class="navbar-container student" *ngIf="student">
         <div class="brand">
-            <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo">
+            <img class="ard-img-sm-left profilelogo" src="/assets/img/brand.png" alt="Brand Logo">
         </div>
         <div class="nav-items">
             <div class="nav-item">
                 <a href="courses">Home</a>
             </div>
             <div class="nav-item">
+                <a href="studentcourses">Student Courses</a>
+            </div>
+            <!-- <div class="nav-item">
                 <a href="tasks">Tasks</a>
+            </div> -->
+            <div class="nav-item">
+                <a href="notebook">Notebook</a>
             </div>
             <div class="nav-item">
                 <a href="yourfriends">My Friends</a>
@@ -25,10 +31,18 @@
             <div class="nav-item">
                 <a href="myjournal">My Journal</a>
             </div>
-
+            <div class="nav-item">
+                <a href="notifications"><i class="fa fa-bell"></i></a>
+            </div>
             <div class="profile-dropdown">
                 <div class="profile-icon">
-                    <img src="assets/icons/user.png" alt="Profile Icon">
+                    <div class="profile-picture">
+                        <!-- Display the user's profile picture if the user object is defined and has a profilePicture -->
+                        <img *ngIf="user?.profilePicture" [src]="'data:image/jpeg;base64,' + user.profilePicture" alt="Profile Picture">
+                        <i *ngIf="!user || user?.profilePicture == undefined ||  user?.profilePicture == null || user?.profilePicture == ''"  class="fa-solid fa-user" style="color: white;"></i>
+
+                    </div>
+                    
                 </div>
                 <div class="dropdown-content">
                     <ul>
@@ -43,7 +57,7 @@
     </div>
     <div class="navbar-container Professor" *ngIf="!student">
         <div class="brand">
-             <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo">
+            <img class="ard-img-sm-left profilelogo" src="/assets/img/brand.png" alt="Brand Logo">
         </div>
         <div class="nav-items">
             <div class="nav-item">
@@ -56,7 +70,7 @@
                 <a href="studentList">Student List</a>
             </div>
             <div class="nav-item">
-                <a href="yourfriends">Assignments</a>
+                <a href="professortasks">Assignments</a>
             </div>
             <div class="nav-item">
                 <a href="studentQuestions">Student Queries</a>
@@ -64,7 +78,13 @@
 
             <div class="profile-dropdown">
                 <div class="profile-icon">
-                    <img src="assets/icons/user.png" alt="Profile Icon">
+                    <div class="profile-picture">
+                        <!-- Display the user's profile picture if the user object is defined and has a profilePicture -->
+                        <img *ngIf="user?.profilePicture" [src]="'data:image/jpeg;base64,' + user.profilePicture" alt="Profile Picture">
+                    
+                        <i *ngIf="!user || !user?.profilePicture || user?.profilePicture == ''"  class="fa-solid fa-user" style="color: white;"></i>
+
+                    </div>
                 </div>
                 <div class="dropdown-content">
                     <ul>
@@ -81,12 +101,13 @@
 <div *ngIf="!isLoggedIn">
     <div class="navbar-container">
         <div class="brand">
-            <a href="#"> <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo"></a>
+            <img class="ard-img-sm-left profilelogo" src="/assets/img/logo-png.png" alt="Brand Logo">
         </div>
         <div class="nav-items">
             <div class="nav-item">
-                <button class="btn btn-primary gtstartedwithus" (click)="navigatetologin()">Get Started with us!</button>
+                <button class="btn btn-primary gtstartedwithus" (click)="navigatetologin()">Get Started with
+                    us!</button>
             </div>
+        </div>
     </div>
-</div>
 </div>

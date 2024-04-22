@@ -27,7 +27,7 @@ public class TaskMilestonesController {
 	    }
 	   @GetMapping("/getNoOfMilestones/{studentId}")
 	    public ResponseEntity<Long> getNoOfMilestonesForStudent(@PathVariable String studentId) {
-	        long numberOfCourses = taskMilestonesService.countMilestonesForStudent(studentId);
+	        long numberOfCourses = taskMilestonesService.countCompletedMilestonesForStudent(studentId);
 	        return ResponseEntity.ok(numberOfCourses);
 	    }
 	   
@@ -60,5 +60,6 @@ public class TaskMilestonesController {
 	       
 	       return ResponseEntity.ok(milestoneUserInfos);
 	   }
+	   
 
 }

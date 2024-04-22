@@ -1,0 +1,29 @@
+.popup-notification {
+    position: fixed; /* Fixed position to stay in place during scrolling */
+    top: 50%; /* Position the top edge of the element at the middle of the page vertically */
+    left: 50%; /* Position the left edge of the element at the middle of the page horizontally */
+    transform: translate(-50%, -50%); /* Shift the element back by half its own width and height to center it */
+    background-color: #46166b; /* Background color */
+    padding: 20px; /* Padding around the text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A light shadow for better visibility */
+    z-index: 1000; /* Ensure it's above most other elements */
+    border-radius: 8px; /* Optional: rounded corners for aesthetics */
+    text-align: center; /* Ensure the text is centered within the popup */
+    width: auto; /* Automatic width based on content size */
+    max-width: 80%; /* Maximum width to avoid overly wide notifications */
+    box-sizing: border-box; /* Include padding and border in the element's size */
+    font-size: 1.3em;
+     color: white;
+     font-family: poppins;
+}
+
+/* Optional: Animations for appearing and disappearing */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.popup-notification {
+    animation: fadeIn 0.5s; /* Apply the fadeIn animation */
+}
+

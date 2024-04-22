@@ -1,5 +1,8 @@
 @import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+@import '@fortawesome/fontawesome-free/css/all.css';
 body {
-    background-color: #f5fcec; /* Set the desired background color */
+    background-color: #fff; /* Set the desired background color */
   }
   
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

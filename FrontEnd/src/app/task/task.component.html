@@ -1,0 +1,68 @@
+<body>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="filterType">Task Type:</label>
+          <select id="filterType" class="form-control" [(ngModel)]="filterType">
+            <option value="">All Types</option>
+            <option value="Assignment">Assignment</option>
+            <option value="Exam">Exam</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="filterDueDate">Due Date:</label>
+          <input id="filterDueDate" type="date" class="form-control" [(ngModel)]="filterDueDate">
+        </div>
+        <div class="col">
+          <label for="filterCourse">Course:</label>
+          <select id="filterCourse" class="form-control" [(ngModel)]="selectedCourseId">
+            <option value="">All Courses</option>
+            <option *ngFor="let course of myCourses" [value]="course.courseId">{{ course.courseName }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <button class="btn" (click)="applyFilters()">Apply Filters</button>
+  
+        </div>
+        <div class="col">
+        <button class="btn" (click)="resetFilters()">Reset</button>
+        </div>
+      </div>
+      
+  
+    <table class="table">
+        <th scope="col">Task Name</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">No of Milestones</th>
+        <th scope="col">Status</th>
+        <!-- <th scope="col">Difficulty Level</th> -->
+        <th scope="col">Manage</th>
+      <tbody>
+
+
+  
+  
+  
+        <tr *ngFor="let task of filteredTasks">
+            <td>{{ task.title }}</td>
+            <td>{{ task.courseName }}</td>
+            <td>{{ task.taskType }}</td>
+            <td>{{ task.dueDate }}</td>
+            <td>{{ task.milestones }}</td>
+            <td>{{ task.status }}</td>
+            <!-- <td>{{ task.difficultyLevel }}</td> -->
+            <td>
+              <button class="btn btn-primary" (click)="manageTask(task)">Manage</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+
+
+  

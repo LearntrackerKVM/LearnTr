@@ -1,3 +1,146 @@
-<app-scheduler></app-scheduler>
+<body>
+    <div class="main-container">
+        <div class="head-container">
+            <h1>{{createdBy.firstName}} {{createdBy.lastName}}'s Journal</h1>
+            <hr />
+        </div>
+
+        <div class="date-container">
+            <div class="date-date">{{ today | date:'d' }}</div>
+            <div class="date-info">
+                <span>{{ today | date:'EEEE' }}</span>
+                <span>{{ today | date:'MMMM y' }}</span>
+            </div>
+
+        </div>
+        <div class="save-container">
+            <div *ngIf="success" style="color: green;">
+                <p>Saved successfully</p>
+            </div>
+            <button class="save-button" (click)="saveJournalEntry(todayJournal)">Save</button>
+        </div>
+
+        <div class="entry-container">
+            <div class="entry-column priorities-todo">
+                <h2 style="background-color: #F5DEDE;">Top Priorities</h2>
+                <div class="button-container">
+                    <button style="background-color: #F5DEDE;" (click)="addPriority()">+</button>
+                </div>
+                <div>
+                    <ul>
+                        <li *ngFor="let priority of todayJournal.priorities; let i = index; trackBy: trackByIndex">
+                            <input type="text" [(ngModel)]="todayJournal.priorities[i]" name="priority{{i}}"
+                                class="styled-input">
+                        </li>
+                    </ul>
+
+                    <h2 style="background-color: #B0E0E6;">To-Do List</h2>
+                    <div class="button-container">
+                        <button style="background-color: #B0E0E6;" (click)="addTodo()">+</button>
+                    </div>
+                    <ul>
+                        <li *ngFor="let todo of todayJournal.tasks; let i = index; trackBy: trackByIndex">
+                            <input type="text" [(ngModel)]="todayJournal.tasks[i]" name="todo{{i}}"
+                                class="styled-input">
+                        </li>
+                    </ul>
 
 
+                </div>
+                <div class="mood">
+                    <h2 style="background-color: #E0E0F8;">Mood for the Day</h2>
+                    <div class="icon-container">
+                        <i class="far fa-frown sad" [ngClass]="{'active': todayJournal.morningMood === 'sad'}"
+                            (click)="setMood('sad', 'morning')"></i>
+                        <i class="far fa-meh neutral" [ngClass]="{'active': todayJournal.morningMood === 'neutral'}"
+                            (click)="setMood('neutral', 'morning')"></i>
+                        <i class="far fa-smile happy" [ngClass]="{'active': todayJournal.morningMood === 'happy'}"
+                            (click)="setMood('happy', 'morning')"></i>
+                    </div>
+                </div>
+
+                <!-- Mood for the Night -->
+                <div class="mood">
+                    <h2 style="background-color: #DFF0D8;">Mood for the Night</h2>
+                    <div class="icon-container">
+                        <i class="far fa-frown sad" [ngClass]="{'active': todayJournal.nightMood === 'sad'}"
+                            (click)="setMood('sad', 'night')"></i>
+                        <i class="far fa-meh neutral" [ngClass]="{'active': todayJournal.nightMood === 'neutral'}"
+                            (click)="setMood('neutral', 'night')"></i>
+                        <i class="far fa-smile happy" [ngClass]="{'active': todayJournal.nightMood === 'happy'}"
+                            (click)="setMood('happy', 'night')"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="entry-column">
+                <div class="day-notes">
+                    <h2 style="background-color: #FFE4B5;">Notes for the Day</h2>
+                    <textarea class="styled-textarea" [(ngModel)]="todayJournal.notes" name="notes"
+                        placeholder="Thoughts for the day..."></textarea>
+                </div>
+                <div class="night-journal">
+                    <h2 style="background-color: #D3D3D3;">Night Journal</h2>
+                    <textarea class="styled-textarea" [(ngModel)]="todayJournal.nightDiary" name="nightDiary"
+                        placeholder="Thoughts for the night..."></textarea>
+                </div>
+            </div>
+
+
+            <div class="entry-column habit-editor" style="padding: 20px; font-size: 16px;">
+                <div class="color-container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="color" [(ngModel)]="todayJournal.colorForTheDay" (change)="colorChanged($event)" value="magenta">
+                        </div>
+                        <div class="col-md-10">
+                            <p style="font-size:1.2em">Selected Color of the Day: {{ todayJournal.colorForTheDay }}</p>
+                        </div>
+                    </div>
+                
+                  
+                </div>
+             
+
+                <h2 style="background-color: #F5F5DC;">Habit Tracker</h2>
+                <ul>
+                    <li *ngFor="let habit of todayJournal.habits; let i = index">
+                        <input type="checkbox" [(ngModel)]="habit.completed" [name]="'completed' + i"
+                            (ngModelChange)="toggleHabitCompletion(habit, i)">
+                        {{ habit.name }}
+                    </li>
+                </ul>
+
+
+
+                <h2 style="background-color: #D8BFD8;">Your Habits</h2>
+                <ul>
+                    <li *ngFor="let habit of todayJournal.habits; let i = index">
+                        <span>{{ habit.name }}</span>
+                        <span class="delete-icon" (click)="deleteHabit(i)"><i class="far fa-trash-alt"></i></span>
+                    </li>
+                </ul>
+
+                <form (ngSubmit)="addHabit()">
+                    <input type="text" placeholder="New Habit" [(ngModel)]="newHabitName" name="newHabitName" required
+                        style="padding: 5px; font-size: 16px;">
+                    <button type="submit">Add</button>
+                </form>
+
+                <div class="important-day-container">
+                    <h2 style="background-color: #cb9a9a;">Important Day</h2>
+                    <!-- Important Day Checkbox -->
+                    <label>
+                        <input type="checkbox" [(ngModel)]="todayJournal.importantDay" name="importantDay">
+                        <span>Is this an important day?</span>
+                    </label>
+                    <input type="text" [(ngModel)]="todayJournal.importantDayDescription" name="importantDayDescription"
+                        placeholder="Why is it important?" *ngIf="todayJournal.importantDay">
+                </div>
+            </div>
+
+        </div>
+        <div class="calender-container">
+            <app-scheduler></app-scheduler>
+        </div>
+    </div>
+</body>

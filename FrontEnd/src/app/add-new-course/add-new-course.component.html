@@ -1,241 +1,276 @@
-<div class="button-container" #buttonContainer>
-  <div class="slider-background">
-    <div class="slider" [ngStyle]="sliderStyle"></div>
-  </div>
-  <button class="button" [ngClass]="{'active': activeButton === 'Courses'}"
-    (click)="setActive('Courses', $event)">Courses</button>
-  <button class="button" [ngClass]="{'active': activeButton === 'Assignments'}"
-    (click)="setActive('Assignments', $event)">Assignments</button>
-  <button class="button" [ngClass]="{'active': activeButton === 'Exams'}"
-    (click)="setActive('Exams', $event)">Exams</button>
-  <button class="button" [ngClass]="{'active': activeButton === 'Annocuments'}"
-    (click)="setActive('Annocuments', $event)">Annocuments</button>
-</div>
-<div class="status-container" *ngIf="isSubmit" [class.success]="success">
-  {{ message }}
-</div>
-<div class="course-container" *ngIf="activeButton == 'Courses'">
-  <h2>Course Registration</h2>
-  <form>
-    <div class="form-group">
-      <label for="courseName">Course Name</label>
-      <input required type="text" class="form-control" id="courseName" placeholder="Enter course name"
-        [(ngModel)]="course.courseName" name="courseName">
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea class="form-control" id="description" rows="3" placeholder="Enter description"
-        [(ngModel)]="course.courseDescription" name="description"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="professor">Professor</label>
-      <input required type="text" class="form-control" id="professor" placeholder="Enter professor's name"
-        [(ngModel)]="course.createdBy" name="professor" disabled>
-    </div>
-    <div class="form-group">
-      <label for="startDate">Start Date</label>
-      <input required type="date" class="form-control" id="startDate" [(ngModel)]="course.startDate" name="startDate">
-    </div>
-    <div class="form-group">
-      <label for="endDate">End Date</label>
-      <input required type="date" class="form-control" id="endDate" [(ngModel)]="course.endDate" name="endDate">
-    </div>
-    <div class="form-group">
-      <label for="assignments">Number of Assignments</label>
-      <input required type="number" class="form-control" id="assignments" placeholder="Enter number of assignments"
-        [(ngModel)]="course.noOfAssignments" name="assignments">
-    </div>
-    <div class="form-group">
-      <label for="exams">Total Number of Exams</label>
-      <input required type="number" class="form-control" id="exams" placeholder="Enter total number of exams"
-        [(ngModel)]="course.noOfExams" name="exams">
-    </div>
-    <div class="form-group">
-      <label for="capacity">Total Capacity of Students</label>
-      <input required type="number" class="form-control" id="capacity" placeholder="Enter total capacity of students"
-        [(ngModel)]="course.capacity" name="capacity">
-    </div>
-    <div class="form-group">
-      <label for="schedule">Semester</label>
-      <div class="class-schedule">
-        <select [(ngModel)]="course.semester" name="semester">
-          <option value="Spring">Spring</option>
-          <option value="Fall">Fall</option>
-          <option value="Summer">Summer</option>
-          <option value="Winter">Winter</option>
-        </select>
-
+<body>
+  <div class="mainContainer" [style.background-color]="backgroundColor" style="height: 100vh">
+    <div class="button-container" #buttonContainer>
+      <div class="slider-background">
+        <div class="slider" [ngStyle]="sliderStyle"></div>
       </div>
+      <button class="button" [ngClass]="{'active': activeButton === 'Courses', 'bg-courses': true}"
+        (click)="setActive('Courses', $event)">Courses</button>
+      <button class="button" [ngClass]="{'active': activeButton === 'Assignments', 'bg-assignments': true}"
+        (click)="setActive('Assignments', $event)">Assignments</button>
+      <button class="button" [ngClass]="{'active': activeButton === 'Exams', 'bg-exams': true}"
+        (click)="setActive('Exams', $event)">Exams</button>
+      <button class="button" [ngClass]="{'active': activeButton === 'Announcements', 'bg-announcements': true}"
+        (click)="setActive('Announcements', $event)">Announcements</button>  
     </div>
-
-    <div class="form-group">
-      <label for="schedule">Class Schedule</label>
-      <p> Please add Class Schedule </p>
-      <div class="class-schedule" *ngFor="let schedule of classSchedules; let i = index;">
-        <select [(ngModel)]="schedule.dayOfWeek" name="dayOfWeek-{{i}}">
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
-        </select>
-
-        <input required type="time" [(ngModel)]="schedule.startTime" name="startTime-{{i}}">
-        <input required type="time" [(ngModel)]="schedule.endTime" name="endTime-{{i}}">
-
-        <button type="button" (click)="removeSchedule(i)">Remove</button>
-      </div>
-    </div>
-
-    <div class="row buttonrow">
-      <button type="button" class="scheduleButton" (click)="addSchedule()">Add Schedule</button>
-    </div>
-    <div class="row buttonrowsubmit">
-      <button type="submit" class="btn btn-primary submitButton" (click)="createNewCourse()">Submit</button>
-    </div>
-  </form>
-
-</div>
-<div class="assignment-container" *ngIf="activeButton == 'Assignments'">
-  <h2>Assignment</h2>
-  <form (ngSubmit)="addNewAssignment()">
-    <div class="form-group">
-      <label for="courseName">Course Name</label>
-      <select class="form-control" id="courseName" [(ngModel)]="assignment.courseName" name="courseName"
-        (change)="onCourseChange()">
-        <option *ngFor="let course of courses" [value]="course.courseName">{{course.courseName}}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="assignmentNumber">Assignment Number</label>
-      <input required type="text" class="form-control" id="assignmentNumber"
-        [(ngModel)]="assignment.assignmentNumber" name="assignmentNumber" (change)="onAssignmentChange()">
-    </div>
-    <div class="form-group">
-      <label for="assignmentName">Assignment Name</label>
-      <input required type="text" class="form-control" id="assignmentName"
-        [(ngModel)]="assignment.assignmentName" name="assignmentName">
-    </div>
-    <div class="form-group">
-      <label for="dueDate">Due Date</label>
-      <input required type="date" class="form-control" id="dueDate" [(ngModel)]="assignment.dueDate"
-        name="dueDate">
-    </div>
-    <div class="form-group">
-      <label for="file">Upload File</label>
-      <input type="file" class="form-control-file" id="file" (change)="onFileChange($event)" accept=".pdf, .doc, .docx">
-    </div>
-  `
-    <span *ngIf="milestone">{{noofMilestones}} milestones will be created for students</span>
-    <div class="row buttonrowsubmit">
-      <button type="submit" class="btn btn-primary submitButton">Submit</button>
-    </div>
-  </form>
-</div>
-
-
-<div class="exam-container" *ngIf="activeButton == 'Exams'">
-  <h2>Exam</h2>
-  <form>
-    <div class="form-group">
-      <label for="courseName">Course Name</label>
-      <select class="form-control" id="courseName" [(ngModel)]="exam.courseName" (change)="onExamCourseChange()"
-        name="courseName">
-        <option *ngFor="let course of courses" [value]="course.courseName">{{course.courseName}}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="examNumber">Exam Number:</label>
-      <input required type="text" id="examNumber" name="examNumber" [(ngModel)]="exam.examNumber" required>
-    </div>
-    <div class="form-group">
-      <label for="examName">Exam Name:</label>
-      <input required type="text" id="examName" name="examName" [(ngModel)]="exam.examName" required>
-    </div>
-    <div class="form-group">
-      <label for="examDate">Exam Date:</label>
-      <input required type="date" id="examDate" name="examDate" [(ngModel)]="exam.examDate" required>
-    </div>
-    <div class="form-group">
-      <label for="examTime">Exam Time:</label>
-      <input required type="time" id="examTime" name="examTime" [(ngModel)]="exam.examTime" required>
-    </div>
-    <div class="form-group">
-      <label for="examRoom">Exam Room:</label>
-      <input required type="text" id="examRoom" name="examRoom" [(ngModel)]="exam.roomNumber" required>
-    </div>
-
-    <div class="form-group" *ngFor="let module of exam.syllabus; let i = index; trackBy: trackByIndex">
-      <label for="syllabusModule{{i}}">Syllabus Module {{i + 1}}:</label>
-      <input type="text" class="form-control" [id]="'syllabusModule' + i" [(ngModel)]="exam.syllabus[i]"
-        name="syllabusModule{{i}}">
-    </div>
-    <span *ngIf="milestone">{{noofMilestones}} milestones will be created for students</span>
     
-
-    <button type="button" class="btn btn-secondary" (click)="addSyllabusModule()">Add Module</button>
-
-    <div class="row buttonrowsubmit">
-      <button type="button" class="btn btn-primary submitButton" (click)="createNewExam()">Submit</button>
+    <div class="status-container" *ngIf="isSubmit" [class.success]="success">
+      {{ message }}
     </div>
-  </form>
-
-</div>
-
-<div class="annocuments-container" *ngIf="activeButton == 'Annocuments'">
-  <h2>Announcements</h2>
-  <!-- <div *ngFor="let announcement of announcements" class="alert alert-info">
-          <h4>{{ announcement.title }}</h4>
-          <p>{{ announcement.content }}</p>
-          <span class="text-muted">- {{ announcement.date | date }}</span>
-        </div> -->
-
-  <!-- Add Announcement Form -->
-  <form (ngSubmit)="addAnnouncement()">
-    <div class="form-group">
-      <label for="announcementTitle">Title</label>
-      <input required type="text" class="form-control" id="announcementTitle" [(ngModel)]="announcement.title"
-        name="title" required>
-    </div>
-    <div class="form-group">
-      <label for="announcementDescription">Description</label>
-      <textarea class="form-control" id="announcementDescription" rows="3" [(ngModel)]="announcement.description"
-        name="description" required></textarea>
-    </div>
-    <div class="form-group">
-      <label for="createdBy">Created By</label>
-      <input required type="text" class="form-control" id="createdBy" [(ngModel)]="announcement.createdBy"
-        name="createdBy" required disabled>
-    </div>
-    <div class="form-group">
-      <label for="priorityName">Priority Name</label>
-      <select class="form-control" id="priorityName" [(ngModel)]="announcement.priorityName" name="priorityName"
-        required>
-        <option *ngFor="let priority of priorityOptions" [value]="priority.name">{{ priority.name }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Visibility</label><br>
-      <p>This announcement will be displayed to all students enrolled in the selected courses below.</p>
-      <div *ngFor="let course of courses">
-        <input type="checkbox" id="{{course.courseId}}" name="visibility" [ngModel]="isSelected(course)" (change)="toggleSelection($event, course)">
-
-        <label for="{{course.courseId}}">{{ course.courseName }}</label><br>
+    <div class="course-container" *ngIf="activeButton == 'Courses'">
+      <h2>Course Registration</h2>
+      <form #courseForm="ngForm" (ngSubmit)="createNewCourse()">
+        <div class="form-group">
+          <label for="courseName">Course Name</label>
+          <input required type="text" class="form-control" id="courseName" placeholder="Enter course name"
+            [(ngModel)]="course.courseName" (ngModelChange)="isCourseNameExists($event)" name="courseName">
+        </div>
+        <div *ngIf="courseNameExists" class="alert alert-danger">
+          This course name already exists. Please choose another name.
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" rows="3" placeholder="Enter description"
+            [(ngModel)]="course.courseDescription" name="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="professor">Professor</label>
+          <input required type="text" class="form-control" id="professor" placeholder="Enter professor's name"
+            [(ngModel)]="course.createdBy" name="professor" disabled>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="startDate">Start Date</label>
+              <input required type="date" class="form-control" id="startDate" [(ngModel)]="course.startDate" name="startDate">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="endDate">End Date</label>
+              <input required type="date" class="form-control" id="endDate" [(ngModel)]="course.endDate" name="endDate">
+            </div>
+          </div>
+         
+        
+        </div>
+     <div class="row">
+       <div class="col-md-4">
+        <div class="form-group">
+          <label for="assignments">Number of Assignments</label>
+          <input required type="number" class="form-control" id="assignments" placeholder="Enter number of assignments"
+            [(ngModel)]="course.noOfAssignments" name="assignments">
+        </div>
+       </div>
+       <div class="col-md-4">
+        <div class="form-group">
+          <label for="exams">Total Number of Exams</label>
+          <input required type="number" class="form-control" id="exams" placeholder="Enter total number of exams"
+            [(ngModel)]="course.noOfExams" name="exams">
+        </div>
       </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="capacity">Total Capacity of Students</label>
+          <input required type="number" class="form-control" id="capacity" placeholder="Enter total capacity of students"
+            [(ngModel)]="course.capacity" name="capacity">
+        </div>
+      </div>
+     </div>
+   
+     
+    
+        <div class="form-group">
+          <label for="schedule">Semester</label>
+          <div class="class-schedule">
+            <select [(ngModel)]="course.semester" name="semester">
+              <option value="Spring">Spring</option>
+              <option value="Fall">Fall</option>
+              <option value="Summer">Summer</option>
+              <option value="Winter">Winter</option>
+            </select>
+    
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="schedule">Class Schedule</label>
+          <p> Please add Class Schedule </p>
+          <div class="class-schedule" *ngFor="let schedule of classSchedules; let i = index;">
+            <select [(ngModel)]="schedule.dayOfWeek" name="dayOfWeek-{{i}}">
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+    
+            <input required type="time" [(ngModel)]="schedule.startTime" name="startTime-{{i}}">
+            <input required type="time" [(ngModel)]="schedule.endTime" name="endTime-{{i}}">
+    
+            <button type="button" (click)="removeSchedule(i)">Remove</button>
+          </div>
+        </div>
+    
+        <div class="row buttonrow">
+          <button type="button" class="scheduleButton" (click)="addSchedule()">Add Schedule</button>
+        </div>
+        <div class="row buttonrowsubmit">
+          <button type="submit" class="btn btn-primary submitButton" [disabled]="!courseForm.valid || courseNameExists">Submit</button>
+        </div>
+      </form>
+    
     </div>
-
-
-
-
-    <div class="form-group">
-      <label for="attachmentLink">Attachment Link</label>
-      <input required type="text" class="form-control" id="attachmentLink" [(ngModel)]="announcement.attachmentLink"
-        name="attachmentLink" required>
+    <div class="assignment-container" *ngIf="activeButton == 'Assignments'">
+      <h2>Assignment</h2>
+      <form #assignmentForm="ngForm" (ngSubmit)="addNewAssignment()">
+        <div class="form-group">
+          <label for="courseName">Course Name</label>
+          <select class="form-control" id="courseName" [(ngModel)]="assignment.courseName" name="courseName"
+            (change)="onCourseChange()" >
+            <option *ngFor="let course of courses" [value]="course.courseName">{{course.courseName}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="assignmentNumber">Assignment Number</label>
+          <input required type="text" class="form-control" id="assignmentNumber"
+            [(ngModel)]="assignment.assignmentNumber" name="assignmentNumber" (change)="onAssignmentChange()">
+        </div>
+        <div class="form-group">
+          <label for="assignmentName">Assignment Name</label>
+          <input required type="text" class="form-control" id="assignmentName"
+            [(ngModel)]="assignment.assignmentName" name="assignmentName" (ngModelChange)="isAssignmentNameExists($event)">
+        </div>
+        <div *ngIf="assignmentNameExists" class="alert alert-danger">
+          This Assignment name already exists. Please choose another name.
+        </div>
+        <div class="form-group">
+          <label for="dueDate">Due Date</label>
+          <input required type="date" class="form-control" id="dueDate" [(ngModel)]="assignment.dueDate"
+            name="dueDate">
+        </div>
+        <div class="form-group">
+          <label for="file">Upload File</label>
+          <input type="file" class="form-control-file" id="file" (change)="onFileChange($event)" accept=".pdf, .doc, .docx">
+        </div>
+      `
+        <span *ngIf="milestone">{{noofMilestones}} milestones will be created for students</span>
+        <div class="row buttonrowsubmit">
+          <button type="submit" class="btn btn-primary submitButton" [disabled]="!assignmentForm.valid || assignmentNameExists">Submit</button>
+        </div>
+      </form>
     </div>
-    <div class="row buttonrowsubmit">
-      <button type="submit" class="btn btn-primary submitButton" (click)="createNewAnnouncement()">Submit</button>
+    
+    
+    <div class="exam-container" *ngIf="activeButton == 'Exams'">
+      <h2>Exam</h2>
+      <form  #examForm="ngForm" (ngSubmit)="createNewExam()">
+        <div class="form-group">
+          <label for="courseName">Course Name</label>
+          <select class="form-control" id="courseName" [(ngModel)]="exam.courseName" (change)="onExamCourseChange()"
+            name="courseName">
+            <option *ngFor="let course of courses" [value]="course.courseName">{{course.courseName}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="examNumber">Exam Number:</label>
+          <input required type="text" id="examNumber" name="examNumber" [(ngModel)]="exam.examNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="examName">Exam Name:</label>
+          <input required type="text" id="examName" name="examName" [(ngModel)]="exam.examName" (ngModelChange)="isExamNameExists($event)" required>
+        </div>
+        <div *ngIf="examNameExists" class="alert alert-danger">
+          This Exam name already exists. Please choose another name.
+        </div>
+        <div class="form-group">
+          <label for="examDate">Exam Date:</label>
+          <input required type="date" id="examDate" name="examDate" [(ngModel)]="exam.examDate" required>
+        </div>
+        <div class="form-group">
+          <label for="examTime">Exam Time:</label>
+          <input required type="time" id="examTime" name="examTime" [(ngModel)]="exam.examTime" required>
+        </div>
+        <div class="form-group">
+          <label for="examRoom">Exam Room:</label>
+          <input required type="text" id="examRoom" name="examRoom" [(ngModel)]="exam.roomNumber" required>
+        </div>
+    
+        <div class="form-group" *ngFor="let module of exam.syllabus; let i = index; trackBy: trackByIndex">
+          <label for="syllabusModule{{i}}">Syllabus Module {{i + 1}}:</label>
+          <input type="text" class="form-control" [id]="'syllabusModule' + i" [(ngModel)]="exam.syllabus[i]"
+            name="syllabusModule{{i}}">
+        </div>
+        <span *ngIf="milestone">{{noofMilestones}} milestones will be created for students</span>
+        
+    
+        <button type="button" class="btn btn-primary submitButton" (click)="addSyllabusModule()">Add Module</button>
+    
+        <div class="row buttonrowsubmit">
+          <button type="submit" class="btn btn-primary submitButton" [disabled]="!examForm.valid || examNameExists">Submit</button>
+        </div>
+      </form>
+    
     </div>
-  </form>
-</div>
+    
+    <div class="annocuments-container" *ngIf="activeButton == 'Announcements'">
+      <h2>Announcements</h2>
+      <!-- <div *ngFor="let announcement of announcements" class="alert alert-info">
+              <h4>{{ announcement.title }}</h4>
+              <p>{{ announcement.content }}</p>
+              <span class="text-muted">- {{ announcement.date | date }}</span>
+            </div> -->
+    
+      <!-- Add Announcement Form -->
+      <form (ngSubmit)="addAnnouncement()">
+        <div class="form-group">
+          <label for="announcementTitle">Title</label>
+          <input required type="text" class="form-control" id="announcementTitle" [(ngModel)]="announcement.title"
+            name="title" required>
+        </div>
+        <div class="form-group">
+          <label for="announcementDescription">Description</label>
+          <textarea class="form-control" id="announcementDescription" rows="3" [(ngModel)]="announcement.description"
+            name="description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="createdBy">Created By</label>
+          <input required type="text" class="form-control" id="createdBy" [(ngModel)]="announcement.createdBy"
+            name="createdBy" required disabled>
+        </div>
+        <div class="form-group">
+          <label for="priorityName">Priority Name</label>
+          <select class="form-control" id="priorityName" [(ngModel)]="announcement.priorityName" name="priorityName"
+            required>
+            <option *ngFor="let priority of priorityOptions" [value]="priority.name">{{ priority.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Visibility</label><br>
+          <p>This announcement will be displayed to all students enrolled in the selected courses below.</p>
+          <div *ngFor="let course of courses">
+            <input type="checkbox" id="{{course.courseId}}" name="visibility" [ngModel]="isSelected(course)" (change)="toggleSelection($event, course)">
+    
+            <label for="{{course.courseId}}">{{ course.courseName }}</label><br>
+          </div>
+        </div>
+    
+    
+    
+    
+        <div class="form-group">
+          <label for="attachmentLink">Attachment Link</label>
+          <input required type="text" class="form-control" id="attachmentLink" [(ngModel)]="announcement.attachmentLink"
+            name="attachmentLink" required>
+        </div>
+        <div class="row buttonrowsubmit">
+          <button type="submit" class="btn btn-primary submitButton" (click)="createNewAnnouncement()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</body>

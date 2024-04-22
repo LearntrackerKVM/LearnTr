@@ -1,118 +1,217 @@
+body {
+  background-image: url('/assets/bg/bg.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+}
 
 .container {
-    margin: 20px;
+  padding: 20px; /* Reduced padding to more reasonable amounts */
+  margin-top: 90px;
+  margin-left: 80px; /* Centers the container horizontally */
+  max-width: calc(100% - 400px); /* Example max-width to ensure it doesn't overflow the viewport width */
+  background-color: #E6E6FA; /* Keeps your desired background color */
+}
 
+.tableclass, .searchclass, .friendRequestcontainer {
+  border-right: 2px solid #ccc; /* Adds a vertical line between columns */
+
+}
+
+.tableclass:last-child, .searchclass:last-child, .friendRequestcontainer:last-child {
+  border-right: none; /* Removes border from the last element */
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    align-items: center;
+  width: 100%;
+  border-collapse: collapse;
 }
 
+th, td {
+  border: 1px solid black;
+  padding: 20px; /* Uniform padding for th and td */
+}
 
 th {
-    background-color: #12372A;
-    color: white;
-    padding: 20px;
-    text-align: left;
-    margin-left: 200px;
+  background-color: #46166b;
+  color: white;
 }
 
-td{
-    margin: 20px;
-    padding: 12px;
-
+.button {
+  border-radius: 10px;
+  border: 1px solid #46166b;
+  background-color: #46166b;
+  color: #FBFADA;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 10px;
+  transition: transform 80ms ease-in;
 }
 
-tr:nth-child(even) {
-    background-color: #436850;
+.button:active {
+  background-color: #ADBC9F;
+  transform: scale(0.95);
 }
 
-
-
-
-.player-name {
-    width: 40%;
+.button:focus {
+  outline: none;
 }
 
-
-button {
-    border-radius: 10px;
-    border: 1px solid #436850;
-    background-color: #436850;
-    color: #FBFADA;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin: 10px;
-    transition: transform 80ms ease-in;
+.button.ghost {
+  background-color: transparent;
+  border-color: #FBFADA;
 }
 
-button:active {
-    background-color: #ADBC9F;
-    transform: scale(0.95);
-}
-
-button:focus {
-    outline: none;
-}
-
-button.ghost {
-    background-color: transparent;
-    border-color: #FBFADA;
-}
-
-button.clicked {
-    background-color: #ADBC9F; 
-}
-
-button:hover {
-    background-color: #ADBC9F; /* Change the hover background color */
+.button.clicked, .button:hover {
+  background-color: #eeb211; /* Consolidated hover and clicked styles */
 }
 
 .search-box {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-  }
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
 
-  /* yourfriends.component.css */
+.search-box input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-.search-box {
-    margin-top: 10px;
-  }
-  
-  .search-box input {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .search-box ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .search-box li {
-    cursor: pointer;
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.3s;
-  }
-  
-  .search-box li:last-child {
-    border-bottom: none;
-  }
-  
-  .search-box li:hover {
-    background-color: #f2f2f2;
-  }
-  
+.search-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-box li {
+  cursor: pointer;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s;
+}
+
+.search-box li:last-child {
+  border-bottom: none;
+}
+
+.search-box li:hover {
+  background-color: #f2f2f2;
+}
+
+.card-container {
+  padding: 10px 0;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.profile-pic {
+  width: 80px; /* Adjust size as needed */
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%; /* Makes the image round */
+}
+
+.friend-info {
+  flex-grow: 1;
+}
+
+.friend-info > div {
+  margin-bottom: 5px; /* Spacing between lines */
+}
+.friendRequestcontainer {
+  padding: 10px;
+}.request-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.request-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-text .name {
+  font-size: 16px;  /* Set the font size for names */
+  font-weight: bold; /* Make names bold */
+}
+
+.info-text .email {
+  font-size: 14px; /* Set a smaller font size for email */
+  color: #666; /* Optional: Use a different color for the email */
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-success, .btn-danger {
+  color: white;
+  padding: 8px 16px; /* Adjust padding to better fit the buttons */
+  border: none; /* Optional: Removes border */
+  outline: none; /* Removes outline */
+  cursor: pointer; /* Makes it clear the buttons are clickable */
+  transition: background-color 0.3s; /* Smooth transition for color change */
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838; /* Slightly darker green on hover */
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Slightly darker red on hover */
+}

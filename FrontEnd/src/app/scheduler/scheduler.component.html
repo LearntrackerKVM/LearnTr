@@ -1,35 +1,102 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+<html>
 
-    <html>
-        <body>
-            <div class="journal-page-container">
-                <header class="journal-header">
-                    <h2>My Journal</h2>
-                </header>
-                <div class="journal-container">
-                    <div class="calendar-container">
-                        <full-calendar [options]="calendarOptions" (dateClick)="onDateClick($event)"></full-calendar>
+<body>
+    <div class="journal-page-container">
+        <div class="journal-container">
+            <div class="calendar-container">
+                <full-calendar [options]="calendarOptions"></full-calendar>
+            </div>
+
+            <div class="content-container">
+                <div class="date-container">
+                 
+                    <div class="date-date">{{ selectedDate | date:'d' }}</div>
+                    <div class="date-info">
+                        <span>{{ selectedDate | date:'EEEE' }}</span>
+                        <span>{{ selectedDate | date:'MMMM y' }}</span>
                     </div>
-                    <div class="journal-entry-container" *ngIf="showTextarea">
-                        <h3>Fill your paper with the breathings of your heart</h3>
-                        <hr>
-                        <div class="date-heading" style="text-align: left;">
-                            <div class="row">
-                                
-                                <div class="col-sm-1" style="padding-right: 0;margin:0;"> <i class="fa fa-calendar"></i></div>
-                                <div class="col-sm-5" style="padding-left: 0;margin:0;">
-                                    <h3>{{ selectedDate | date:'EEE MM/dd/yyyy' }}</h3>
-                                </div>
-                     
+        
+                </div>
+                <p>{{noDataMessage}}</p>
+                
+                <div class="journal-page-container" *ngIf="isFuture">
+                    <div class="journal-container">
+                        <div class="content-container">
+                           
+                            <div class="list-container">
+                                <h2>Top Priorities</h2>
+                                <ul>
+                                    <li *ngFor="let priority of todayJournal.priorities; let i = index; trackBy: trackByFn">
+                                      <input [(ngModel)]="todayJournal.priorities[i]" type="text">
+                                    </li>
+                                  </ul>
+                                  <button (click)="addPriority()">Add New Priority</button>
+                                  
+                                  <ul>
+                                    <li *ngFor="let task of todayJournal.tasks; let i = index; trackBy: trackByFn">
+                                      <input [(ngModel)]="todayJournal.tasks[i]" type="text">
+                                    </li>
+                                  </ul>
+                                  <button (click)="addTask()">Add New Task</button>
+                                  
                             </div>
-                            
+                            <div>
+                              
+                                
+                                <h2>Important Day Description:</h2>
+                                <input [(ngModel)]="todayJournal.importantDayDescription" type="text">
+                                <label><input type="checkbox" [(ngModel)]="todayJournal.importantDay"> Mark as Important Day</label>
+                            </div>
+                            <button (click)="saveJournalEntry()">Save Changes</button>
                         </div>
-                        
-                        <textarea [(ngModel)]="journalText" rows="4" cols="50"></textarea>
-                        <button class="btn btn-primary">Save Your Journal</button>
                     </div>
                 </div>
+                
+                <div class="data-container" *ngIf="isData">
+                    <!-- Display content for the selected date -->
+                  
+        <!-- <div class="date-container">
+            <div class="date-date">{{ selectedDate | date:'d' }}</div>
+            <div class="date-info">
+                <span>{{ selectedDate | date:'EEEE' }}</span>
+                <span>{{ selectedDate | date:'MMMM y' }}</span>
             </div>
-        
-        </body>
-    </html>
+
+        </div> -->
+                    <div>
+                        <p>Color for the Day: {{ todayJournal.colorForTheDay }}</p>
+                    </div>
+                    <div class="list-container">
+                        <h2 style="background-color: #F5DEDE;">Top Priorities</h2>
+                        <ul>
+                            <li *ngFor="let priority of todayJournal.priorities">{{ priority }}</li>
+                        </ul>
+                        <h2 style="background-color: #B0E0E6;">To-Do List</h2>
+                        <ul>
+                            <li *ngFor="let task of todayJournal.tasks">{{ task }}</li>
+                        </ul>
+                    </div>
+                    <div class="day-container">
+
+                        <h2 style="background-color: #E0E0F8;">Mood for the Day</h2>{{ todayJournal.morningMood }}
+                        <h2 style="background-color: #FFE4B5;">Notes for the Day</h2>{{ todayJournal.notes }}
+                       
+                        <p>Important Day Description: {{ todayJournal.importantDayDescription }}</p>
+                    </div>
+                    <div class="night-container">
+                        <h2 style="background-color: #DFF0D8;">Mood for the Night</h2>{{ todayJournal.nightMood }}
+                        <h2 style="background-color: #D3D3D3;">Night Journal</h2> {{ todayJournal.nightDiary }}
+                    </div>
+                    <div *ngIf="todayJournal.importantDay">
+                        <h3>Today is an Important Day!</h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

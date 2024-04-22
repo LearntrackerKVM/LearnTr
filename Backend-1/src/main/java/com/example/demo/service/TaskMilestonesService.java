@@ -8,10 +8,13 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.data.Friend;
 import com.example.demo.data.MilestoneUserInfo;
+import com.example.demo.data.StudentFriends;
 import com.example.demo.data.StudentTasks;
 import com.example.demo.data.TasksMilestones;
 import com.example.demo.data.User;
+import com.example.demo.repository.StudentFriendsRepository;
 import com.example.demo.repository.StudentTasksRepository;
 import com.example.demo.repository.TaskMilestonesRepository;
 import com.example.demo.repository.UserRepository;
@@ -27,19 +30,24 @@ public class TaskMilestonesService {
 	    private UserService userService;
 	    @Autowired
 	    private UserRepository userRepository;
-
-	    public int countMilestonesForStudent(String studentId) {
-	        // Retrieve all StudentTasks for the given studentId
+	    @Autowired
+	    private EmailService emailService;
+	    
+	    @Autowired
+	    private StudentFriendsRepository studentFriendsRepository; 
+	    public int countCompletedMilestonesForStudent(String studentId) {
+	        // Fetch all StudentTasks for the given studentId
 	        List<StudentTasks> studentTasks = studentTasksRepository.findByStudentId(studentId);
 
-	        // Extract the IDs of these StudentTasks
-	        List<String> studentTaskIds = studentTasks.stream()
-	                .map(StudentTasks::getId)
-	                .collect(Collectors.toList());
+	        // Sum the milestonesCompleted for each task
+	        int totalCompletedMilestones = studentTasks.stream()
+	                                                   .mapToInt(StudentTasks::getMilestonesCompleted) // Extract completed milestones
+	                                                   .sum(); // Sum up all completed milestones
 
-	        // Count milestones for these studentTaskIds
-	        return taskMilestonesRepository.countByStudentTaskIds(studentTaskIds);
+	        return totalCompletedMilestones;
 	    }
+
+
 	    
 	    public List<TasksMilestones> getMilestonesByStudentTaskId(String studentTaskId) {
 	        return taskMilestonesRepository.findByStudentTaskId(studentTaskId);
@@ -54,50 +62,84 @@ public class TaskMilestonesService {
 	            existingMilestone.setDifficultyLevel(updatedMilestone.getDifficultyLevel());
 	            existingMilestone.setNotes(updatedMilestone.getNotes());
 	            existingMilestone.setIsComplete(updatedMilestone.getIsComplete());
-	            // Add other fields as necessary
 
-	            if (Boolean.TRUE.equals(updatedMilestone.getIsComplete())) {
-	                existingMilestone.setCompletionDate(new Date()); // Set to current date
-	                taskMilestonesRepository.save(existingMilestone);
-	                
-	                // After saving the milestone, check if all milestones for the task are completed
-	                checkAndCompleteTask(existingMilestone.getStudentTaskId());
-	                
-	                // Update the user's badge based on completed milestones
-	                updateUserBadge(existingMilestone.getStudentId()); // Ensure you have a way to get the userId from the milestone
+	            if (Boolean.TRUE.equals(updatedMilestone.getIsComplete()) && existingMilestone.getCompletionDate() == null) {
+	                existingMilestone.setCompletionDate(new Date()); // Set to current date only if not already set
 	            }
 
 	            // Save the updated milestone back to the database
-	            TasksMilestones savedMilestone = taskMilestonesRepository.save(existingMilestone);
+	            taskMilestonesRepository.save(existingMilestone);
+	            
+	            // After saving the milestone, update the task status and check completion
+	            updateTaskStatusAndCompletion(existingMilestone.getStudentTaskId());
 
-	            // After saving the milestone, check if all milestones for the task are completed
-	            checkAndCompleteTask(existingMilestone.getStudentTaskId());
+	            // Update the user's badge based on completed milestones
+	            updateUserBadge(existingMilestone.getStudentId()); // Ensure you have a way to get the userId from the milestone
 
-	            return savedMilestone;
+	            return existingMilestone;
 	        } else {
 	            // Milestone not found
 	            throw new RuntimeException("Milestone not found with id: " + milestoneId);
 	        }
 	    }
 
-	    private void checkAndCompleteTask(String studentTaskId) {
+	    private void updateTaskStatusAndCompletion(String studentTaskId) {
 	        List<TasksMilestones> milestones = taskMilestonesRepository.findByStudentTaskId(studentTaskId);
-	        
-	        boolean allCompleted = milestones.stream().allMatch(TasksMilestones::getIsComplete);
+	        Optional<StudentTasks> taskOpt = studentTasksRepository.findById(studentTaskId);
 
-	        if (allCompleted) {
-	            // Fetch the task
-	            Optional<StudentTasks> taskOpt = studentTasksRepository.findById(studentTaskId);
-	            if (taskOpt.isPresent()) {
-	                StudentTasks task = taskOpt.get();
+	        if (taskOpt.isPresent()) {
+	            StudentTasks task = taskOpt.get();
+
+	            // Calculate completed milestones
+	            long completedCount = milestones.stream().filter(TasksMilestones::getIsComplete).count();
+	            
+	            // Update the number of completed milestones
+	            task.setMilestones((int) completedCount);
+
+	            // Update task status
+	            if (completedCount == milestones.size()) {
 	                task.setStatus("Completed");
 	                task.setCompletionDate(new Date()); // Set completion to current date
-	                studentTasksRepository.save(task);
-	            } else {
-	                throw new RuntimeException("Task not found with id: " + studentTaskId);
+	            } else if (completedCount > 0) {
+	                task.setStatus("In Progress");
 	            }
+
+	            // Save the updated task
+	            studentTasksRepository.save(task);
+	            double completionPercentage = 100.0 * completedCount / milestones.size();
+	            if (completionPercentage >= 80) {
+	                notifyFriends(task);
+	            }
+	        } else {
+	            throw new RuntimeException("Task not found with id: " + studentTaskId);
 	        }
 	    }
+	    private void notifyFriends(StudentTasks task) {
+	        Optional<User> userOpt = userRepository.findById(task.getStudentId()); // Assume userRepository is injected and fetches user details
+
+	        if (userOpt.isPresent()) {
+	            User user = userOpt.get();
+	            List<StudentFriends> friendsList = studentFriendsRepository.findByStudentId(task.getStudentId());
+	            
+	            if (!friendsList.isEmpty()) {
+	                String message = String.format("%s %s has completed 80%% of '%s' in course %s. Badge: %s, Rank: %s",
+	                    user.getFirstName(), user.getLastName(), task.getTitle(), task.getCourseName(),
+	                    user.getBadge(), user.getRank());  // Include badge and rank in the message
+
+	                for (StudentFriends friends : friendsList) {
+	                    for (Friend friend : friends.getFriends()) {
+	                        emailService.sendSimpleMessage(friend.getEmail(), "Task Completion Update", message);
+	                    }
+	                }
+	            }
+	        } else {
+	            // Handle the case where the user might not be found
+	            throw new RuntimeException("User not found with id: " + task.getStudentId());
+	        }
+	    }
+
+	        
+
 	    private String determineBadge(int completedMilestones) {
 	        if (completedMilestones <= 5) return "Bronze";
 	        else if (completedMilestones <= 10) return "Silver";
