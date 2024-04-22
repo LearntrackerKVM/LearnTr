@@ -50,6 +50,12 @@ public class StudentTasksController {
         return studentTasksService.getAllTasksByStudentId(studentId);
     }
     
+    
+    @GetMapping("/{studentId}/{courseId}")
+    public List<StudentTasks> getAllTasksByStudentIdandCourseId(@PathVariable String studentId,@PathVariable String courseId) {
+        return studentTasksService.getAllTasksByStudentIdandCourseId(studentId,courseId);
+    }
+    
 
     @PutMapping("/{id}")
     public StudentTasks updateTask(@PathVariable String id,

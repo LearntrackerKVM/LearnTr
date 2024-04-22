@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Task } from '../models/Task';
+import { CourseService } from '../services/course.service';
+import { StudentTasksService } from '../services/student-tasks.service';
 
 @Component({
   selector: 'app-settings',
@@ -16,39 +19,50 @@ export class SettingsComponent {
   customReminderDays: number = 0;
   defaultReminderTime: string = '00:00';
   profileDisplayOption: string = 'all'; 
+  studentCourses : any[] = [];
+  currentUser: any;
+  createdByID: any;
+  createdBy: any;
+  customReminders: any;
+  selectedAssignment: any;
+  customReminderTime: any;
+  selectedCourse: any;
+  assignments : any;
+  tasks: Task[] = [];
+  filteredTasks: Task[] = [];
+  filterType: any;
+  filterDueDate: any;
 
-  courses: any[] = [
-    { id: 1, name: 'Course A' },
-    { id: 2, name: 'Course B' },
-    // Add more courses as needed
-  ];
-  selectedCourse: number | null = null;
-
-  assignments: any[] = [];
-  selectedAssignment: number | null = null;
-  customReminderTime: string = '00:00';
-
-  customReminders: any[] = [];
-
-  loadAssignments() {
-    if (this.selectedCourse == 1) {
-      this.assignments = [
-        { id: 1, name: 'Assignment 1' },
-        { id: 2, name: 'Assignment 2' },
-      ];
-    } else  if (this.selectedCourse == 2){
-      this.assignments = [
-        { id: 1, name: 'Assignment 3' },
-        { id: 2, name: 'Assignment 4' },
-      ];
-
+  constructor(private coursesService : CourseService,private studentTasksService : StudentTasksService){
+    const currentUserString = sessionStorage.getItem('currentUser');
+    if (currentUserString) {
+      this.currentUser = JSON.parse(currentUserString);
+      this.createdByID = this.currentUser.id;
+      this.createdBy = this.currentUser.userName;
     }
-      else{
-      this.assignments = [];
-    }
-    this.selectedAssignment = null;
+  this.loadStudentCourses();
   }
 
+  loadStudentCourses() {
+    this.coursesService.getCoursesForStudent(this.createdByID).subscribe((response) => {
+      this.studentCourses = response;
+      this.loadTasks();
+    })
+  }
+  loadTasks(): void {
+    this.studentTasksService.getAllStudentTasksByStudentId(this.createdByID).subscribe(tasks => {
+      this.tasks = tasks;
+      this.filteredTasks = tasks;
+    });
+  }
+
+  applyFilters(): void {
+    this.filteredTasks = this.tasks.filter(task => {
+      const matchesCourse = this.selectedCourse ? task.courseId.toString() === this.selectedCourse : true;
+      return matchesCourse;
+    });
+  }
+  
   addCustomReminder() {
     this.customReminders.push({
       course: this.selectedCourse,

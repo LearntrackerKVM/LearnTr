@@ -1,4 +1,6 @@
-<div class="settings-container">
+<body>
+
+  <div class="settings-container">
     <div class="row">
       <div class="col-lg-12">
         <h1>Settings</h1>
@@ -7,102 +9,107 @@
     <div class="row set">
       <h4>Profile Settings</h4>
       <div class="setting-item form-group">
-          <div class="col-md-6 labelspace">
-              <label></label>
+        <div class="col-md-6 labelspace">
+          <label></label>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="displayAll" name="profileDisplay" value="all"
+              [(ngModel)]="profileDisplayOption">
+            <label class="form-check-label" for="displayAll">Display to all</label>
           </div>
-          <div class="col-md-6">
-              <div class="form-check">
-                  <input class="form-check-input" type="radio" id="displayAll" name="profileDisplay" value="all" [(ngModel)]="profileDisplayOption">
-                  <label class="form-check-label" for="displayAll">Display to all</label>
-              </div>
-              <div class="form-check">
-                  <input class="form-check-input" type="radio" id="displayFriends" name="profileDisplay" value="friends" [(ngModel)]="profileDisplayOption">
-                  <label class="form-check-label" for="displayFriends">Display to friends</label>
-              </div>
-              <div class="form-check">
-                  <input class="form-check-input" type="radio" id="displayNone" name="profileDisplay" value="none" [(ngModel)]="profileDisplayOption">
-                  <label class="form-check-label" for="displayNone">Do not display</label>
-              </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="displayFriends" name="profileDisplay" value="friends"
+              [(ngModel)]="profileDisplayOption">
+            <label class="form-check-label" for="displayFriends">Display to friends</label>
           </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="displayNone" name="profileDisplay" value="none"
+              [(ngModel)]="profileDisplayOption">
+            <label class="form-check-label" for="displayNone">Do not display</label>
+          </div>
+        </div> -->
       </div>
-  </div>
-  
-  
+    </div>
+
+
 
     <div class="row">
-        <!-- Default Reminders -->
-        <div class="setting-item default">
-            <div class="row">
-                <h4>Default Remainders</h4>
-            </div>
-            <div class="row headingspace" >
-                <div class="col-md-6">
-                    <label for="defaultReminderDays">Default Reminder:</label>
-                  </div>
-                  <div class="col-md-6">
-                    <select class="form-select" id="defaultReminderDays" [(ngModel)]="defaultReminderDays">
-                      <option *ngFor="let day of defaultReminderOptions" [value]="day">{{ day }} days before</option>
-                    </select>
-                    <div class="row col-md-7 time-input-wrapper" style="padding-top: 20px; padding-left: 15px;">
-                        <input type="time" [(ngModel)]="defaultReminderTime" />
-                    </div>
-                    
-                  </div>
-                </div>
-        
-            </div>
-       
-        <div class="setting-item custom">
-            <div class="row">
-                <h4>Custom Remainders</h4>
-            </div>
-            <div class="row headingspace">
-                <div class="col-md-6">
-                    <label for="selectedCourse">Select Course:</label>
-                  </div>
-                  <div class="col-md-6">
-                    <select class="form-select" id="selectedCourse" [(ngModel)]="selectedCourse" (change)="loadAssignments()">
-                      <option *ngFor="let course of courses" [value]="course.id">{{ course.name }}</option>
-                    </select>
-                  </div>
-            </div>
-         
+      <!-- Default Reminders -->
+      <div class="setting-item default">
+        <div class="row">
+          <h4>Default Remainders</h4>
+        </div>
+        <div class="row headingspace">
+          <div class="col-md-6">
+            <label for="defaultReminderDays">Default Reminder:</label>
           </div>
-      
-          <div *ngIf="selectedCourse" class="setting-item">
-            <div class="row">
-            <div class="col-md-6">
-              <label for="selectedAssignment">Select Assignment:</label>
+          <div class="col-md-6">
+            <select class="form-select" id="defaultReminderDays" [(ngModel)]="defaultReminderDays">
+              <option *ngFor="let day of defaultReminderOptions" [value]="day">{{ day }} days before</option>
+            </select>
+            <div class="row col-md-7 time-input-wrapper" style="padding-top: 20px; padding-left: 15px;">
+              <input type="time" [(ngModel)]="defaultReminderTime" />
             </div>
-            <div class="col-md-6">
-              <select class="form-select" id="selectedAssignment" [(ngModel)]="selectedAssignment">
-                <option *ngFor="let assignment of assignments" [value]="assignment.id">{{ assignment.name }}</option>
-              </select>
-            </div>
-            </div>
-          </div>
-      
-          <div *ngIf="selectedCourse && selectedAssignment" class="setting-item">
-              <div class="row">
-                <div class="col-md-6">
-                    <label for="customReminderDays">Days Before:</label>
-                  </div>
-                  <div class="col-md-6">
-                    <select class="form-select" id="customReminderDays" [(ngModel)]="customReminderDays">
-                        <option *ngFor="let day of defaultReminderOptions" [value]="day">{{ day }} days before</option>
-                      </select>
 
-                      <div class="row col-md-7" style="padding-top: 20px; padding-left: 15px;">
-                        <input type="time" [(ngModel)]="defaultReminderTime" />
-                    </div>
-                    
-                    
-                  </div>
-                </div>
-              </div>
-              </div>
-              <div class="row col-md-5">
-                <button (click)="addCustomReminder()">Add Reminder</button>
-              </div>
-           
+          </div>
+        </div>
+
       </div>
+
+      <div class="setting-item custom">
+        <div class="row">
+          <h4>Custom Remainders</h4>
+        </div>
+        <div class="row headingspace">
+          <div class="col-md-6">
+            <label for="selectedCourse">Select Course:</label>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" id="selectedCourse" [(ngModel)]="selectedCourse" (change)="applyFilters()">
+              <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="selectedCourse" class="setting-item">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="selectedAssignment">Select Assignment:</label>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" id="selectedAssignment" [(ngModel)]="selectedAssignment">
+              <option *ngFor="let assignment of filteredTasks" [value]="assignment.taskId">{{ assignment.title }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedCourse && selectedAssignment" class="setting-item">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="customReminderDays">Days Before:</label>
+          </div>
+          <div class="col-md-6">
+            <select class="form-select" id="customReminderDays" [(ngModel)]="customReminderDays">
+              <option *ngFor="let day of defaultReminderOptions" [value]="day">{{ day }} days before</option>
+            </select>
+
+            <div class="row col-md-7" style="padding-top: 20px; padding-left: 15px;">
+              <input type="time" [(ngModel)]="defaultReminderTime" />
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row col-md-5">
+      <button class="btn btn-secondary" (click)="addCustomReminder()">Add Reminder</button>
+    </div>
+
+  </div>
+
+</body>

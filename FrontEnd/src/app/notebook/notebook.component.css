@@ -1,0 +1,56 @@
+.notebook-container{
+    background-color: #fff;
+    padding: 10px;
+    margin: 50px;
+    overflow: auto;
+}
+body {
+    padding: 50px;
+    background-color: #E6E6FA;
+    height: 100vh;
+  }
+
+  h1{
+      padding: 50px;
+      padding-bottom: 0;
+      font-family: poppins;
+      font-size : 2.0em;
+  }
+textarea {
+    width: 100%;
+    height: 100px; /* Adjust height as needed */
+    margin-bottom: 10px;
+}
+.styled-textarea {
+    width: 100%;
+    height: 1000px; /* Large area for more text */
+    border: none;
+    background-image: linear-gradient(white, white 40px, #ccc 40.5px); /* Simulating lines with more space */
+    background-size: 100% 41px; /* Increase the background segment size for larger gap */
+    padding: 0 1px; /* Minimal padding on the sides */
+    font-family: 'Courier New', monospace; /* Monospace to mimic typewriter or hand-typed style */
+    line-height: 41px; /* Increase line-height to match the new background grid */
+    font-size: 1.7em; /* Larger font size for readability */
+    resize: none; /* Disable resizing of textarea */
+    outline: none; /* Remove focus outline for aesthetics */
+    box-sizing: border-box; /* Include padding in the width and height calculations */
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: relative; /* Position relative to line up text */
+    top: -6px; /* Adjust this value as necessary to align text above the line */
+}
+
+.save-status {
+    margin-top: 10px;
+    font-size: 1.5em;
+    color: green;
+}
+
+.auto-saved {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.last-saved {
+    margin-right: 20px;
+    color: #555;
+}

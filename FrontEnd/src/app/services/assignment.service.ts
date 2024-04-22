@@ -47,7 +47,9 @@ export class AssignmentService {
   getAssignments(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.apiUrl);
   }
-
+  getAssignmentsByCourseId(courseId: string): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(`${this.apiUrl}/getAssignments/${courseId}`);
+  }
   getAssignmentQuestions(file : File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file,file.name);

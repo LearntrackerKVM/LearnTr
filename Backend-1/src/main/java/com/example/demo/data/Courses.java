@@ -37,6 +37,7 @@ public class Courses {
     private String semester;
     
     private Integer availableSlots;
+    private String color;
      
 
     
@@ -156,6 +157,14 @@ public class Courses {
     public void setAvailableSlots(Integer availableSlots) {
         this.availableSlots = availableSlots;
     }
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 
 

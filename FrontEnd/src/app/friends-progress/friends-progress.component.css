@@ -1,0 +1,67 @@
+.course-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Creates a gap between task boxes */
+    border: 3px solid #000;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #fff;
+  }
+  
+  
+  .task-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* Adjust gap between milestone boxes */
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin: 35px 0px;
+    background-color: #ebe5f4;
+  }
+  
+  
+  .milestone-box {
+      color: #fff;
+      background-color: #a781ef;
+    flex: 1; /* Allows the box to grow and fill the available space */
+    min-width: 120px; /* Minimum width before wrapping */
+    border: 1px solid #000;
+    padding: 35px;
+    margin: 40px 0px;
+  }
+  
+
+  strong{
+      font-size: 1.3em;
+      font-family: poppins;
+  }
+  
+  p{
+    font-size: 1.2em;
+  }
+  .progress-bar-background {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  
+  .progress-bar {
+    height: 20px;
+    background-color: #46166b; /* Fallback color */
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+    background-size: 40px 40px; /* Size of the stripes */
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #46166b;
+    color: white;
+    line-height: 20px; /* Align the text vertically */
+  }
+  
+.progress-container{
+    padding: 200px;
+}
+
+h2{
+    font-size: 1.8em;
+}

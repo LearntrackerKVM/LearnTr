@@ -1,0 +1,137 @@
+body{
+    padding: 100px;
+}
+.professor-tasks {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.course-container {
+    background-color: #f5f5f5;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.course-header h3 {
+    color: #333;
+}
+
+.assignments, .exams {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #eef;
+}
+
+.assignments h4, .exams h4 {
+    color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+
+
+table {
+    padding: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    align-items: center;
+    margin: 8px;
+  }
+  
+  
+  
+  th {
+    background-color: #46166b;
+    color: white;
+    padding: 20px;
+    text-align: left;
+    margin-left: 200px;
+    text-align: left;
+    font-size: 1.1em;
+  }
+  
+  td {
+    margin: 20px;
+    text-align: left;
+    padding: 10px;
+    font-size: 1.1em;
+    border-left: 1px solid #ccc; /* Adds a border to the left side of each cell */
+    border-right: 1px solid #ccc; /* Adds a border to the right side of each cell */
+  }
+  tr:nth-child(even) {
+    background-color: #fff;
+    color: black;
+    font-size: 1.0em;
+  }
+  
+  tr:nth-child(even) .badge,
+  tr:nth-child(even) .badge i {
+    background-color: #E6E6FA; /* Or any other color you want for badges background */
+    color: black; /* Or any other color you want for badges text and icons */
+  }
+  
+  tr:nth-child(odd) {
+  
+    background-color: #E6E6FA;
+    color: black;
+    font-size: 1.0em;
+  }
+  
+  tr:nth-child(odd) .badge,
+  tr:nth-child(odd) .badge i {
+    background-color: #fff; /* Or any other color you want for badges background */
+    color: black; /* Or any other color you want for badges text and icons */
+  }
+  .professor-tasks button {
+    padding: 6px 12px;
+    margin: 5px;
+    background-color: #46166b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.professor-tasks button:hover {
+    background-color: #E6E6FA;
+}
+
+.course-header h3 {
+    display: inline;
+    cursor: pointer;
+}
+.course-header button {
+    float: right;
+}
+
+.professor-tasks .course-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  float: right;
+}
+
+.professor-tasks .course-header button i {
+  color: #fff;  
+  font-size: 16px;
+}
+
+.course-details{
+  padding: 20px;
+  font-size: 1.3em;
+}
+
+strong{
+  color: #46166b;
+}

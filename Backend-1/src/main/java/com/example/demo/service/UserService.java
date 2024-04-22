@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -122,16 +124,32 @@ public class UserService {
 	         // Optionally, invalidate the token after use
 	     }
 	     
-	     @Transactional
-	     public String saveProfilePicture(String userId, MultipartFile file) throws Exception {
-	    	    byte[] bytes = file.getBytes();
-	    	    User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
-	    	    user.setProfilePicture(bytes);
+	     public String saveProfilePicture(String userId, MultipartFile file) throws IOException {
+	    	    Optional<User> userOptional = userRepository.findById(userId);
+	    	    if (!userOptional.isPresent()) {
+	    	        throw new RuntimeException("User not found");
+	    	    }
+	    	    User user = userOptional.get();
+
+	    	    byte[] bytes = file.getBytes(); // Directly use byte array
+	    	    user.setProfilePicture(bytes); // No conversion needed
 	    	    userRepository.save(user);
-	    	    // Generate or retrieve a URL for the uploaded profile picture
-	    	    String profilePictureUrl = generateProfilePictureUrl(user);
-	    	    return profilePictureUrl;
+
+	    	    return "/api/profilePicture/" + userId; // Assuming this endpoint serves the image
 	    	}
+	     public byte[] getProfilePicture(String userId) {
+	    	    Optional<User> userOptional = userRepository.findById(userId);
+	    	    if (!userOptional.isPresent()) {
+	    	        throw new RuntimeException("User not found");
+	    	    }
+	    	    User user = userOptional.get();
+	    	    byte[] imageBytes = user.getProfilePicture();
+	    	    if (imageBytes == null || imageBytes.length == 0) {
+	    	        throw new RuntimeException("Profile picture not set");
+	    	    }
+	    	    return imageBytes; // Directly return the byte array
+	    	}
+
 
 private String generateProfilePictureUrl(User user) {
     return "http://localhost:8080/users/" + user.getId() + "/profile-picture";
@@ -160,6 +178,7 @@ public void updateBadgeAndMilestoneCount(String userId, String badge, int milest
     // After updating, recalculate ranks for all users
     updateAllUserRanks();
 }
+
 
 	 }
 

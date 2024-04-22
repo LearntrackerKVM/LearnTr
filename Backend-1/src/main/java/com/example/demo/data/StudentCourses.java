@@ -19,12 +19,14 @@ public class StudentCourses {
     private Date enrolledDate;
     private String createdById;
     private String createdBy;
+    private String color;
 
     public StudentCourses() {
         // Default constructor required by MongoDB
     }
 
-    public StudentCourses(String studentCourseId, String courseId, String courseCode, String studentId, Date enrolledDate, String createdById, String createdBy) {
+    public StudentCourses(String studentCourseId, String courseId, String courseCode, String studentId, Date enrolledDate, 
+    		String createdById, String createdBy, String color) {
         this.studentCourseId = studentCourseId;
         this.courseId = courseId;
         this.courseCode = courseCode;
@@ -32,6 +34,7 @@ public class StudentCourses {
         this.enrolledDate = enrolledDate;
         this.createdById = createdById;
         this.createdBy = createdBy;
+        this.setColor(color);
     }
 
     // Getters and setters
@@ -120,6 +123,14 @@ public class StudentCourses {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 

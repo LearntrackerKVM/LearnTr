@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CourseInfoDialogComponent } from './course-info-dialog/course-info-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CompleteMilestoneDialogComponentComponent } from './complete-milestone-dialog-component/complete-milestone-dialog-component.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Add MatDialogModule to your imports array
 
@@ -44,9 +45,9 @@ import { CompleteMilestoneDialogComponentComponent } from './complete-milestone-
     CourseInfoDialogComponent,
     NgCircleProgressModule.forRoot({
       // set defaults here
-      radius: 100,
-      outerStrokeWidth: 16,
-      innerStrokeWidth: 8,
+      radius: 180,
+      outerStrokeWidth: 20,
+      innerStrokeWidth: 10,
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
@@ -55,6 +56,7 @@ import { CompleteMilestoneDialogComponentComponent } from './complete-milestone-
     FullCalendarModule,
     MatDialogModule,
     MatButtonModule,
+    NgbModule,
     CompleteMilestoneDialogComponentComponent
   ],
   exports:[ProgressCircleComponent,CompleteMilestoneDialogComponentComponent],

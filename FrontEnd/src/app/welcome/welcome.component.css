@@ -17,6 +17,7 @@
 .intro .text{
     padding-left: 900px;
     padding-bottom: 200px;
+
   }
   
   .intro h1 {
@@ -27,6 +28,7 @@
     width: 100%; /* Make h1 take full width */
     margin: 0; /* Remove default margin */
     font-size: 5em;
+    padding-bottom: 30px;
   }
   
   .feature-section {
@@ -39,34 +41,77 @@
   
   .cards-container {
     position: relative;
-    top: -60px; /* Half the height of the card to make it overlap the above section */
+    top: -60px;
     display: flex;
-    justify-content: space-around; /* This will space out the cards evenly */
-    flex-wrap: wrap; /* Allows wrapping if the screen is too small to fit all cards in one row */
-  }
-  
-  .card {
-      background-color: #caf0f8;
-    width: 200px; /* Set the width of the cards */
-    margin: 0 10px; /* Spacing between cards */
-    text-align: center; /* Center the text inside the card */
-    height: 300px;
-  }
-  .card img {
-    display: block; /* Ensures the image is a block element */
-    margin: 50px auto 10px; /* Centers the image horizontally and adds margin to the top */
-    width: 100px; /* Fixed size for the image */
-    height: 100px; /* Fixed size for the image */
-    border-radius: 50%; /* Makes the image round */
-    object-fit: cover; /* Ensures the image covers the area, might crop it */
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
-  .card h3 {
-    margin-top: auto; /* Pushes the h3 to the bottom of the flex container */
-    font-size: 1.2em; /* Adjust the size as needed */
-    color: #000; /* Card text color */
+
+.card {
+    perspective: 1000px;
+    background-color: #f4f4f4;
+    width: 300px;
+    margin: 0 10px;
+    text-align: center;
+    height: 300px;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover {
+    background-color: var(--hover-color, #eeb211); /* Fallback color if hover-color is not set */
+}
+
+.card img {
+    display: block;
+    margin: 50px auto 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card h3 {
+    margin-top: auto;
+    color: #000;
     padding-bottom: 40px;
-    font-weight: lighter;
-  }
+    font-family: 'PublicSans', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    text-transform: uppercase;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-back {
+    color: #333;
+    transform: rotateY(180deg);
+    font-size: 1.7em;
+    font-family: poppins;
+    padding: 15px;
+}
+
+.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
 
   .description-container {
     text-align: center; /* Center the paragraph */
@@ -74,6 +119,8 @@
 }
 
 .description-container p {
+  font-family: 'PublicSans', sans-serif;
+  font-size: 1.1em;
     letter-spacing: 0.05em;
     margin: 0; /* Remove default margin */
 }

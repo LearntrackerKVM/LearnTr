@@ -6,9 +6,7 @@ import { Course } from '../models/Course';
 import { User } from '../models/user';
 import { CourseService } from '../services/course.service';
 import { UserService } from '../services/user.service';
-import { CourseInfoDialogComponent } from '../course-info-dialog/course-info-dialog.component';
 import { CourseSchedule } from '../models/CourseSchedule';
-import { CourseDetails } from '../models/CourseDetails';
 import { StudentCourseRequest } from '../models/StudentCourseRequest';
 import { ExamService } from '../services/exam.service';
 import { AssignmentService } from '../services/assignment.service';
@@ -54,7 +52,39 @@ export class CoursesComponent {
    noOfExamsDue  : number = 0;
    noOfMilestones : number = 0;
    courseAlreadyExists : boolean = false;
+   cards = [
+    {
+      icon: '/assets/icons/enrolled.svg',
+      number: 0,
+      title: 'Courses Enrolled',
+      color: '#c4e7f7',
+      hoverColor: ''
+    },
+    {
+      icon: '/assets/icons/inProgress.svg',
+      number: 0,
+      title: 'Assignments Due',
+      color: '#E6E6FA',
+      hoverColor: ''
+    },
+    {
+      icon: '/assets/icons/inProgress.svg',
+      number: 0,
+      title: 'Exams Due',
+      color: '#FADADD',
+      hoverColor: ''
+    },
+    {
+      icon: '/assets/icons/completed.svg',
+      number: 0,
+      title: 'Milestones completed',
+      color: '#FFDAB9',
+      hoverColor: ''
+    }
+  ];
+
   private subscription: Subscription = new Subscription(); // Initialize the subscription
+  coursesVisible: boolean = false;
 
   constructor(private userService: UserService,private courseService : CourseService,private dialog: MatDialog,private examService : ExamService,private assignmentService : AssignmentService,
     private studentTaskService : StudentTasksService,private taskMilestoneService : TaskMileStonesService) { 
@@ -102,6 +132,9 @@ export class CoursesComponent {
     );
   }
   
+  toggleCoursesVisibility() {
+    this.coursesVisible = !this.coursesVisible;  // Toggle visibility
+  }
   
   loadCoursesSchedules(courseIds: string[],courses:Course[],ismyschedule : boolean): void {
     this.courseService.getCoursesSchedulesByCourseIds(courseIds).subscribe(
@@ -217,24 +250,32 @@ export class CoursesComponent {
       const courseIds: string[] = courses
       .map(course => course.courseId ? course.courseId.toString() : undefined) // Convert number to string
       .filter((courseId): courseId is string => typeof courseId === 'string'); // Filter out undefined
-      this.myFilteredCourses = this.myCourses
+      this.myFilteredCourses = this.myCourses;
+      if(this.myFilteredCourses !== undefined && this.myFilteredCourses !== null && this.myFilteredCourses.length !== 0)
      this.loadCoursesSchedules(courseIds,this.availableCourses,true);
     })
   }
   getDefaultNumbers(){
     this.courseService.getNumberOfCoursesEnrolledbyStudent(this.createdByID.toString()).subscribe((num)=>{
-      this.noOfCoursesEnrolled = num;
+      this.updateCardNumber('Courses Enrolled', num);
     });
-    this.courseService.getNumberOfStudentsEnrolled(this.createdByID.toString()).subscribe(num => {
-      this.noOfAssignmentsDue = num;
-    });
-  
     this.studentTaskService.getNoOfAssignmentsAddedForStudent(this.createdByID.toString()).subscribe(num => {
-      this.noOfExamsDue = num;
+      this.updateCardNumber('Assignments Due', num);
     });
   
-    this.taskMilestoneService.getNoOfAssignmentsAddedForStudent(this.createdByID.toString()).subscribe(num => {
-      this.noOfMilestones = num;
+    this.studentTaskService.getNoOfExamsFroStudent(this.createdByID.toString()).subscribe(num => {
+      this.updateCardNumber('Exams Due', num);
     });
+  
+    this.taskMilestoneService.getCompletedMilestonesByStudentid(this.createdByID.toString()).subscribe(num => {
+      this.updateCardNumber('Milestones completed', num);
+    });
+  }
+
+  updateCardNumber(title: string, num: number) {
+    const cardIndex = this.cards.findIndex(card => card.title === title);
+    if (cardIndex !== -1) {
+      this.cards[cardIndex].number = num;
+    }
   }
 }

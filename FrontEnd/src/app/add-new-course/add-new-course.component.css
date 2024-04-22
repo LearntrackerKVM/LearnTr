@@ -1,84 +1,71 @@
-.button-container {
-  width: 1000px;
-  display: flex;
-  justify-content: space-around;
-  /* Distribute buttons evenly */
-  align-items: center;
-  background-color: white;
-  /* Background color for the entire container */
-  border-radius: 15px;
-  /* Rounded corners for the container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Shadow for depth */
-  position: relative;
-  /* Needed for absolute positioning of the slider */
-  padding: 2px;
-  margin: 20px 20px;
-  /* Spacing inside the container */
+
+.mainContainer{
+  padding-top: 100px;
 }
 
-.slider-background {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 15px;
-  /* Same as the container to maintain rounded corners */
-  overflow: hidden;
-  /* Ensures the slider doesn't go outside the container */
-}
 
-.slider {
-  left: 0;
-  z-index: 1;
-  height: 100%;
-  background-color: #46166b;
-  /* Active button background color */
-  border-radius: 15px;
-  /* Rounded corners for the slider */
-  transition: all 0.3s ease;
-  /* Smooth transition for sliding effect */
-}
 
+/* Base button styles */
 .button {
   position: relative;
   z-index: 2;
   flex: 1;
-  /* Ensure buttons take up equal space */
   padding: 10px 20px;
   border: none;
-  color: #46166b;
-  /* Inactive color, assuming a light background */
-  background-color: transparent;
-  /* Text color */
-  border-radius: 15px;
-  /* Rounded corners for the buttons */
   font-size: 20px;
   cursor: pointer;
-  transition: color 0.3s;
-  /* Transition for the text color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions for background and text color changes */
+  background-color: transparent; /* Start with no background color */
   outline: none;
-  /* Remove the outline */
 }
 
-.button:hover {
-  color: #eeb211;
-  /* Hover effect for text color */
+.button:hover, .button:focus {
+
+  color: #fff; /* Hover and focus text color change */
 }
 
-.button:focus {
-  outline: none;
-  color: #eeb211;
-  /* Remove the outline on focus */
+.bg-courses { background-color: #c4e7f7; }
+.bg-assignments { background-color: #E6E6FA; }
+.bg-exams { background-color: #FADADD; }
+.bg-announcements { background-color: #FFDAB9; }
+
+.active {
+  color: white; /* Text color for active state */
+  background-color: #46166b; /* Background color for active state */
 }
 
-.button.active {
-  color: white;
-  /* Active text color */
-  background-color: #46166b;
-  /* Active background color */
+/* Button container styling */
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding: 2px;
+  margin: 20px;
+  width: 1000px; /* Consider using max-width for better responsiveness */
 }
+
+.slider-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 15px;  /* Matching button border radius */
+}
+
+.slider {
+  position: absolute;
+  height: 100%;
+  width: 25%; /* As there are four buttons */
+  background-color: rgba(0, 0, 0, 0.1); /* Lightly visible to highlight active button */
+  transition: left 0.3s ease-out;
+}
+
+
+
 input[type="file"] {
   opacity: 1 !important;
   z-index: 1000 !important;
@@ -90,13 +77,14 @@ input[type="file"] {
 .assignment-container,
 .annocuments-container,
 .exam-container {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px;
   border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 /* Styles for each form field */
 .form-field {
@@ -122,8 +110,7 @@ button {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #5c6bc0;
-  color: white;
+
   cursor: pointer;
 }
 
@@ -152,14 +139,11 @@ button {
   background-color: #f5f5f5;
 }
 
-/* Style for the 'Add Schedule' button specifically */
 .scheduleButton {
   background-color: #46166b;
   /* A green color */
   color: white;
 }
-
-/* Style for the 'Remove Schedule' button specifically */
 .remove-schedule-btn {
   background-color: #f44336;
   /* A red color */
@@ -194,6 +178,15 @@ button {
 label {
   padding:2px;
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.2em;
   letter-spacing: 0.1em;
+}
+
+
+h2{
+
+  font-weight: bold;
+  font-size: 1.4em;
+  letter-spacing: 0.1em;
+  font-family: poppins;
 }

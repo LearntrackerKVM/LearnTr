@@ -64,6 +64,13 @@ public class User {
         this.lastName = lastName;
     }
 
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
     public String getEmail() {
         return email;
     }
@@ -94,13 +101,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
     }
 
     // Getter and setter for the aboutMe field

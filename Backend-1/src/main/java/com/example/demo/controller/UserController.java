@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import java.awt.PageAttributes.MediaType;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.data.User;
 import com.example.demo.data.UserResponse;
 import com.example.demo.service.UserService;
+import org.springframework.http.MediaType;
+
 
 @Controller
 @RequestMapping("/api/users")
@@ -38,7 +40,8 @@ public class UserController {
     }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        Optional<User> foundUserOptional = userService.getUserByEmail(user.getEmail());
+        String emailToLower = user.getEmail().toLowerCase();
+        Optional<User> foundUserOptional = userService.getUserByEmail(emailToLower);
 
         if (foundUserOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email not found");
@@ -49,9 +52,6 @@ public class UserController {
         if (!foundUser.getPassword().equals(user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
         } else {
-            // Authentication successful
-            // Remove or mask sensitive information such as password before sending user details
-            foundUser.setPassword(null);
 
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login successful");
@@ -60,6 +60,7 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
     }
+
 
 
     @PostMapping("/register")
@@ -122,8 +123,17 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to update profile picture.");
         }
-   
     }
 
+    @GetMapping("/profilePicture/{userId}")
+    public ResponseEntity<?> getProfilePicture(@PathVariable String userId) {
+        try {
+            byte[] imageBytes = userService.getProfilePicture(userId);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG) // Or MediaType.IMAGE_PNG
+                    .body(imageBytes);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
-	

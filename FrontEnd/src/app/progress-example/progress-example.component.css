@@ -1,0 +1,40 @@
+.progress-bar-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .progress-bar {
+    height: 20px;
+    line-height: 20px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden; /* Hide the overflow to keep the arrows inside the bar */
+    transition: width 0.4s ease;
+  }
+  
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px; /* Adjust as needed to align the arrow outside the progress */
+    border-left: 10px solid #ddd; /* Color of the arrow should match the container background */
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    transition: right 0.4s ease;
+  }
+  
+  .progress-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0; /* Align the arrow with the end of the progress */
+    border-left: 10px solid #46166b; /* This should be the color of the end of your gradient */
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+  

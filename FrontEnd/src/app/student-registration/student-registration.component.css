@@ -5,19 +5,19 @@
 }
 
 body {
-    background: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
     height: 100vh;
-    margin: -20px 0 50px;
+    background-image: url('/assets/bg/loginbg.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; 
+
 }
 
 h1 {
     font-weight: bold;
     margin: 0;
+    font-size: 1.9em;
     padding-bottom: 20px;
 }
 
@@ -26,29 +26,32 @@ h2 {
 }
 
 p {
-    font-size: 14px;
-    font-weight: 100;
+    font-size: 20px;
+    font-weight: 250;
     line-height: 20px;
     letter-spacing: 0.5px;
     margin: 20px 0 30px;
 }
 
+.lightbg{
+color: #000000;
+}
 span {
-    font-size: 12px;
+    font-size: 16px;
 }
 
 a {
-    color: #436850;
-    font-size: 14px;
+    color: #000000;
+    font-size: 17px;
     text-decoration: none;
     margin: 15px 0;
 }
 button {
     border-radius: 20px;
-    border: 1px solid #436850;
-    background-color: #436850;
-    color: #FBFADA;
-    font-size: 15px;
+    border: 1px solid #d6d6d6;
+    background-color: #46166b;
+    color: #fff;
+    font-size: 19px;
     font-weight: bold;
     padding: 12px 45px;
     letter-spacing: 1px;
@@ -58,7 +61,7 @@ button {
 }
 
 button:active {
-    background-color: #ADBC9F;
+    background-color: #eeb211;
     transform: scale(0.95);
 }
 
@@ -68,19 +71,20 @@ button:focus {
 
 button.ghost {
     background-color: transparent;
-    border-color: #FBFADA;
+    border-color: #eeb211;
 }
 
 button.clicked {
-    background-color: #ADBC9F; 
+    background-color: #eeb211; 
 }
 
 button:hover {
-    background-color: #ADBC9F; /* Change the hover background color */
+    background-color: #eeb211; /* Change the hover background color */
 }
 
+
 form {
-    background-color: #FBFADA;
+    background-color: #d6d6d6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,18 +95,20 @@ form {
 }
 
 input {
-    background-color: #ADBC9F;
+    background-color: #f4f4f4;
     border: none;
     padding-top: 12px;
     padding-bottom: 12px;  
     padding-right: 80px;
     margin: 8px 0px;
     width: 100%;
+    font-size: 1.2em;
 }
+
 
 /* Add this new style for the dropdown */
 select.custom-dropdown {
-   background-color: #ADBC9F;
+   background-color: #f4f4f4;
     border: none;
     border-radius: 9px;
     padding-top: 15px;
@@ -111,14 +117,14 @@ select.custom-dropdown {
     padding-left: 20px;
     margin: 8px 0px;
     width: 100%;
-    color: #12372A; /* Text color */
-    font-size: 17px; /* Font size */
+    color: #46166b; /* Text color */
+    font-size: 19px; /* Font size */
 }
 
 
 
 .eye-icon-btn {
-    background-color: #ADBC9F;
+    background-color: #46166b;
     border: none;
     padding: 8px 20px; /* Adjust padding as needed */
     margin: 8px 0px;
@@ -126,19 +132,19 @@ select.custom-dropdown {
   }
   
   .eye-icon-btn i {
-    font-size: 20px; /* Adjust font size as needed */
-    color: #12372A; /* Text color */
+    font-size: 22px; /* Adjust font size as needed */
+    color: #fff; /* Text color */
   }
 .container {
-    background-color: #FBFADA;
+    background-color: #eeb211;
     border-radius: 30px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
-    width: 1000px;
+    width: 1200px;
     max-width: 100%;
-    min-height: 600px;
+    min-height: 700px;
      position: absolute;
   top: 50%;
   left: 50%;
@@ -204,13 +210,13 @@ select.custom-dropdown {
 }
 
 .overlay {
-    background: #12372A;
-    background: -webkit-linear-gradient(to right, #436850, #12372A);
-    background: linear-gradient(to right, #436850, #12372A);
+    background: #d6d6d6;
+    background: -webkit-linear-gradient(to right, #e0c7f4, #46166b);
+    background: linear-gradient(to right, #e0c7f4, #46166b);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
-    color: #FBFADA;
+    color: #fff;
     position: relative;
     left: -100%;
     height: 100%;

@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { ProgressExampleComponent } from '../progress-example/progress-example.component';
 import { CourseService } from '../services/course.service';
 import { LeaderBoardService } from '../services/leader-board.service';
+import { StudentTasksService } from '../services/student-tasks.service';
 interface Milestone {
   id: string;
   title: string;
@@ -65,12 +66,13 @@ export class LeaderBoardComponent implements OnInit {
   public maxTasks: number = 0;
   selectedTaskId: string = '';
   filteredStudents : any[] = [];
-  uniqueTasks: { taskId: string; taskName: string }[] = [];
+  uniqueTasks: { taskId: string; title: string }[] = [];
   defaultProfilePicture = 'assets/icons/user.png';
 
   
 
-  constructor(private leaderboardService: LeaderBoardService, private courseService : CourseService) { 
+  constructor(private leaderboardService: LeaderBoardService,
+    private studentTasksService : StudentTasksService, private courseService : CourseService) { 
     const currentUserString = sessionStorage.getItem('currentUser');
     if (currentUserString) {
       const currentUser = JSON.parse(currentUserString);
@@ -168,6 +170,7 @@ export class LeaderBoardComponent implements OnInit {
 
   fetchCourseData() {
     if (!this.selectedCourseId) return;
+    this.loadTasks();
     this.courseService.getCoursesWithTasksAndMilestonesByStudentId(this.selectedCourseId, this.createdByID).subscribe(data => {
       this.processData(data);
     }, error => {
@@ -175,6 +178,12 @@ export class LeaderBoardComponent implements OnInit {
     });
   }
 
+  loadTasks(): void {
+    if (!this.selectedCourseId) return;
+    this.studentTasksService.getAllTasksByStudentIdandCourseId(this.createdByID,this.selectedCourseId,).subscribe(tasks => {
+      this.uniqueTasks = tasks;
+    });
+  }
   processData(data: Course[]): void {
     const studentMap = new Map<string, StudentTaskInfo>();
   
@@ -210,24 +219,24 @@ export class LeaderBoardComponent implements OnInit {
     });
   
     this.studentTasks = Array.from(studentMap.values());
-    this.extractUniqueTasks();
+    // this.extractUniqueTasks();
   }
 
-  extractUniqueTasks(): void {
-    const taskSet = new Set<string>();
-    const tempTasks: { taskId: string; taskName: string }[] = [];
+  // extractUniqueTasks(): void {
+  //   const taskSet = new Set<string>();
+  //   const tempTasks: { taskId: string; taskName: string }[] = [];
 
-    this.studentTasks.forEach(student => {
-      student.tasks.forEach(task => {
-        if (!taskSet.has(task.taskId)) {
-          tempTasks.push({ taskId: task.taskId, taskName: task.taskTitle });
-          taskSet.add(task.taskId);
-        }
-      });
-    });
+  //   this.studentTasks.forEach(student => {
+  //     student.tasks.forEach(task => {
+  //       if (!taskSet.has(task.taskId)) {
+  //         tempTasks.push({ taskId: task.taskId, taskName: task.taskTitle });
+  //         taskSet.add(task.taskId);
+  //       }
+  //     });
+  //   });
 
-    this.uniqueTasks = tempTasks;
-  }
+  //   this.uniqueTasks = tempTasks;
+  // }
   
   populateTable() {
     if (!this.selectedTaskId) {

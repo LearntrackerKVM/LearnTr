@@ -17,36 +17,16 @@
         </section>
         <section class="cards">
             <div class="cards-container">
-                <!-- Cards -->
-                <div class="card">
-                    <img class="ard-img-sm-left" src="/assets/icons/courses.png" alt="Feature 1">
+                <div class="card" [style.backgroundColor]="card.color" *ngFor="let card of cards">
+                    <img src="{{ card.icon }}" alt="{{ card.title }}">
                     <div class="content">
-                        <h3 class="number"> {{noOfCourses}}</h3>
-                        <h3 class="title">Courses Added</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/assets/icons/students.png" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number"> {{noOfStudentsEnrolled}}</h3>
-                        <h3 class="title">Students Enrolled</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/assets/icons/assignments.png" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number"> {{noOfAssignments}}</h3>
-                        <h3 class="title">Assignments Added</h3>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="/assets/icons/exams.png" alt="Feature 1">
-                    <div class="content">
-                        <h3 class="number"> {{noOfExams}}</h3>
-                        <h3 class="title">Exams Added</h3>
+                        <h3 class="number">{{ card.number }}</h3>
+                        <h3 class="title">{{ card.title }}</h3>
                     </div>
                 </div>
             </div>
+            
+            
         </section>
         <div class="container-fluid">
             <div class="row">

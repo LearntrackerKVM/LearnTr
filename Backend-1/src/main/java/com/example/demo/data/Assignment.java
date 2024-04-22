@@ -21,11 +21,13 @@ public class Assignment {
     private Date createdDate;
     private String createdById;
     private String createdBy;
+    private String fileType;
     private byte[] fileContent; // byte array to store file content
 
     public Assignment() {
     }
-    public Assignment(String assignmentName, String assignmentNumber, String courseId, String courseName, Date dueDate, byte[] fileContent, Date createdDate, String createdById, String createdBy) {
+    public Assignment(String assignmentName, String assignmentNumber, String courseId, String courseName, Date dueDate, byte[] fileContent, Date createdDate, String createdById, 
+    		String createdBy, String fileType) {
         this.assignmentName = assignmentName;
         this.assignmentName = assignmentName;
         this.assignmentNumber = assignmentNumber;
@@ -36,6 +38,7 @@ public class Assignment {
         this.createdDate = createdDate;
         this.createdById = createdById;
         this.createdBy = createdBy;
+        this.setFileType(fileType);
     }
 
     // Getters and setters
@@ -134,5 +137,11 @@ public class Assignment {
             e.printStackTrace();
         }
     }
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
 
 }

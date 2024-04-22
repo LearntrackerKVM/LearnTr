@@ -1,0 +1,83 @@
+<body>
+    <div class="professor-tasks">
+        <h2>Course Overview</h2>
+        <div *ngFor="let course of professorCourses; let i = index" [ngStyle]="{'background-color': course.color}" class="course-container">
+            <div class="course-header" (click)="toggleCollapse(i, course.courseId)">
+                <h3 style="font-size: 1.5em;font-weight: bold;font-family: poppins;">{{ course.courseName }}</h3>
+                <button [ngStyle]="{'background-color': collapsed[i] ? '#46166b' : '#f44336'}">
+                    <i class="fas" [ngClass]="collapsed[i] ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+                </button>
+                <div *ngIf="!collapsed[i]" class="course-details">
+                    <p class="detail"><strong>Description:</strong> {{ course.courseDescription }}</p>
+                    <p class="detail"><strong>Number of Assignments:</strong> {{ course.noOfAssignments }}</p>
+                    <p class="detail"><strong>Number of Exams:</strong> {{ course.noOfExams }}</p>
+                    <p class="detail"><strong>Start Date:</strong> {{ course.startDate | date:'mediumDate' }}</p>
+                    <p class="detail"><strong>End Date:</strong> {{ course.endDate | date:'mediumDate' }}</p>
+                    <p class="detail"><strong>Students Enrolled:</strong> {{ course.noOfStudentsEnrolled }}</p>
+                    <p class="detail"><strong>Created By:</strong> {{ course.createdBy }}</p>
+                    <p class="detail"><strong>Capacity:</strong> {{ course.capacity }}</p>
+                    <p class="detail"><strong>Course Code:</strong> {{ course.courseCode }}</p>
+                    <p class="detail"><strong>Semester:</strong> {{ course.semester }}</p>
+                    <p class="detail"><strong>Available Slots:</strong> {{ course.availableSlots }}</p>
+                </div>
+          
+            </div>
+            <div *ngIf="!collapsed[i]">
+                <div class="assignments">
+                    <h4>Assignments</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Assignment Name</th>
+                                <th>Assignment Number</th>
+                                <th>Course Name</th>
+                                <th>Due Date</th>
+                                <th>Created Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let assignment of courseAssignments[course.courseId]">
+                                <td>{{ assignment.assignmentName }}</td>
+                                <td>{{ assignment.assignmentNumber }}</td>
+                                <td>{{ assignment.courseName }}</td>
+                                <td>{{ assignment.dueDate | date:'medium' }}</td>
+                                <td>{{ assignment.createdDate | date:'medium' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="exams">
+                    <h4>Exams</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Exam Name</th>
+                                <th>Exam Number</th>
+                                <th>Course Name</th>
+                                <th>Course Code</th>
+                                <th>Exam Date</th>
+                                <th>Exam Time</th>
+                                <th>Room Number</th>
+                                <th>Syllabus</th>
+                                <th>Created Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let exam of courseExams[course.courseId]">
+                                <td>{{ exam.examName }}</td>
+                                <td>{{ exam.examNumber }}</td>
+                                <td>{{ exam.courseName }}</td>
+                                <td>{{ exam.courseCode }}</td>
+                                <td>{{ exam.examDate | date:'medium' }}</td>
+                                <td>{{ exam.examTime }}</td>
+                                <td>{{ exam.roomNumber }}</td>
+                                <td>{{ exam.syllabus.join(', ') }}</td>
+                                <td>{{ exam.createdDate | date:'medium' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

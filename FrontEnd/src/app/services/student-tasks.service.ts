@@ -21,6 +21,9 @@ export class StudentTasksService {
     return this.http.get<any[]>(`${this.apiUrl}/${studentId}`);
   }
 
+  getAllTasksByStudentIdandCourseId(studentId : any,courseId : any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${studentId}/${courseId}`);
+  }
   // Fetch a single student task by ID
   getStudentTaskById(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);

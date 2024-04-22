@@ -1,43 +1,89 @@
-<!-- yourfriends.component.html -->
-<div class="container">
+<html>
+<body>
+  <div class="container">
     <div class="row">
-      <div class="col-md-9"></div>
-      <div class="col-md-3">
-        <button class="add-friend-button" (click)="toggleSearch()">+ Add Friend</button>
-      </div>
+      <!-- Left Column: Friend Requests - 4 parts width -->
+      <div class="col-md-4 friendRequestcontainer">
+        <h2>Friend Requests</h2>
+        <div *ngIf="friendRequests.length > 0; else noFriendRequests">
+          <div class="request-card" *ngFor="let request of friendRequests">
+            <div class="request-info">
+                <img src="{{request.profilePicture || defaultProfilePicture}}" alt="Profile Picture" class="profile-pic">
+                <div class="info-text">
+                    <div class="name">{{ request.firstName }} {{ request.lastName }}</div>
+                    <div class="email">{{ request.email }}</div>
+                </div>
+            </div>
+            <div class="request-actions">
+                <button class="btn btn-success" (click)="acceptFriendRequest(request.id)">Accept</button>
+                <button class="btn btn-danger" (click)="rejectFriendRequest(request.id)">Reject</button>
+            </div>
+        </div>
+        
+        </div>
+        <ng-template #noFriendRequests>
+            <div>
+                <p>No friend requests.</p>
+            </div>
+        </ng-template>
     </div>
-    <div class="row">
-      <div class="col-md-7 tableclass">
-        <table>
+    
+
+      <!-- Middle Column: Friends List - 5 parts width -->
+      <div class="col-md-5 tableclass">
+        <h2>Friends</h2>
+        <table *ngIf="filteredFriends.length > 0; else noFriends">
           <thead>
+            <th>Profile Picture</th>
             <th>Name</th>
             <th>Email</th>
-            <th>No of Courses enrolled</th>
-            <th>Request Status</th>
           </thead>
           <tbody>
             <tr *ngFor="let friend of filteredFriends; let i = index">
-              <td class="name" (click)="addFriend(friend)">{{ friend.name }}</td>
+              <td>
+                <div class="profile-picture">
+                  <img *ngIf="friend?.profilePicture" [src]="'data:image/jpeg;base64,' + friend.profilePicture" alt="Profile Picture">
+                  <img *ngIf="!friend.profilePicture" [src]="defaultProfilePicture" alt="Profile Picture">
+                </div>
+              </td>
+              <td class="name">{{ friend.firstName }} {{ friend.lastName }}</td>
               <td class="email">{{ friend.email }}</td>
-              <td class="courses">{{friend.courses}}</td>
-              <td class="accepted">{{friend.accepted}}</td>
             </tr>
           </tbody>
         </table>
+        <ng-template #noFriends>
+          <div class="">
+            <p>No Friends. Keep Adding them. Click on Add Friends</p>
+          </div>
+        </ng-template>
       </div>
-      <div class="col-md-4 searchclass">
-        <div *ngIf="isSearchVisible" class="search-box">
-          <input type="text" placeholder="Search by name" (input)="onSearchChange($event)">
-          <ng-container *ngIf="searchFriends.length > 0; else noResults">
-            <ul>
-              <li *ngFor="let friend of searchFriends" (click)="addFriend(friend)">{{ friend.name }}</li>
-            </ul>
-          </ng-container>
-          <ng-template #noResults>
-            <p>No friends! Try another search</p>
-          </ng-template>
+
+      <!-- Right Column: Add Friends Button - 3 parts width -->
+      <div class="col-md-3 searchclass">
+        <div class="search-box" *ngIf="isSearchVisible">
+            <input type="text" placeholder="Search by name" (input)="onSearchChange($event)">
+            <ng-container *ngIf="searchFriends.length > 0; else noResults">
+                <div class="card-container">
+                    <div class="friend-card" *ngFor="let friend of searchFriends">
+                        <img src="{{friend.profilePicture || defaultProfilePicture}}" alt="Profile Picture" class="profile-pic">
+                        <div class="friend-info">
+                            <div style="font-weight: bold;">{{ friend.firstName }} {{ friend.lastName }}</div>
+                            <div>{{ friend.email }}</div>
+                            <!-- <div>{{ friend.coursesEnrolled.join(', ') }}</div> -->
+                            <button class="button" (click)="addFriend(friend)" [disabled]="isRequestSent(friend.id)">
+                              {{ isRequestSent(friend.id) ? 'Friend Request Sent' : 'Add Friend' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noResults>
+                <p>No friends! Try another search.</p>
+            </ng-template>
         </div>
-      </div>
+    </div>
+    
     </div>
   </div>
-  
+</body>
+</html>

@@ -12,7 +12,7 @@ export class TaskMileStonesService {
 
   constructor(private http: HttpClient) { }
 
-  getNoOfAssignmentsAddedForStudent(studentId: string): Observable<number> {
+  getCompletedMilestonesByStudentid(studentId: string): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/getNoOfMilestones/${studentId}`);
   }
   getMilestonesByStudentTaskId(studentTaskId: string): Observable<any[]> {

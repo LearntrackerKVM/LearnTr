@@ -1,42 +1,45 @@
-.greeting-container{
+.greeting-container {
   background-color: #46166b;
   border-radius: 10px;
   color: white;
-  padding: 60px 60px;
   margin: 20px 20px;
+  padding: 60px 60px;
   height: max-content;
 }
 
 .studentMainContainer {
-
-        background-image: url('/assets/bg/dash.jpeg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed; /* Reduce the size of the background image */
-    
-        
+  padding: 50px;
+  background-color: #E6E6FA;
+  height: 100vh;
 }
 
+main{
+  background-color: #fff;
+  padding: 10px;
+  margin: 70px;
+}
 
-.hellomessage,.welcomemessage{
+.hellomessage,
+.welcomemessage {
   font-size: 1.3em;
 }
-.head-container{
+
+.head-container {
   font-size: 2em;
   font-family: poppins;
-  padding : 20px 20px;
+  padding: 20px 20px;
   padding-top: 90px;
 
 }
 
 .cards-container {
   position: relative;
-  top: -60px; 
+  top: -60px;
   display: flex;
-  justify-content: space-around; 
-  flex-wrap: wrap; 
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
+
 .card {
   background-color: lavender;
   width: 300px;
@@ -50,15 +53,16 @@
   align-items: center;
 }
 
-.card img{
+.card img {
   display: block;
   margin-left: 20px;
   margin-right: 20px;
   width: 80px;
-  height :80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover; 
+  object-fit: cover;
 }
+
 h3.number {
   margin-top: 0;
   padding-top: 20px;
@@ -73,68 +77,74 @@ h3.title {
   color: #000;
   justify-content: center;
   align-items: center;
-  
+
 }
-.content{
+
+.content {
   padding-top: 0;
 }
+
 .courses-container {
   display: flex;
   border-radius: 10px;
-  background-color: #DDDDDD;
-  box-shadow: #46166b;
-  flex-direction: column;
-  padding: 10px 20px;
-  border: 1px solid #000;
-}
-.schedule-container{
-  display: flex;
-  border-radius: 10px;
-  background-color: #DDDDDD;
-  box-shadow: #46166b;
-  flex-direction: column;
-  border: 1px solid #000;
-  padding: 10px 20px;
-}
-.course-info{
-  display: flex;
-  border-radius: 10px;
-  background-color: #DDDDDD;
   box-shadow: #46166b;
   flex-direction: column;
   padding: 10px 20px;
   border: 1px solid #000;
 }
 
-.my-courses-title,.my-schedule-title,.available-courses-title {
+.schedule-container {
+  display: flex;
+  border-radius: 10px;
+  box-shadow: #46166b;
+  flex-direction: column;
+  border: 1px solid #000;
+  padding: 10px 20px;
+}
+
+.course-info {
+  display: flex;
+  border-radius: 10px;
+  background-color: #E6E6FA;
+  box-shadow: #46166b;
+  flex-direction: column;
+  padding: 10px 20px;
+  border: 1px solid #000;
+}
+
+.my-courses-title,
+.my-schedule-title,
+.available-courses-title {
   margin: 0;
   padding: 0;
   font-size: 2em;
   font-family: poppins;
 }
-.available-courses{
+
+.available-courses {
   display: flex;
   border-radius: 10px;
-  background-color: #DDDDDD;
   box-shadow: #46166b;
   flex-direction: column;
   padding: 10px 20px;
   margin: 20px 0;
   border: 1px solid #000;
 }
+
 .search-courses {
   display: flex;
   margin: 0;
   padding: 0;
-  justify-content: flex-end; 
+  justify-content: flex-end;
 }
 
 .search-course-input {
   margin-right: 10px;
   margin-top: 0;
   padding: 5px;
-  width: 150px; 
-  height: 50px;/* Adjust the width to your preference */
+  width: 150px;
+  height: 50px;
+  /* Adjust the width to your preference */
 }
 
 
@@ -156,7 +166,7 @@ h3.title {
   padding: 1px 80px;
 }
 
-.progress-percent{
+.progress-percent {
   padding-left: 30px;
 }
 
@@ -169,43 +179,49 @@ table {
 }
 
 
+
 th {
   background-color: #46166b;
   color: white;
   padding: 20px;
   text-align: left;
   margin-left: 200px;
-  border: 1px solid #fff; /* Add 1px solid border */
   text-align: left;
+  font-size: 1.3em;
 }
 
 td {
   margin: 20px;
-  border: 1px solid #46166b; /* Add 1px solid border */
   text-align: left;
-  padding: 8px;
+  padding: 10px;
+  font-size: 1.2em;
+  border-left: 1px solid #ccc; /* Adds a border to the left side of each cell */
+  border-right: 1px solid #ccc; /* Adds a border to the right side of each cell */
 }
 tr:nth-child(even) {
   background-color: #fff;
   color: black;
+  font-size: 1.1em;
 }
 
 tr:nth-child(even) .badge,
 tr:nth-child(even) .badge i {
-  background-color: #d6d6d6; /* Or any other color you want for badges background */
+  background-color: #E6E6FA; /* Or any other color you want for badges background */
   color: black; /* Or any other color you want for badges text and icons */
 }
 
 tr:nth-child(odd) {
+
+  background-color: #E6E6FA;
   color: black;
+  font-size: 1.1em;
 }
 
 tr:nth-child(odd) .badge,
 tr:nth-child(odd) .badge i {
-  background-color: transparent; /* Or any other color you want for badges background */
+  background-color: #fff; /* Or any other color you want for badges background */
   color: black; /* Or any other color you want for badges text and icons */
 }
-
 
 .course-details {
   display: flex;
@@ -213,7 +229,8 @@ tr:nth-child(odd) .badge i {
   margin-bottom: 20px;
 }
 
-.left-column, .right-column {
+.left-column,
+.right-column {
   flex: 1;
 }
 
@@ -241,59 +258,72 @@ tr:nth-child(odd) .badge i {
 /* Add responsiveness */
 @media (max-width: 768px) {
   .course-details {
-      flex-direction: column;
+    flex-direction: column;
   }
+
   .right-column {
-      margin-left: 0;
-      margin-top: 20px;
+    margin-left: 0;
+    margin-top: 20px;
   }
 }
-  button {
-      border-radius: 20px;
-      border: 1px solid #46166b;
-      background-color: #46166b;
-      color: #d6d6d6;
-      font-size: 17px;
-      font-weight: bold;
-      padding: 12px 45px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin: 10px;
-      transition: transform 80ms ease-in;
-  }
-  
-  button:active {
-      background-color: #DDDDDD;
-      transform: scale(0.95);
-  }
-  
-  button:focus {
-      outline: none;
-  }
-  
-  button.ghost {
-      background-color: transparent;
-      border-color: #FBFADA;
-  }
-  
-  button.clicked {
-      background-color: #eeb211; 
-  }
-  
-  button:hover {
-      background-color: #eeb211; /* Change the hover background color */
-  }
-  
-  .no-bullets {
-    list-style-type: none; /* Removes the bullet points */
-    padding: 0; /* Removes padding, optional */
-    margin: 0; /* Removes margin, optional */
-  }
 
-  th{
-    font-size: 1.4em;
-  }
+button {
+  border-radius: 20px;
+  border: 1px solid #46166b;
+  background-color: #46166b;
+  color: #d6d6d6;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 10px;
+  transition: transform 80ms ease-in;
+}
 
-  td{
-    font-size: 1.3em;
-  }
+button:active {
+  background-color: #DDDDDD;
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.ghost {
+  background-color: transparent;
+  border-color: #FBFADA;
+}
+
+button.clicked {
+  background-color: #eeb211;
+}
+
+button:hover {
+  background-color: #eeb211;
+  /* Change the hover background color */
+}
+
+.no-bullets {
+  list-style-type: none;
+  /* Removes the bullet points */
+  padding: 0;
+  /* Removes padding, optional */
+  margin: 0;
+  /* Removes margin, optional */
+}
+
+th {
+  font-size: 1.4em;
+}
+
+td {
+  font-size: 1.3em;
+}
+.fa {
+  transition: transform 0.3s ease;
+}
+
+.fa-chevron-up {
+  transform: rotate(180deg);
+}

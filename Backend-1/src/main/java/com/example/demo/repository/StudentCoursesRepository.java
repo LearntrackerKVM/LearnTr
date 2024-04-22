@@ -20,5 +20,6 @@ public interface StudentCoursesRepository extends CrudRepository<StudentCourses 
 	   boolean existsByStudentIdAndCourseId(String studentId, String courseId);
 	   List<StudentCourses> findByStudentId(String studentId);
 	   List<StudentCourses> findByCourseIdIn(List<String> courseIds);
+	   StudentCourses findByStudentIdAndCourseId(String studentId, String courseId);
 
 }

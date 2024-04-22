@@ -1,0 +1,85 @@
+<body>
+    <div class="student-courses-container">
+        <div class="page-container">
+            <!-- Column 1 for Task Filters and Controls -->
+            <div class="column tasks-column">
+                <div class="tasks-buttons">
+                    <button class="btn" style="background-color: #E6E6FA;" [class.active]="currentFilter === 'upcoming'"
+                        (click)="setFilter('upcoming')">Upcoming Tasks</button>
+                    <button class="btn" style="background-color: #FADADD;" [class.active]="currentFilter === 'overdue'"
+                        (click)="setFilter('overdue')">Overdue Tasks</button>
+                    <button class="btn" style="background-color: #FFDAB9;"
+                        [class.active]="currentFilter === 'completed'" (click)="setFilter('completed')">Completed
+                        Tasks</button>
+                </div>
+                <div class="type-buttons">
+                    <button class="btn" [class.active]="currentTaskType === 'Assignment'"
+                        (click)="toggleTaskType('Assignment')"> <i class="fa-solid fa-calendar-days"></i>
+                        Assignments</button>
+
+                    <button class="btn" [class.active]="currentTaskType === 'Exam'" (click)="toggleTaskType('Exam')"> <i
+                            class="fa fa-pen-fancy"></i> Exams</button>
+                </div>
+
+                <!-- Dropdown to select course -->
+                <select class="form-control" (change)="updateCourseFilter($event)">
+                    <option value="">All Courses</option>
+                    <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}
+                    </option>
+                </select>
+
+                <!-- Single Table for displaying tasks based on current selection -->
+                <table *ngIf="currentTaskType && (showAssignmentTable || showExamTable)" class="table">
+                    <thead>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>Course Name</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Milestones Done</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of filteredTasks" [ngClass]="{'overdue': task.status === 'Overdue'}">
+                            <td>{{ task.title }}</td>
+                            <td>{{ task.courseName }}</td>
+                            <td>{{ task.dueDate | date }}</td>
+                            <td>{{ task.status }}</td>
+                            <td>{{ task.milestones }}</td>
+                            <td>
+                                <button *ngIf="task.status !== 'Completed'" class="btn btn-secondary"
+                                    (click)="manageTask(task)">Manage</button>
+                                <button *ngIf="task.status === 'Completed'" class="btn btn-secondary"
+                                    (click)="showTaskInfo(task)">Info</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Column 2 for Analytics -->
+            <div class="column analytics-column">
+                <h3>Analytics Dashboard</h3>
+                <div *ngFor="let course of studentCourses" class="course-analytics">
+                    <h4>{{ course.courseName }}</h4>
+                    <div *ngFor="let task of getTasksByCourse(course.courseId)">
+                        <!-- Display circle progress for both assignments and exams -->
+                        <circle-progress 
+                            [percent]="calculateProgress(task)" 
+                            [radius]="60" 
+                            [outerStrokeWidth]="10" 
+                            [innerStrokeWidth]="5" 
+                            [outerStrokeColor]="course.color"
+                            [innerStrokeColor]="course.color">
+                        </circle-progress>
+                        <p style="padding-left: 25px;">{{ task.title }}</p> <!-- Indicate type of task -->
+                    </div>
+                </div>
+            </div>
+            
+            
+
+        </div>
+    </div>
+</body>

@@ -1,4 +1,4 @@
-<div class="welcomecontainer">
+<body><div class="welcomecontainer">
 </div>
 <div class="container" id="container">
   <div class="row">
@@ -55,12 +55,13 @@
             <div class="custom-dropdown-wrapper">
               <label for="role"></label>
               <select id="role" [(ngModel)]="user.role" class="custom-dropdown" name="selectedRole">
-                  <option [ngValue]="undefined">Select role</option>
+                <option value="" disabled selected>Select Role</option>
                   <option *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
               </select>
           </div>
 </div>          
-          <button class="btn btn-primary btn-block" (click)="registerUser(user)">Sign Up</button>
+<span style="color: red" *ngIf="registerError">{{registerErrorMessage}}</span>
+          <button class="btn btn-block" (click)="registerUser(user)">Sign Up</button>
         </form>
       </div>
       <div class="col-md-10 mx-auto">
@@ -85,28 +86,33 @@
             </div>
           </div>
        
-          <a href="#">Forgot your password?</a>
+          <a href="forgetpassword">Forgot your password?</a>
           <div *ngIf="loginError" class="error-message">
           {{ loginErrorMessage }}
           </div>
-          <button class="btn btn-primary btn-block" (click)="navigateToHomePage(user.email,user.password)">Sign In</button>
+          <button class="btn btn-block" (click)="navigateToHomePage(user.email,user.password)">Sign In</button>
         </form>
       </div>
       </div>
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-left">
-            <h1>Welcome Back!</h1>
-            <p>To keep connected with us, please login with your personal info</p>
-            <button class="btn btn-outline-primary" id="signIn">Sign In</button>
+            <div class="lightbg">
+              <h1>Welcome Back!</h1>
+              <p>To keep connected with us, please login with your personal info</p>
+            </div>
+      
+            <button class="btn" id="signIn">Sign In</button>
           </div>
           <div class="overlay-panel overlay-right">
             <h1>Hello, Friend!</h1>
             <p>Enter your personal details and start the journey with us</p>
-            <button class="btn btn-outline-primary" id="signUp">Sign Up</button>
+            <button class="btn" id="signUp">Sign Up</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+</body>
