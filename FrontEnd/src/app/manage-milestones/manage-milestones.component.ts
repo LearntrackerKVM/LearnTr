@@ -116,6 +116,24 @@ export class ManageMilestonesComponent {
       // Handle this case as needed, perhaps by showing an alert or notification to the user
     }
   }
+  downloadFileC(fileContent: string, fileType: string, fileName: string): void {
+    const byteCharacters = atob(fileContent);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: fileType });
+  
+    const url = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = fileName;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    window.URL.revokeObjectURL(url);
+  }
   openCompleteBox(milestone: any) {
     this.showCompleteBox = true;
     const dialogRef = this.dialog.open(CompleteMilestoneDialogComponentComponent, {
@@ -159,6 +177,36 @@ export class ManageMilestonesComponent {
     // Close the modal/box
     milestone.showNotesBox = false;
   }
-
+  onFileChange(event : any){
+    this.uploadFile(event, this.task.taskId);
+  }
+  uploadFile(event: any, studentTaskId: string): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.studentTasksService.uploadFileToStudentTask(studentTaskId, file).subscribe(
+        response => {
+          console.log('File is completely uploaded!');
+        },
+        error => {
+          console.error('Error uploading file!', error);
+        }
+      );
+    }
+  }
+  
+  downloadSubmitFile(studentTaskId: string): void {
+    this.studentTasksService.getFile(studentTaskId).subscribe(
+      data => {
+        // Create a new Blob object and provide download link
+        const downloadedFile = new Blob([data], { type: data.type });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(downloadedFile);
+        a.download = 'filename'; // Provide the name of the file you want to save as
+        a.click();
+        URL.revokeObjectURL(a.href);
+      },
+      error => console.error('Error downloading the file.', error),
+    );
+  }
 }
 

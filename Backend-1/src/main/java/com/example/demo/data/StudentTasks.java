@@ -24,6 +24,8 @@ public class StudentTasks {
     private Integer milestones;
     private String courseName;
     private Integer milestonesCompleted;
+    private String fileType;
+    private byte[] fileContent;
     // Constructor
     public StudentTasks() {
     }
@@ -148,5 +150,21 @@ public class StudentTasks {
 
 	public void setMilestonesCompleted(Integer milestonesCompleted) {
 		this.milestonesCompleted = milestonesCompleted;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public byte[] getFileContent() {
+		return fileContent;
+	}
+
+	public void setFileContent(byte[] fileContent) {
+		this.fileContent = fileContent;
 	}
 }

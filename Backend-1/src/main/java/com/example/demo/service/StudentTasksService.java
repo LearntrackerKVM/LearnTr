@@ -4,7 +4,9 @@ import com.example.demo.data.StudentTasks;
 import com.example.demo.repository.StudentTasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -97,6 +99,25 @@ public class StudentTasksService {
             // Save and return the updated task
             return studentTasksRepository.save(studentTask);
         }).orElseThrow(() -> new RuntimeException("Task not found with id " + id));
+    }
+    public Optional<StudentTasks> updateTaskWithFile(String studentTaskId, MultipartFile file) {
+        Optional<StudentTasks> studentTaskOptional = studentTasksRepository.findById(studentTaskId);
+        if (studentTaskOptional.isEmpty()) {
+            return Optional.empty();  // Handle or log "not found" appropriately
+        }
+        StudentTasks task = studentTaskOptional.get();
+        try {
+            task.setFileContent(file.getBytes());
+            task.setFileType(file.getContentType());
+            studentTasksRepository.save(task);
+        } catch (IOException e) {
+            // Properly log the error
+            throw new RuntimeException("Failed to store file data", e);
+        }
+        return Optional.of(task);
+    }
+    public Optional<StudentTasks> getFile(String id) {
+        return studentTasksRepository.findById(id);
     }
     // Additional business logic and methods can be implemented as needed
 }

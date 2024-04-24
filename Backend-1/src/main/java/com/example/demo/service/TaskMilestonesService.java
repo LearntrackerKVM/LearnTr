@@ -94,7 +94,7 @@ public class TaskMilestonesService {
 	            long completedCount = milestones.stream().filter(TasksMilestones::getIsComplete).count();
 	            
 	            // Update the number of completed milestones
-	            task.setMilestones((int) completedCount);
+	            task.setMilestonesCompleted((int) completedCount);
 
 	            // Update task status
 	            if (completedCount == milestones.size()) {

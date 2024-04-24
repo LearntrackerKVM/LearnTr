@@ -183,9 +183,8 @@ export class StudentcoursesComponent implements OnInit {
 
 calculateProgress(task: any) {
     // The method calculates progress based on the completion of milestones
-    if (task.milestones > 0 && task.status === 'Upcoming') {
-        let completedMilestones = this.getCompletedMilestonesForTask(task.id);
-        return (completedMilestones / task.milestones) * 100;
+    if (task.milestones > 0) {
+        return (task.milestonesCompleted / task.milestones) * 100;
     }
     return 0; // Return 0 if no milestones or task is not 'Upcoming'
 }

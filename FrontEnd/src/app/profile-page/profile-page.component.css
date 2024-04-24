@@ -5,20 +5,39 @@
   align-items: flex-start; /* Keeps items aligned at the start */
   gap: 20px; /* Adds space between the profile picture and form */
 }
-
 .profile-picture {
   flex: 0 1 auto; /* Do not grow but can shrink, with auto basis */
   text-align: center;
   margin-right: 40px;
 }
 
+.upload-btn-wrapper {
+  margin-top: 10px; /* Space between the image and the button */
+  text-align: center; /* Center the button below the image */
+}
+
 .profile-picture img {
   width: 250px;
-  height: 250px; /* Adjusted to make the image more circular */
+  height: 250px;
   border-radius: 50%;
-  object-fit: cover; 
-  margin-right: 20px;/* Ensures the image covers the area without distortion */
+  object-fit: cover;
 }
+
+.btn-upload {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: block; /* Ensures the button is a block element */
+  width: auto; /* Button width is determined by its content */
+  margin: 10px auto; /* Centers the button horizontally */
+}
+
+.btn-upload:hover {
+  background-color: #0056b3;
+}
+
 
 .form-fields {
   flex: 1; /* Allows the form section to grow as needed */
@@ -65,16 +84,6 @@
 label{
   font-size: 1.9em;
   font-family: poppins;
-}
-
-.btn-upload {
-  /* Style your button for uploading pictures */
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  margin-top: 10px; /* Add some space above the button */
 }
 
 .btn-upload:hover {
