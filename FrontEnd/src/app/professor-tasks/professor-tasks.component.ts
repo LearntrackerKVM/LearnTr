@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Course } from '../models/Course';
 import { AssignmentService } from '../services/assignment.service';
 import { CourseService } from '../services/course.service';
@@ -23,7 +24,8 @@ export class ProfessorTasksComponent {
 courseExams: { [key: string]: any[] } = {};
 collapsed: boolean[] = [];
 
-  constructor(private courseService : CourseService, private assignmentService : AssignmentService, private examService : ExamService){
+  constructor(private courseService : CourseService, private assignmentService : AssignmentService,
+    private sanitizer: DomSanitizer, private examService : ExamService){
     const currentUserString = sessionStorage.getItem('currentUser');
     if (currentUserString) {
       const currentUser = JSON.parse(currentUserString);
@@ -53,6 +55,24 @@ collapsed: boolean[] = [];
     this.collapsed[index] = !this.collapsed[index];  // Toggle the current state
 }
 
+downloadFile(fileContent: string, fileType: string, fileName: string): void {
+  const byteCharacters = atob(fileContent);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  const blob = new Blob([byteArray], { type: fileType });
+
+  const url = window.URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = fileName;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+  window.URL.revokeObjectURL(url);
+}
   initializeTaskContainers(): void {
     this.professorCourses.forEach(course => {
       this.courseAssignments[course.courseId] = [];

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/studentTasks")
@@ -64,5 +65,23 @@ public class StudentTasksController {
                            @RequestParam String status,
                            @RequestParam(required = false) LocalDate completionDate) {
         return studentTasksService.updateTask(id, difficultyLevel, notes, status, completionDate);
+    }
+    
+    @PostMapping("/uploadFile/{studentTaskId}")
+    public ResponseEntity<StudentTasks> uploadFileToStudentTask(
+            @PathVariable String studentTaskId,
+            @RequestPart("file") MultipartFile file) {
+        return studentTasksService.updateTaskWithFile(studentTaskId, file)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/file/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+        return studentTasksService.getFile(id)
+                .map(task -> ResponseEntity.ok()
+                        .header("Content-Type", task.getFileType())
+                        .body(task.getFileContent()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

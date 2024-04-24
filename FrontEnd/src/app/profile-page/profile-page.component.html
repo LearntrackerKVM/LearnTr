@@ -1,13 +1,11 @@
-
-<!-- Profile component HTML -->
 <div class="profile-container">
   <div class="profile-picture">
-    <div class="form-group">
-      <img [src]="userProfilePictureUrl || defaultProfilePicture" alt="Profile Picture">
+    <img [src]="userProfilePictureUrl || defaultProfilePicture" alt="Profile Picture" class="img-responsive">
+    <!-- Button and hidden file input for uploading pictures -->
+    <div class="upload-btn-wrapper">
       <button (click)="fileInput.click()" class="btn-upload">Select Picture</button>
       <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
     </div>
-  
   </div>
   
   <div class="form-fields"> <!-- This encapsulates the form fields -->

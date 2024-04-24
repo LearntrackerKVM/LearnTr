@@ -19,6 +19,7 @@
                     <p class="detail"><strong>Course Code:</strong> {{ course.courseCode }}</p>
                     <p class="detail"><strong>Semester:</strong> {{ course.semester }}</p>
                     <p class="detail"><strong>Available Slots:</strong> {{ course.availableSlots }}</p>
+                    
                 </div>
           
             </div>
@@ -33,6 +34,7 @@
                                 <th>Course Name</th>
                                 <th>Due Date</th>
                                 <th>Created Date</th>
+                                <th>Assignment File</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +44,10 @@
                                 <td>{{ assignment.courseName }}</td>
                                 <td>{{ assignment.dueDate | date:'medium' }}</td>
                                 <td>{{ assignment.createdDate | date:'medium' }}</td>
+                                <td>
+                                <button (click)="downloadFile(assignment.fileContent, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'Assignment.docx')">Download File</button>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>

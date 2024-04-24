@@ -1,22 +1,33 @@
 <div class="container">
-    <div class="filter-section mb-3">
-      <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
-        <option value="" disabled selected>Select a Course</option>
-        <option *ngFor="let course of courses" [value]="course.courseId">{{ course.courseName }}</option>
-      </select>
+  <div class="row">
+    <div class="col-md-6">
+      <p style="font-family: poppins;font-size: 1.6em;font-weight: bold;">Select A Course</p>
     </div>
+    <div class="col-md-6">
+      <div class="filter-section mb-3">
+        <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
+          <option value="" disabled selected>Select a Course</option>
+          <option *ngFor="let course of courses" [value]="course.courseId" selected>{{ course.courseName }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+ 
+    
     <div class="questions" *ngFor="let ques of filteredQuestions; let i = index">
-      <h2>Questions</h2>
       <div class="allquestions">
+     
         <div class="question">
-            <b>Question by {{ques.studentName}}</b>
+            <b  style="font-family: poppins;font-size: 1.6em;font-weight: bold; ">{{ques.studentName}}</b>
         </div>
+  
+
         <hr/>
         <div class="question-detail">
-            <b>{{ques.question}}</b>
+          <p style="font-family: poppins;font-size: 1.4em;font-weight: bold; color: #46166b;">Q :{{ques.question}}</p>
         </div>
         <div class="answer">
-            <i>{{ques.answer}}</i>
+          <p style="font-family: poppins;font-size: 1.4em;font-style: italic; ">Re: {{ques.answer}}</p>
         </div>
     </div>
     

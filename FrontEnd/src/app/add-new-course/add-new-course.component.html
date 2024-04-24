@@ -155,7 +155,6 @@
           <label for="file">Upload File</label>
           <input type="file" class="form-control-file" id="file" (change)="onFileChange($event)" accept=".pdf, .doc, .docx">
         </div>
-      `
         <span *ngIf="milestone">{{noofMilestones}} milestones will be created for students</span>
         <div class="row buttonrowsubmit">
           <button type="submit" class="btn btn-primary submitButton" [disabled]="!assignmentForm.valid || assignmentNameExists">Submit</button>

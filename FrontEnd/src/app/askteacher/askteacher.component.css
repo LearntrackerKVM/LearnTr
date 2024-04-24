@@ -6,21 +6,13 @@
     font-weight: bold;
     font-size: 1.7rem;
 
-  }
-
-  body{
-    height: 100vh;
-    background-image: url('/assets/bg/questionbg.jpeg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed; 
-  }
-
+}
   
+
   
   .main-container blockquote {
     font-size: 1.1rem;
+
   }
   .main-container{
     padding-top: 100px;
@@ -33,39 +25,96 @@
       float: right;
     }
   }
-    .askteacher-container,.discussion-container{
+  .askteacher-container {
+    border-radius: 1px;
+    border: 1px solid #ccc;
+    margin: 30px;
+    padding: 10px;
+}
+
+.row {
+  width: 100%;
+  margin : 0;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+}
+
+.container1 {
+  width: 100%; /* Ensures container uses full width if not already set by Bootstrap */
+  max-width: 100%; /* Prevents Bootstrap from restricting the container width */
+  padding-right: 0;
+  padding-left: 0;
+}
+.ask-questions, .previous-questions {
+    padding: 10px 70px;
+    flex: 0 0 50%; /* Adjust flex-basis to control width, replacing col-md-6 */
+}
+
+.ask-questions {
+    border-right: 2px solid #000; /* Vertical line between the two columns */
+}
+
+.previous-questions {
+    padding-left: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+
+.postbutton {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.postbutton:hover {
+    background-color: #004085; /* Slightly darker on hover */
+    border-color: #003768;
+}
+
+    .discussion-container{
       border-radius: 1px;
       border: 1px solid #ccc;
-      margin : 30px;
-      padding: 20px;
+      margin : 50px;
+      padding: 10px;
     }
-
     .post-form,.post-content{
       border-radius: 5px;
-      border: 5px solid black;
-      padding: 20px;
+      border: 2px solid black;
+      padding: 10px;
     }
 
     .reply,.reply-form{
       border-radius: 5px;
       border: 3px solid lightblue;
-      padding: 20px;
+      padding: 10px;
     }
     .replyreply,.nested-reply{
       border-radius: 5px;
       border: 1px solid #ccc;
-      padding: 20px;
+      padding: 10px;
     }
     .annoucements{
       border-radius: 5px;
       border: 3px solid #eeb211;
-      padding: 20px;
+      padding: 10px;
     }
   
     .questions{
       border-radius: 5px;
       border: 3px solid #eeb211;
-      padding: 20px;
+      padding: 10px;
     }
  
     
@@ -105,4 +154,4 @@
       transition: transform 80ms ease-in;
     }
     
-  
+ 
