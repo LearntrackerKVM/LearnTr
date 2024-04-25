@@ -1,44 +1,65 @@
-.container{
+body 
+{
+    background: linear-gradient(45deg, #ffc107, #673ab7);}
+.container {
     padding-top: 50px;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #ffc107, #673ab7);
+}
+table {
+    background: linear-gradient(45deg, #a9ee81, #5d5feb);
+}
+tr:nth-of-type(odd) {
+    background: linear-gradient(45deg, #64e2f0, #db6c6c);
+}
+  
+tr:nth-of-type(even) {
+    background: linear-gradient(45deg, #db6c6c, #64e2f0);
 }
 
-tr:nth-of-type(odd) {
-    background-color: #eee;
-  }
-  
- tr:nth-of-type(even) {
-    background-color: #fff;
-  }
+img {
+    width: 40px;
+    height: 40px;
+}
+table {
+    background: linear-gradient(45deg, #a9ee81, #5d5feb);
+}
 
-  img{
-      width : 40px;
-      height : 40px
-  }
+th {
+    font-size: 24px; /* Increased font size to 24px */
+    padding: 20px;
+    font-family: poppins;
+    background: linear-gradient(45deg, #64e2f0, #db6c6c);
+}
 
-  th{
-      font-size: 20px;
-      padding: 20px;
-      font-family: poppins;
-  }
+td {
+    padding: 20px;
+    background: linear-gradient(45deg, #a9ee81, #5d5feb);
+}
 
-  td{
-      padding: 20px;
-  }
+blockquote {
+    font-size: 1.4rem; /* Increased font size to 1rem */
+}
+tbody td {
+    font-size: 22px; /* Adjust the font size as needed */
+}
+.super {
+    font-size: 1.6em; /* Increased font size to 1.6em */
+    font-family: poppins;
+    border: 1px solid #eee;
+    padding: 50px;
+    margin: 100px;
+}
 
-   blockquote {
-    font-size: 0.9rem;
+.super img {
+    width: 200px;
+    height: 200px;
+}
+h2 {
+    background-color: #020202;
+    color: rgb(252, 250, 250);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
-
-  .super{
-      font-size: 1.3em;
-      font-family: poppins;
-      border: 1px solid #eee;
-      padding: 50px;
-      margin: 100px;
-  }
-
-  .super img{
-      width: 200px;
-      height: 200px;
-  }
-  
