@@ -1,7 +1,7 @@
 body {
     height: 100vh;
     
-        background-image: url('/assets/bg/leaderbg.jpeg');
+        background-image: url('/assets/bg/9.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -14,6 +14,16 @@ body {
   img{
       width:50px;
       height: 50px;
+  }
+  .btn-blink {
+    animation: blink 1s infinite alternate; /* Blinking animation */
+    transition: background-color 0.3s; /* Smooth color transition */
+  }
+  
+  /* Keyframes for blinking animation */
+  @keyframes blink {
+    from { background-color: #ffc107; } /* Yellow */
+    to { background-color: #673ab7; } /* Purple */
   }
 .leaderboard {
     display: flex;
@@ -39,56 +49,60 @@ body {
 table {
     width: 70%;
     border-collapse: collapse;
-    align-items: center;
     margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-
 th {
-    background-color: #46166b;
+    background: linear-gradient(45deg, #e65947, #523fca);
     color: white;
     padding: 20px;
     text-align: center;
-    margin-left: 200px;
     font-size: 1.4em;
     border: 1px solid white;
+    transition: background-color 0.3s;
 }
 
 td {
-    margin-left: 200px;
     font-size: 1.3em;
     padding: 20px;
     border: 1px solid black;
-
+    text-align: center;
 }
-
-  
 
 tr:nth-child(even) {
-    background-color: #ccc;
-    color: black;
-}
-
-tr:nth-child(even) .badge,
-tr:nth-child(even) .badge i {
-    background-color: #ccc;
-    /* Or any other color you want for badges background */
-    color: black;
-    /* Or any other color you want for badges text and icons */
+    background: linear-gradient(45deg, #db6c6c, #5d5feb);
 }
 
 tr:nth-child(odd) {
-    color: black;
+    background: linear-gradient(45deg, #86c096, #1b8579);
 }
 
-tr:nth-child(odd) .badge,
-tr:nth-child(odd) .badge i {
-    background-color: transparent;
-    /* Or any other color you want for badges background */
+.badge {
+    background-color: #46166b;
     color: white;
-    /* Or any other color you want for badges text and icons */
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
 }
 
+.badge i {
+    margin-right: 5px;
+}
+
+/* Hover effects */
+th:hover {
+    background-color: #4c2163;
+}
+
+td:hover {
+    background-color: #dcdcdc;
+}
+
+.badge:hover {
+    background-color: #350e4a;
+}
 
 
 .player-number {
@@ -116,22 +130,31 @@ select {
 }
 
 /* Style for the button */
-button {
-    padding: 9px 17px;
-    font-size: 16px;
-    background-color: #eeb211;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+.main-container .btn  {
+    font-family: "Open Sans", sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fffbfb;
     cursor: pointer;
-}
-
-
-
-/* Hover effect for the button */
-button:hover {
-    background-color: #eeb211;
-}
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  border-radius: 10px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 10px;
+    animation: blink 1s infinite alternate;
+  }
+  
+  .button-container .btn:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+  }
 
 .filters {
     margin: 20px;
@@ -146,7 +169,10 @@ h5 {
     color: white;
 }
 
-h1{
-    font-family: poppins;
-    font-size: 2.0em;
-}
+h1 {
+    background-color: #020202;
+    color: rgb(252, 250, 250);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }

@@ -1,6 +1,6 @@
 .navbar-container {
   position: fixed;
-  background-color: #333;
+  background: linear-gradient(45deg, #ffc107, #673ab7);
   z-index: 1000;
   display: flex;
   justify-content: space-between;

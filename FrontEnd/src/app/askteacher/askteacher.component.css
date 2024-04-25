@@ -1,5 +1,152 @@
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+ /* background-image: url('/assets/bg/aq.jpg'); */
+ background: linear-gradient(135deg, #ff6b6b, #3a1c71);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+    
 
+/* General styles */
+.logo {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999; /* Ensure the logo appears above other content */
+}
+.got-questions-text {
+  font-family: 'Poppins', sans-serif; /* Change the font family */
+  font-size: 3rem; /* Increase font size */
+  color: #46166b; /* Change the text color */
+}
+img {
+  width: 50px;
+  height: 50px;
+}
+.btn-blink {
+  animation: blink 1s infinite alternate; /* Blinking animation */
+  transition: background-color 0.3s; /* Smooth color transition */
+}
+
+/* Keyframes for blinking animation */
+@keyframes blink {
+  from { background-color: #ffc107; } /* Yellow */
+  to { background-color: #673ab7; } /* Purple */
+}
+/* Neon text effect */
+.neon-text {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  text-shadow: 0 0 5px #e66666, 0 0 10px #d29292, 0 0 15px #d7a0a0, 0 0 20px rgb(20, 22, 22), 0 0 35px #0ff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 75px #0ff;
+  font-family: 'Arial', sans-serif; /* Change the font family */
+}
+
+/* Show quote on hover */
+.neon-text::after {
+  content: attr(data-quote);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(147, 233, 227, 0.9);
+  border-radius: 5px;
+  padding: 5px 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.neon-text:hover::after {
+  opacity: 1;
+}
+
+.ask-professor-btn,
+.start-discussion-btn {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 10px;
+  animation: blink 1s infinite alternate;
+}
+
+.ask-professor-btn:active,
+.start-discussion-btn:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  background: linear-gradient(45deg, #ffc107, #673ab7);
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn-primary {
+  align-self: flex-start;
+}
+
+.btn-secondary {
+  align-self: flex-end;
+}
 .main-container h1 {
+  margin-top: 20px; 
+  margin-left: 10px; 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-weight: bold;
+  font-size: 3rem; /* Larger font size */
+  color: #fff; /* White text color */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* Text shadow effect */
+}
+.blockquote {
+  font-size: 1.5rem; /* Larger font size for blockquote */
+  color: #555; /* Darker text color */
+}
+
+.blockquote-footer {
+  margin-top: 10px;
+  color: #777; /* Lighter text color for blockquote footer */
+}
+
+.btn-secondary {
+  background-color: #333; /* Darker background color */
+  color: #fff; /* White text color */
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #555; /* Darker background color on hover */
+}
+
+.main-container h2 {
     margin-top: 20px; 
     margin-left: 10px; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -26,11 +173,125 @@
     }
   }
   .askteacher-container {
-    border-radius: 1px;
+    border-radius: 10px;
     border: 1px solid #ccc;
-    margin: 30px;
-    padding: 10px;
+    background: linear-gradient(45deg, #ffc107, #673ab7); /* Background pattern */
+    padding: 20px;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px; /* Soft shadow effect */
+  }
+  .ask-your-professor {
+    text-align: center;
+  }
+  
+  
+  /* Adjust positioning of the post button and select dropdown */
+  .ask-questions,
+  .previous-questions {
+    margin-top: 20px; /* Add some space at the top */
+  }
+  .askteacher-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  
+ /* Default styles for select element */
+.filter-section select {
+  background-color: #673ab7; /* Purple background color */
+  color: white; /* White text color */
+  padding: 8px; /* Adjust padding as needed */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Add border radius for a rounded look */
 }
+
+/* Styles for select element when clicked or focused */
+.filter-section select:focus {
+  background-color: #ffc107; /* Yellow background color when focused */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Container for previous questions */
+.question-container {
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+  margin-bottom: 20px; /* Add some space between questions */
+  padding: 15px; /* Padding around each question */
+}
+
+/* Text for previous questions */
+.question-text {
+  font-family: Arial, sans-serif; /* Change the font family */
+  font-size: 16px; /* Adjust font size */
+  color: #46166b; /* Purple text color */
+  font-weight: bold; /* Bold font weight */
+}
+
+/* Text for answers */
+.answer-text {
+  font-family: Arial, sans-serif; /* Change the font family */
+  font-size: 14px; /* Adjust font size */
+  color: #666; /* Dark gray text color */
+  font-style: italic; /* Italic font style */
+}
+ /* Textarea styles */
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    font-size: 1rem;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    background-color: #4caf50; /* Green button */
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #388e3c; /* Darker green on hover */
+  }
+  
+  /* Previous questions styles */
+  .previous-questions {
+    border-left: 2px solid #ddd;
+    padding-left: 20px;
+  }
+  
+  .previous-questions h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .previous-question {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .previous-question p {
+    margin: 0;
+  }
+  
+  .previous-question .font-weight-bold {
+    font-weight: bold;
+  }
+  
+  .previous-question .font-italic {
+    font-style: italic;
+  }
+  
+  /* Message styles */
+  .message {
+    margin-top: 10px;
+    color: #009688; /* Turquoise color for success messages */
+    font-weight: bold;
+  }
+
 
 .row {
   width: 100%;
@@ -39,11 +300,12 @@
     justify-content: center; /* Center the content horizontally */
 }
 
-.container1 {
-  width: 100%; /* Ensures container uses full width if not already set by Bootstrap */
-  max-width: 100%; /* Prevents Bootstrap from restricting the container width */
-  padding-right: 0;
-  padding-left: 0;
+.discussion-container {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: linear-gradient(45deg, #ffc107, #673ab7); /* Background pattern */
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
 }
 .ask-questions, .previous-questions {
     padding: 10px 70px;
@@ -141,7 +403,46 @@ textarea {
       text-transform: uppercase;
       transition: transform 80ms ease-in;
     }
-    
+    /* Center text */
+.center-text {
+  text-align: center;
+}
+
+/* Author name */
+.author-name {
+  font-family: poppins;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+/* Post title */
+.post-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #46166b;
+}
+
+/* Post content */
+.post-content {
+  font-style: italic;
+  font-size: 1.2em;
+}
+
+/* Post attachments */
+.post-attachments {
+  margin-top: 10px;
+}
+
+/* Create Post Form */
+.create-post-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Info message */
+.info {
+  color: red;
+}
     .low-priority {
       border: 1px solid #d6d6d6;
       background-color: green;
@@ -153,5 +454,10 @@ textarea {
       text-transform: uppercase;
       transition: transform 80ms ease-in;
     }
-    
- 
+
+    @media (min-width: 768px) {
+      .ask-professor-btn,
+      .start-discussion-btn {
+        padding: 0.25em 0.75em;
+      }
+    } 

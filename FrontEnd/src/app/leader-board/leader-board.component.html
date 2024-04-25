@@ -14,7 +14,7 @@
 <div class="leaderboard" *ngIf="isLeaderBoard">
 
   
-    <h1>Leaderboard</h1>
+    <h1>Leaderboard 🏆</h1>
 
     <div>
       <label>Filter:</label>
@@ -61,7 +61,7 @@
     </table>
   </div>
   <div class="checkprogress" *ngIf="!isLeaderBoard">
-    <h1>Student Progress</h1>
+    <h1>Student Progress 📈 </h1>
     <div>
       <label for="filterCourse">Course:</label>
       <select id="filterCourse" class="form-control" [(ngModel)]="selectedCourseId" (ngModelChange)="fetchCourseData()">

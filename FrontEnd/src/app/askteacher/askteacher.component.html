@@ -1,81 +1,65 @@
 <body>
-
+  <img src="/assets/img/ua.png" class="logo" alt="Logo">
 
   <div class="main-container container mt-5">
     <div class="row">
-      <div class="col-md-12">
-        <h1 class="mb-4">Questions</h1>
+      <div class="col-md-12 text-center neon-text" data-quote="The only stupid question is the one that is never asked. - Ramon Bautista">
+        <h1 class="mb-4 got-questions-text">Got Questions?</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 text-right">
-        <blockquote class="blockquote">
-          <p class="mb-0">"The only stupid question is the one that is never asked."</p>
-          <footer class="blockquote-footer">Ramon Bautista</footer>
-        </blockquote>
+  
+    <div class="button-container">
+      <div>
+        <button class="btn btn-primary ask-professor-btn" (click)="changeBoard(false)">Ask your Professor</button>
+      </div>
+      <div>
+        <button class="btn btn-secondary start-discussion-btn" (click)="changeBoard(true)">Start a discussion board</button>
       </div>
     </div>
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <button class="btn btn-primary" (click)="changeBoard(false)">Ask your Professor</button>
-      </div>
-      <div class="col-md-6 text-right">
-        <button class="btn btn-secondary" (click)="changeBoard(true)">Start a discussion board</button>
-      </div>
-    </div>
-
   </div>
-
   <div class="askteacher-container" *ngIf="!isDiscussion">
-    <h2>Ask Your Professor</h2>
+    <h2 class="ask-your-professor">Ask Your Professor</h2>
+    <div class="filter-section">
+      <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
+        <option value="" disabled selected>Select a Course</option>
+        <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
+      </select>
+    </div>
     <div class="container1 mt-5">
       <div class="row">
-        <div class="row" style="margin: 50px;">
-          <div class="col-md-4">
-            <p style="font-family: poppins;font-weight: bold;">Select a Course</p>
-          </div>
-          <div class="col-md-8">
-            <div class="filter-section">
-              <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
-                <option value="" disabled selected>Select a Course</option>
-                <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}
-                </option>
-              </select>
-            </div>
-          </div>
-        </div>
         <!-- Left side for posting questions -->
         <div class="col-md-6 ask-questions">
-     
-
+          <!-- Text area for posting questions -->
           <textarea rows="4" cols="50" [(ngModel)]="question.question" placeholder="Type your question here"></textarea>
+          <!-- Post button -->
           <button class="btn btn-primary postbutton" (click)="postQuestion()">Post</button>
+          <!-- Message for successful question posting -->
           <div style="color:green" *ngIf="questionsent">
             <p>Question Sent</p>
           </div>
         </div>
-
         <!-- Right side for displaying previous questions -->
         <div class="col-md-6 previous-questions">
+          <!-- Title for previous questions -->
           <h2>Previous Questions</h2>
-          <div *ngFor="let ques of allQuestions" style="border: 1px solid #000;padding: 10px;margin:20px">
-            <p style="font-family: poppins;font-size: 1.4em;font-weight: bold; color: #46166b;">Q :{{ques.question}}</p>
-            <p style="font-family: poppins;font-size: 1.3em;font-style: italic; ">Re: {{ques.answer}}</p>
+          <!-- Previous questions content -->
+          <div *ngFor="let ques of allQuestions" class="question-container">
+            <p class="question-text">Q: {{ ques.question }}</p>
+            <p class="answer-text">Re: {{ ques.answer }}</p>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
-
+  
   <div class="discussion-container" *ngIf="isDiscussion">
-    <h2>Discussion Board</h2>
+    <h2 class="center-text">Discussion Board</h2>
     <div class="container1" style="padding: 0; margin: 0;">
       <!-- Course Filter -->
       <div class="row" style="padding-bottom : 40px">
-        <div class="col-md-4">
-          <p style="font-family: poppins;font-weight: bold;">Select a Course</p>
-        </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
+          <p class="center-text">Select a Course</p>
           <div class="filter-section">
             <select class="form-control" [(ngModel)]="discussion.courseID" (change)="filterDiscussions($event)">
               <option value="" disabled selected>Select a Course</option>
@@ -85,13 +69,10 @@
           </div>
         </div>
       </div>
-
-
-      <!-- Create Post Button -->
-
-      <div class="row" style="width: 100%;">
-        <!-- Column 1: Announcements -->
-        <div class="col-md-3" style="padding: 20px; border-right: 2px solid #000;">
+  
+      <!-- Announcements -->
+      <div class="row">
+        <div class="col-md-3" style="padding: 20px;">
           <h2>Announcements</h2>
           <hr />
           <div *ngIf="showannoucemnet">
@@ -100,10 +81,10 @@
                 <h2>{{ announcement.title }}</h2>
                 <p>{{ announcement.description }}</p>
                 <button [ngClass]="{
-                'high-priority': announcement.priorityId === '1',
-                'medium-priority': announcement.priorityId === '2',
-                'low-priority': announcement.priorityId === '3'
-              }" disabled>
+                  'high-priority': announcement.priorityId === '1',
+                  'medium-priority': announcement.priorityId === '2',
+                  'low-priority': announcement.priorityId === '3'
+                }" disabled>
                   Priority: {{ announcement.priorityName }}
                 </button>
                 <hr>
@@ -111,24 +92,24 @@
             </div>
           </div>
         </div>
-      
-        <!-- Column 2: Previous Posts -->
-        <div class="col-md-5" style="padding: 25px; border-right: 2px solid #000;">
+  
+        <!-- Previous Posts -->
+        <div class="col-md-5" style="padding: 25px;">
           <h2>Previous Posts</h2>
           <div *ngFor="let post of posts" class="post mb-3">
             <div class="post-content">
-              <p style="font-family: poppins;font-size: 1.4em;font-weight: bold;"><strong> Post by </strong>{{post.authorName}}</p>
-              <h3 style="font-size: 1.2em;font-weight: bold;color: #46166b;">{{post.title}}</h3>
-              <p style="font-style: italic; font-size: 1.2em;">{{ post.content }}</p>
-              <p>
+              <p class="author-name"><strong> Post by </strong>{{post.authorName}}</p>
+              <h3 class="post-title">{{post.title}}</h3>
+              <p class="post-content">{{ post.content }}</p>
+              <p class="post-attachments">
                 <i class="fas fa-link"></i>
                 <a href="{{ post.attachments }}" target="_blank">{{ post.attachments }}</a>
               </p>
             </div>
           </div>
         </div>
-      
-        <!-- Column 3: Create Post Form -->
+  
+        <!-- Create Post Form -->
         <div class="col-md-4" style="padding: 30px;">
           <div class="create-post-section mb-3">
             <button class="btn btn-primary" (click)="showPostForm = !showPostForm" [disabled]="!discussion.courseID">
@@ -145,9 +126,9 @@
           </div>
         </div>
       </div>
-      
+  
     </div>
   </div>
-
+  
 
 </body>

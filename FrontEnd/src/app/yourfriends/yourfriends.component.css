@@ -1,5 +1,5 @@
 body {
-  background-image: url('/assets/bg/bg.jpeg');
+  background-image: url('/assets/bg/3.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,31 +26,79 @@ img {
   margin-top: 90px;
   margin-left: 80px; /* Centers the container horizontally */
   max-width: calc(100% - 400px); /* Example max-width to ensure it doesn't overflow the viewport width */
-  background-color: #E6E6FA; /* Keeps your desired background color */
+  background-color: rgba(255, 255, 255, 0.9);box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #88e770, #e7a351);
+  
 }
 
+/* Remove border between columns and add spacing */
 .tableclass, .searchclass, .friendRequestcontainer {
-  border-right: 2px solid #ccc; /* Adds a vertical line between columns */
-
+  border-right: none;
+  padding: 20px; /* Add spacing inside the containers */
 }
 
+/* Apply border only to the top and bottom of the containers */
+.tableclass, .searchclass, .friendRequestcontainer {
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Remove border from the last container */
 .tableclass:last-child, .searchclass:last-child, .friendRequestcontainer:last-child {
-  border-right: none; /* Removes border from the last element */
+  border-bottom: none;
 }
 
+/* Style the table */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 20px; /* Add spacing between tables */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for a modern look */
 }
 
 th, td {
-  border: 1px solid black;
-  padding: 20px; /* Uniform padding for th and td */
+  padding: 12px;
+  text-align: left;
 }
 
 th {
   background-color: #46166b;
-  color: white;
+  color: #fff;
+}
+
+/* Alternate row colors for better readability */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect on table rows */
+tr:hover {
+  background-color: #e0e0e0;
+}
+
+/* Style buttons inside table cells */
+td button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+td button.success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+td button.danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Hover effect on buttons */
+td button:hover {
+  background-color: #007bff;
 }
 
 .button {
