@@ -1,3 +1,15 @@
+body {
+  height: 100vh;
+  
+      background-image: url('/assets/bg/26.jpeg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed; /* Reduce the size of the background image */
+  
+      
+
+}
 .student-courses-container{
     background-color: #fff;
     padding: 10px;

@@ -1,0 +1,30 @@
+<body>
+    <div class="container">
+        <h2>Announcements</h2>
+        <div class="filter-section mb-4">
+            <select class="form-control" [(ngModel)]="selectCourseId" (change)="filterAnnouncemnets($event)">
+              <option value="" disabled selected>Select a Course</option>
+              <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
+            </select>
+            <div class="info" *ngIf="!selectCourseId">Please select a course</div>
+          </div>
+        
+          <div  *ngIf="showannoucemnet">
+            <div *ngFor="let announcement of announcements" class="annoucements" >
+              <div>
+                <h2>{{ announcement.title }}</h2>
+                <p>{{ announcement.description }}</p>
+                <button [ngClass]="{
+                  'high-priority': announcement.priorityId === '1',
+                  'medium-priority': announcement.priorityId === '2',
+                  'low-priority': announcement.priorityId === '3'
+                } " disabled>
+                Priority: {{ announcement.priorityName }}
+              </button>
+                <hr>
+              </div>
+            </div>
+            
+          </div>
+    </div>
+</body>

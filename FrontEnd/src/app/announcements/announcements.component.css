@@ -1,0 +1,59 @@
+body {
+    display: flex; /* Establishes a flex container */
+    flex-direction: column; /* Stacks children vertically */
+    align-items: center; /* Centers children horizontally */
+    padding-top: 90px;
+    background: linear-gradient(45deg, #a9ee81, #5d5feb);
+    min-height: 100vh; /* At least full viewport height, not fixed to 100vh */
+    margin: 0; /* Resets default margin */
+  }
+  
+  .container {
+    background: linear-gradient(45deg, #ffc107, #673ab7);
+    padding: 30px;
+    width: 80%; /* Adjust width as per your requirement */
+    max-width: 1200px; /* Adjust max width as per your requirement */
+    /* Remove margin if you want to use flexbox to center */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+    /* Optional: adds some margin at the top and bottom if needed */
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+  
+
+.high-priority {
+    border: 1px solid #d6d6d6;
+    background-color: red;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+  }
+  
+  .medium-priority {
+    border: 1px solid #d6d6d6;
+    background-color: orange;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+  }
+  
+  .low-priority {
+    border: 1px solid #d6d6d6;
+    background-color: green;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+  }
+  

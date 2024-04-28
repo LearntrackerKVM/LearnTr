@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.data.User;
 import com.example.demo.data.UserResponse;
+import com.example.demo.service.EmailService;
 import com.example.demo.service.UserService;
 import org.springframework.http.MediaType;
 
@@ -33,6 +35,9 @@ import org.springframework.http.MediaType;
 public class UserController {
 
 	private final UserService userService;
+	
+	@Autowired
+	private EmailService emailService;
 
     
     public UserController(UserService userService) {
@@ -56,7 +61,6 @@ public class UserController {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login successful");
             response.put("user", foundUser);
-
             return ResponseEntity.ok(response);
         }
     }

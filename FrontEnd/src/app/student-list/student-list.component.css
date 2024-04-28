@@ -1,98 +1,85 @@
+/* General styles */
 .studentList {
     display: flex;
     flex-direction: column;
-    /* To stack the items vertically */
     align-items: center;
-    /* Align items along the cross axis */
     text-align: center;
-    /* Align text content center horizontally */
 }
+
 table {
     width: 70%;
     border-collapse: collapse;
-    align-items: center;
+    margin: 20px auto; /* Centering the table */
 }
 
 html,
 body {
     min-height: 100vh;
-    /* 100% of the viewport height */
     margin: 0;
     padding: 0;
-    background-image: url('/assets/img/6065672.jpg');
+    background-image: url('/assets/bg/21.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
 
+/* Table header styles */
 th {
     background-color: #46166b;
     color: white;
     padding: 20px;
     text-align: center;
-    margin-left: 200px;
     font-size: 1.1em;
 }
 
+/* Table cell styles */
 td {
-    margin-left: 200px;
-    font-size: 1.1em;
     padding: 20px;
-
+    font-size: 1.1em;
+    text-align: center;
 }
 
+/* Alternating row colors */
 tr:nth-child(even) {
-    background-color: #ccc;
-    color: black;
+    background-color: #f2f2f2;
 }
 
+/* Badge styles for even rows */
 tr:nth-child(even) .badge,
 tr:nth-child(even) .badge i {
-    background-color: #ccc;
-    /* Or any other color you want for badges background */
-    color: black;
-    /* Or any other color you want for badges text and icons */
-}
-
-tr:nth-child(odd) {
+    background-color: #f2f2f2;
     color: black;
 }
 
+/* Badge styles for odd rows */
 tr:nth-child(odd) .badge,
 tr:nth-child(odd) .badge i {
     background-color: transparent;
-    /* Or any other color you want for badges background */
     color: white;
-    /* Or any other color you want for badges text and icons */
 }
 
-
-
+/* Player number column width */
 .player-number {
     width: 10%;
-    padding-left: 20px;
 }
 
-
+/* Player name column width */
 .player-name {
     width: 40%;
 }
 
-
-
-
-/* Style for the dropdowns */
+/* Dropdown styles */
 select {
-    padding: 8px 10px;
-    font-size: 16px;
+    padding: 12px 10px; /* Adjusted padding */
+    font-size: 18px; /* Increased font size */
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px;
-
+    background-color: #eeb211; /* Highlighting the dropdown */
+    color: #fff;
 }
-
-/* Style for the button */
+/* Button styles */
 button {
     padding: 8px 16px;
     font-size: 16px;
@@ -105,13 +92,16 @@ button {
 
 /* Hover effect for the button */
 button:hover {
-    background-color: #eeb211;
+    background-color: #ffca28;
 }
 
+/* Filters container styles */
 .filters {
     margin: 20px;
+    padding-bottom: 10px;
 }
 
+/* Heading styles */
 h5 {
     margin: 20px;
     font-size: 1.9em;
@@ -119,7 +109,4 @@ h5 {
     font-family: poppins;
     font-weight: bolder;
     color: white;
-}
-.filters{
-    padding-bottom: 10px;
 }
