@@ -1,19 +1,32 @@
+body {
+  height: 100vh;
+  
+      background-image: url('/assets/bg/27.jpeg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed; /* Reduce the size of the background image */
+  
+      
+
+}
 .profile-container {
   display: flex;
   border: 1px solid #ccc;
-  padding: 200px; /* Adjusted padding for better layout */
-  align-items: flex-start; /* Keeps items aligned at the start */
-  gap: 20px; /* Adds space between the profile picture and form */
+  padding: 50px;
+  align-items: flex-start;
+  gap: 20px;
+  background: linear-gradient(45deg, rgba(169, 238, 129, 0.5), rgba(93, 95, 235, 0.5)); /* Transparent background */
 }
 .profile-picture {
-  flex: 0 1 auto; /* Do not grow but can shrink, with auto basis */
+  flex: 0 1 auto;
   text-align: center;
   margin-right: 40px;
 }
 
 .upload-btn-wrapper {
-  margin-top: 10px; /* Space between the image and the button */
-  text-align: center; /* Center the button below the image */
+  margin-top: 10px;
+  text-align: center;
 }
 
 .profile-picture img {
@@ -24,23 +37,21 @@
 }
 
 .btn-upload {
-  background-color: #007bff;
+  background-color: #8c56f0;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
   cursor: pointer;
-  display: block; /* Ensures the button is a block element */
-  width: auto; /* Button width is determined by its content */
-  margin: 10px auto; /* Centers the button horizontally */
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 .btn-upload:hover {
   background-color: #0056b3;
 }
 
-
 .form-fields {
-  flex: 1; /* Allows the form section to grow as needed */
+  flex: 1;
 }
 
 .form-group {
@@ -51,21 +62,22 @@
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
   cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 .btn-primary:hover {
   background-color: #0056b3;
 }
 
-/* Additional styles for better layout and readability */
 .form-control {
-  width: 100%; /* Ensures form controls take full width */
-  padding: 8px; /* Better padding for inputs */
-  margin-top: 5px; /* Space between label and input */
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
   flex: 1;
 }
 
@@ -75,17 +87,35 @@
   margin-bottom: 15px;
 }
 
-.form-group label {
-  margin-right: 10px;
-  white-space: nowrap; /* Prevents the label from wrapping */
+/* Style for input elements */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+  width: 150px; /* Set a specific width for input elements */
+  padding: 8px; /* Adjust padding for better appearance */
+  border: 1px solid #ccc; /* Add border for input elements */
+  border-radius: 4px; /* Apply border radius for rounded corners */
+  margin-left: 10px; /* Add spacing between label and input */
+  font-size: 16px; /* Set font size for consistency */
 }
 
-
-label{
-  font-size: 1.9em;
-  font-family: poppins;
+/* Additional styles for textarea */
+.form-group textarea {
+  width: 150px; /* Set a specific width for textarea */
+  padding: 8px; /* Adjust padding for better appearance */
+  border: 1px solid #ccc; /* Add border for textarea */
+  border-radius: 4px; /* Apply border radius for rounded corners */
+  margin-left: 10px; /* Add spacing between label and textarea */
+  font-size: 16px; /* Set font size for consistency */
 }
 
-.btn-upload:hover {
-  background-color: #0056b3;
+/* Additional styles for select dropdowns */
+.form-group select {
+  width: 150px; /* Set a specific width for select dropdowns */
+  padding: 8px; /* Adjust padding for better appearance */
+  border: 1px solid #ccc; /* Add border for select dropdowns */
+  border-radius: 4px; /* Apply border radius for rounded corners */
+  margin-left: 10px; /* Add spacing between label and select dropdowns */
+  font-size: 16px; /* Set font size for consistency */
 }

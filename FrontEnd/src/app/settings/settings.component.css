@@ -1,24 +1,53 @@
-.settings-container{
-  background-color: #fff;
-  margin :100px;
+/* Body styles */
+html, body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #a9ee81, #5d5feb);
+  font-family: 'Poppins', sans-serif; /* Use Poppins font */
+}
+
+/* Settings container styles */
+.settings-container {
+  background: linear-gradient(45deg, #ffc107, #673ab7);
+  margin: 100px;
+  padding: 50px; /* Decreased padding for better spacing */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 100px
 }
 
-html,body{
-  padding: 200px;
-  align-items: center;
-  background-color: #E6E6FA;
-  height: 100vh;
+/* Header styles */
+h1 {
+  font-size: 2.5em; /* Increased font size */
+  color: #333; /* Dark text color */
+  margin-bottom: 20px; /* Added margin for spacing */
 }
-h1{
-  font-family: poppins;
-  font-size: 2.0em;
+/* Profile Settings header styles */
+.set h4, .custom h4 {
+  font-size: 1.5em; /* Increased font size */
+  font-weight: bold; /* Added bold font weight */
+  margin-bottom: 20px; /* Added margin for spacing */
 }
-
-button{
+/* Button styles */
+button {
   margin: 20px;
+  font-size: 1.2em; /* Increased font size */
+  background-color: #007bff; /* Blue button color */
+  color: #fff; /* White text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }

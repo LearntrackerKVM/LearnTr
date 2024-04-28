@@ -1,134 +1,157 @@
 <body>
-  <img src="/assets/img/ua.png" class="logo" alt="Logo">
 
-  <div class="main-container container mt-5">
-    <div class="row">
-      <div class="col-md-12 text-center neon-text" data-quote="The only stupid question is the one that is never asked. - Ramon Bautista">
-        <h1 class="mb-4 got-questions-text">Got Questions?</h1>
-      </div>
+  <div class="conatiner">
+    <div class="main-container">
+      <div class="tasks-buttons">
+        <button class="btn" style="background-color: #FADADD;color: #000;" (click)="changeBoard(false)">Ask your Professor</button>
+        <button class="btn"  style="background-color: #FFDAB9;color: #000;" (click)="changeBoard(true)">Start a discussion board</button>
+    </div>
     </div>
   
-    <div class="button-container">
-      <div>
-        <button class="btn btn-primary ask-professor-btn" (click)="changeBoard(false)">Ask your Professor</button>
+    <div class="askteacher-container" *ngIf="!isDiscussion">
+      <h2>Ask Your Professor</h2>
+      <div class="filter-section mb-4">
+        <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
+          <option value="" disabled selected>Select a Course</option>
+          <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
+        </select>
+        <div class="info" *ngIf="!question.courseId">Please select a course</div>
       </div>
-      <div>
-        <button class="btn btn-secondary start-discussion-btn" (click)="changeBoard(true)">Start a discussion board</button>
-      </div>
-    </div>
-  </div>
-  <div class="askteacher-container" *ngIf="!isDiscussion">
-    <h2 class="ask-your-professor">Ask Your Professor</h2>
-    <div class="filter-section">
-      <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
-        <option value="" disabled selected>Select a Course</option>
-        <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
-      </select>
-    </div>
-    <div class="container1 mt-5">
-      <div class="row">
-        <!-- Left side for posting questions -->
-        <div class="col-md-6 ask-questions">
-          <!-- Text area for posting questions -->
-          <textarea rows="4" cols="50" [(ngModel)]="question.question" placeholder="Type your question here"></textarea>
-          <!-- Post button -->
-          <button class="btn btn-primary postbutton" (click)="postQuestion()">Post</button>
-          <!-- Message for successful question posting -->
-          <div style="color:green" *ngIf="questionsent">
-            <p>Question Sent</p>
+      <div class="container1 mt-5">
+        <div class="">
+          <div class="ask-questions">
+            <textarea rows="4" cols="50" [(ngModel)]="question.question" placeholder="Type your question here"></textarea>
+            <button class="btn btn-primary postbutton" (click)="postQuestion()">Post</button>
+            <div style="color:green" *ngIf="questionsent">
+              <p>Question Sent</p>
+            </div>
           </div>
-        </div>
-        <!-- Right side for displaying previous questions -->
-        <div class="col-md-6 previous-questions">
-          <!-- Title for previous questions -->
-          <h2>Previous Questions</h2>
-          <!-- Previous questions content -->
-          <div *ngFor="let ques of allQuestions" class="question-container">
-            <p class="question-text">Q: {{ ques.question }}</p>
-            <p class="answer-text">Re: {{ ques.answer }}</p>
+  
+          <!-- Right side for displaying previous questions -->
+          <div class="previous-questions">
+            <h2>Previous Questions</h2>
+            <div *ngFor="let ques of allQuestions" style="border: 1px solid #000;padding: 10px;margin:20px">
+              <p style="font-family: poppins;font-size: 1.4em;font-weight: bold; color: #46166b;">Q :{{ques.question}}</p>
+              <p style="font-family: poppins;font-size: 1.3em;font-style: italic; ">Re: {{ques.answer}}</p>
+            </div>
           </div>
         </div>
       </div>
-      
     </div>
-  </div>
   
-  <div class="discussion-container" *ngIf="isDiscussion">
-    <h2 class="center-text">Discussion Board</h2>
-    <div class="container1" style="padding: 0; margin: 0;">
+    <div class="discussion-container" *ngIf="isDiscussion">
+      <h2>Discussion Board</h2>
+  
       <!-- Course Filter -->
-      <div class="row" style="padding-bottom : 40px">
-        <div class="col-md-12">
-          <p class="center-text">Select a Course</p>
-          <div class="filter-section">
-            <select class="form-control" [(ngModel)]="discussion.courseID" (change)="filterDiscussions($event)">
-              <option value="" disabled selected>Select a Course</option>
-              <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
-            </select>
-            <div class="info" *ngIf="!discussion.courseID">Please select a course</div>
-          </div>
-        </div>
+      <div class="filter-section mb-4">
+        <select class="form-control" [(ngModel)]="discussion.courseID" (change)="filterDiscussions($event)">
+          <option value="" disabled selected>Select a Course</option>
+          <option *ngFor="let course of studentCourses" [value]="course.courseId">{{ course.courseName }}</option>
+        </select>
+        <div class="info" *ngIf="!discussion.courseID">Please select a course</div>
       </div>
   
-      <!-- Announcements -->
-      <div class="row">
-        <div class="col-md-3" style="padding: 20px;">
-          <h2>Announcements</h2>
-          <hr />
-          <div *ngIf="showannoucemnet">
-            <div *ngFor="let announcement of announcements" class="announcements">
-              <div>
-                <h2>{{ announcement.title }}</h2>
-                <p>{{ announcement.description }}</p>
-                <button [ngClass]="{
-                  'high-priority': announcement.priorityId === '1',
-                  'medium-priority': announcement.priorityId === '2',
-                  'low-priority': announcement.priorityId === '3'
-                }" disabled>
-                  Priority: {{ announcement.priorityName }}
-                </button>
-                <hr>
+      <div class="create-post-section mb-4">
+        <button class="button" (click)="showPostForm = !showPostForm" [disabled]="!discussion.courseID">
+          Create a Post
+        </button>
+        <div *ngIf="showPostForm" class="post-form">
+          <input type="text" class="form-control mb-3" [(ngModel)]="discussion.title" placeholder="Title of your post">
+          <textarea class="form-control mb-3" [(ngModel)]="discussion.content" placeholder="Write your post here..."></textarea>
+          <input type="text" class="form-control mb-3" [(ngModel)]="discussion.attachments" placeholder="Attachment link (optional)">
+          <button class="btn btn-success" (click)="createPost()">Post</button>
+          <button class="btn btn-secondary" (click)="showPostForm = false">Cancel</button>
+        </div>
+      </div>
+      <!-- Previous Posts Section -->
+      <div class="previous-posts-section mb-4">
+        <h3 style="font-family: poppins; font-size:1.6em ;">Previous Posts</h3>
+        <div *ngFor="let post of posts" class="post mb-3">
+          <div class="post-content">
+            <p style="font-family: poppins; font-size: 1.3em;font-weight: bold;color: #46166b;">Post by {{post.authorName}}</p>
+            <h3>{{post.title}}</h3>
+            <p>{{ post.content }}</p>
+            <p>
+              <i class="fas fa-link"></i> <!-- Font Awesome link icon -->
+              <a href="{{ post.attachments }}" target="_blank">{{ post.attachments }}</a>
+            </p>
+            <div class="actions">
+              <a class="btn btn-light" (click)="likePost(post.id)" title="Like">
+                <i class="fa fa-thumbs-up"></i>
+                {{ post.likes || 0 }}
+              </a>   
+               <a class="btn btn-light" (click)="dislikePost(post.id)" title="Like">
+                <i class="fa fa-thumbs-down"></i>
+                {{ post.dislikes || 0 }}
+              </a>
+              <a class="btn btn-light" (click)="showReplyForm = post.id" title="Reply">
+                <i class="fas fa-reply"></i>
+              </a>
+              <div *ngFor="let reply of post.replies" class="reply ml-3 mt-2">
+                <p style="font-family: poppins; font-size: 1.3em;font-weight: bold;color: #46166b;">Reply by {{ reply.authorName }}</p> 
+                <p>{{ reply.content }}</p>
+                <div class="actions">
+                  <a class="btn btn-light" (click)="likeReply(reply.id)" title="Like">
+                    <i class="fa fa-thumbs-up"></i> {{ reply.likes || 0 }}
+                  </a>
+                  <a class="btn btn-light" (click)="dislikeReply(reply.id)" title="Dislike">
+                    <i class="fa fa-thumbs-down"></i> {{ reply.dislikes || 0 }}
+                  </a>
+                  <a class="btn btn-light" (click)="showReplyFormForReply(reply.id)" title="Reply">
+                    <i class="fas fa-reply"></i>
+                  </a>
+              
+              
+              
               </div>
-            </div>
+                <div *ngIf="currentReplyTarget === reply.id" class="replyreply ml-3 mt-2">
+                  <textarea class="form-control mb-2" [(ngModel)]="replyContent"
+                    placeholder="Write your reply here..."></textarea>
+                    <input type="text" class="form-control mb-2" [(ngModel)]="discussion.attachments" placeholder="Attachment link (optional)">
+                  <button class="btn btn-success" (click)="replyToReply(post, reply)">Reply</button>
+                  <button class="btn btn-secondary" (click)="currentReplyTarget = null">Cancel</button>
+                </div>
+                <ng-container *ngIf="reply.replies && reply.replies.length > 0">
+                  <div *ngFor="let nestedReply of reply.replies" class="nested-reply ml-3 mt-2">
+                    <p>Reply by {{nestedReply.authorName}}: {{nestedReply.content}}</p>
+                    <div class="actions">
+                      <a class="btn btn-light" (click)="likeReply(nestedReply.id)" title="Like">
+                        <i class="fa fa-thumbs-up"></i> {{ nestedReply.likes || 0 }}
+                      </a>
+                      <a class="btn btn-light" (click)="dislikeReply(nestedReply.id)" title="Dislike">
+                        <i class="fa fa-thumbs-down"></i> {{ nestedReply.dislikes || 0 }}
+                      </a>
+                      <a class="btn btn-light" (click)="showReplyFormForReply(nestedReply.id)" title="Reply">
+                        <i class="fas fa-reply"></i>
+                      </a>
+                  
+                  
+                  
+                  </div>
+                  </div>
+                </ng-container>
+      
+              </div>
+          
+          
           </div>
-        </div>
-  
-        <!-- Previous Posts -->
-        <div class="col-md-5" style="padding: 25px;">
-          <h2>Previous Posts</h2>
-          <div *ngFor="let post of posts" class="post mb-3">
-            <div class="post-content">
-              <p class="author-name"><strong> Post by </strong>{{post.authorName}}</p>
-              <h3 class="post-title">{{post.title}}</h3>
-              <p class="post-content">{{ post.content }}</p>
-              <p class="post-attachments">
-                <i class="fas fa-link"></i>
-                <a href="{{ post.attachments }}" target="_blank">{{ post.attachments }}</a>
-              </p>
-            </div>
+    
+          <div *ngIf="showReplyForm === post.id" class="reply-form ml-3 mt-2">
+            <textarea class="form-control mb-2" [(ngModel)]="replyContent"
+              placeholder="Write your reply here..."></textarea>
+              <input type="text" class="form-control mb-2" [(ngModel)]="discussion.attachments" placeholder="Attachment link (optional)">
+            <button class="btn btn-success" (click)="replyToPost(post)">Reply</button>
+            <button class="btn btn-secondary" (click)="showReplyForm = null">Cancel</button>
           </div>
-        </div>
-  
-        <!-- Create Post Form -->
-        <div class="col-md-4" style="padding: 30px;">
-          <div class="create-post-section mb-3">
-            <button class="btn btn-primary" (click)="showPostForm = !showPostForm" [disabled]="!discussion.courseID">
-              Create a Post
-            </button>
-          </div>
-          <div *ngIf="showPostForm" class="post-form mb-3"  style="padding: 30px;">
-            <input type="text" class="form-control mb-2" [(ngModel)]="discussion.title" placeholder="Title of your post">
-            <hr>
-            <textarea class="form-control mb-2" [(ngModel)]="discussion.content" placeholder="Write your post here..."></textarea>
-            <input type="text" class="form-control mb-2"  [(ngModel)]="discussion.attachments" placeholder="Attachment link (optional)">
-            <button class="btn btn-success"  style="margin: 30px;" (click)="createPost()">Post</button>
-            <button class="btn btn-secondary"  style="margin: 30px;" (click)="showPostForm = false">Cancel</button>
-          </div>
+    
         </div>
       </div>
+      </div>
   
-    </div>
+      <!-- Create Post Section -->
+  
   </div>
-  
+  </div>
+
 
 </body>

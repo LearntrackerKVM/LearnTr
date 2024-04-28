@@ -1,42 +1,48 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <p style="font-family: poppins;font-size: 1.6em;font-weight: bold;">Select A Course</p>
-    </div>
-    <div class="col-md-6">
-      <div class="filter-section mb-3">
-        <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
-          <option value="" disabled selected>Select a Course</option>
-          <option *ngFor="let course of courses" [value]="course.courseId" selected>{{ course.courseName }}</option>
-        </select>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="heading">Select A Course</p>
+      </div>
+      <div class="col-md-6">
+        <div class="filter-section mb-3">
+          <select class="form-control" [(ngModel)]="question.courseId" (change)="filterCourse($event)">
+            <option value="" disabled selected>Select a Course</option>
+            <option *ngFor="let course of courses" [value]="course.courseId">{{ course.courseName }}</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
- 
-    
-    <div class="questions" *ngFor="let ques of filteredQuestions; let i = index">
-      <div class="allquestions">
-     
-        <div class="question">
-            <b  style="font-family: poppins;font-size: 1.6em;font-weight: bold; ">{{ques.studentName}}</b>
-        </div>
-  
 
-        <hr/>
-        <div class="question-detail">
-          <p style="font-family: poppins;font-size: 1.4em;font-weight: bold; color: #46166b;">Q :{{ques.question}}</p>
-        </div>
-        <div class="answer">
-          <p style="font-family: poppins;font-size: 1.4em;font-style: italic; ">Re: {{ques.answer}}</p>
-        </div>
-    </div>
     
-      <button class="btn btn-primary" (click)="toggleAnswerField(i)">Answer It</button>
-      <div *ngIf="ques.showAnswerField" class="answerfields">
-        <textarea [(ngModel)]="answerit" placeholder="Type your answer here..."></textarea>
-        <button class="btn btn-primary" (click)="postAnswer(ques)">Post Your Answer</button>
+    <div *ngIf="filteredQuestions.length > 0; else noQuestions">
+      <div class="questions" *ngFor="let ques of filteredQuestions; let i = index">
+        <div class="allquestions">
+          <div class="question">
+            <b>{{ques.studentName}}</b>
+          </div>
+          <hr/>
+          <div class="question-detail">
+            <p>Q : {{ques.question}}</p>
+          </div>
+          <div class="answer">
+            <p>Re: {{ques.answer}}</p>
+          </div>
+          <button class="btn btn-primary" (click)="toggleAnswerField(i)">Answer It</button>
+          <div *ngIf="ques.showAnswerField" class="answerfields">
+            <textarea [(ngModel)]="answerit" placeholder="Type your answer here..."></textarea>
+            <button class="btn btn-primary" (click)="postAnswer(ques)">Post Your Answer</button>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    </div>
+    <ng-template #noQuestions>
+      <div *ngIf="question.courseId !== null && question.courseId !== '' && question.courseId !== undefined" class="no-questions">
+        <p>No questions available at the moment. Check back later!</p>
+      </div>
+      <div *ngIf="question.courseId == null || question.courseId ==  '' || question.courseId == undefined" class="no-questions">
+        <p>Select A Course to get Questions!</p>
+      </div>
+    </ng-template>
   </div>
-  
+</body>
